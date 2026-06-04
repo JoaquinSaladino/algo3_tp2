@@ -1,0 +1,83 @@
+@startuml
+actor Main
+participant Juego
+participant Turno
+participant Nocturna
+participant "Jugador:\njugadorMafioso" as jugadorMafioso
+participant "Jugador:\njugadorDetective" as jugadorDetective
+participant "Jugador:\njugadorMedico" as jugadorMedico
+participant "Jugador:\njugadorCiudadano" as jugadorCiudadano
+participant "CartaRol:\nMafioso" as Mafioso
+participant "CartaRol:\nDetective" as Detective
+participant "CartaRol:\nMedico" as Medico
+participant "CartaRol:\nCiudadano" as Ciudadano
+participant HabilidadNocturna
+participant AccionNocturna
+participant RegistroTurno
+
+Main -> Juego : comenzarPartida()
+Juego -> Turno : <<create>>
+Juego -> RegistroTurno : <<create>>
+Juego -> Turno : ejecutarFaseActual(jugadores, registroTurno)
+Turno -> Nocturna : ejecutar(jugadores, registroTurno)
+
+Nocturna -> Nocturna : recolectarAcciones(jugadores)
+
+note over Nocturna : Mafia elige víctima
+Nocturna -> jugadorMafioso : usarHabilidad(jugadores)
+jugadorMafioso -> Mafioso : ejecutarAccionNocturna(jugadores)
+Mafioso -> HabilidadNocturna : ejecutar(objetivo)
+HabilidadNocturna -> AccionNocturna : <<create>> AEliminar
+HabilidadNocturna --> Mafioso : AEliminar
+Mafioso --> jugadorMafioso : AEliminar
+jugadorMafioso --> Nocturna : AEliminar
+Nocturna -> AccionNocturna : insertarEn(lista)
+
+note over Nocturna : Detective investiga
+Nocturna -> jugadorDetective : usarHabilidad(jugadores)
+jugadorDetective -> Detective : ejecutarAccionNocturna(jugadores)
+Detective -> HabilidadNocturna : ejecutar(objetivo)
+HabilidadNocturna -> AccionNocturna : <<create>> AInvestigar
+HabilidadNocturna --> Detective : AInvestigar
+Detective --> jugadorDetective : AInvestigar
+jugadorDetective --> Nocturna : AInvestigar
+Nocturna -> AccionNocturna : insertarEn(lista)
+
+note over Nocturna : Medico protege
+Nocturna -> jugadorMedico : usarHabilidad(jugadores)
+jugadorMedico -> Medico : ejecutarAccionNocturna(jugadores)
+Medico -> HabilidadNocturna : ejecutar(objetivo)
+HabilidadNocturna -> AccionNocturna : <<create>> AProteger
+HabilidadNocturna --> Medico : AProteger
+Medico --> jugadorMedico : AProteger
+jugadorMedico --> Nocturna : AProteger
+Nocturna -> AccionNocturna : insertarEn(lista)
+
+Nocturna -> Nocturna : resolverAcciones(registroTurno)
+
+note over Nocturna : AProteger se resuelve primero
+Nocturna -> AccionNocturna : resolver()
+AccionNocturna -> jugadorCiudadano : proteger()
+Nocturna -> RegistroTurno : agregarAccionNocturna(AProteger)
+
+note over Nocturna : AInvestigar se resuelve
+Nocturna -> AccionNocturna : resolver()
+AccionNocturna -> jugadorCiudadano : esMafia()
+jugadorCiudadano --> AccionNocturna : resultado
+Nocturna -> RegistroTurno : agregarAccionNocturna(AInvestigar)
+
+note over Nocturna : AEliminar se resuelve
+Nocturna -> AccionNocturna : resolver()
+alt victima no fue protegida
+    AccionNocturna -> jugadorMafioso : eliminar()
+else victima fue protegida
+    AccionNocturna -> jugadorMafioso : estaProtegido()
+    jugadorMafioso --> AccionNocturna : true
+    note over AccionNocturna : eliminacion anulada
+end
+Nocturna -> RegistroTurno : agregarAccionNocturna(AEliminar)
+
+Nocturna --> Turno
+Turno --> Juego
+Juego -> Turno : avanzarFase(jugadores)
+@enduml
