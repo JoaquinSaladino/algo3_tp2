@@ -1,0 +1,43 @@
+@startuml
+actor Main
+participant Juego
+participant Turno
+participant Nocturna
+participant Jugador
+participant CartaRol
+participant HabilidadNocturna
+participant AccionNocturna
+participant RegistroTurno
+participant RegistroPartida
+
+Main -> Juego : <<create>>
+Main -> Juego : comenzarPartida()
+Juego -> Turno : <<create>>
+Juego -> RegistroTurno : <<create>>
+
+Juego -> Turno : ejecutarFaseActual(jugadores, registroTurno)
+Turno -> Nocturna : ejecutar(jugadores, registroTurno)
+
+Nocturna -> Nocturna : recolectarAcciones(jugadores)
+loop por cada jugador vivo
+    Nocturna -> Jugador : usarHabilidad(jugadores)
+    Jugador -> CartaRol : ejecutarAccionNocturna(jugadores)
+    CartaRol -> HabilidadNocturna : ejecutar(objetivo)
+    HabilidadNocturna -> AccionNocturna : <<create>>
+    HabilidadNocturna --> CartaRol : AccionNocturna
+    CartaRol --> Jugador : AccionNocturna
+    Jugador --> Nocturna : AccionNocturna
+    Nocturna -> AccionNocturna : insertarEn(lista)
+end
+
+Nocturna -> Nocturna : resolverAcciones(registroTurno)
+loop por cada AccionNocturna en lista
+    Nocturna -> AccionNocturna : resolver()
+    Nocturna -> RegistroTurno : agregarAccionNocturna(accion)
+end
+
+Nocturna --> Turno
+Turno --> Juego
+
+Juego -> Turno : avanzarFase(jugadores)
+@enduml

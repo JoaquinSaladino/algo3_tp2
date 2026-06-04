@@ -1,0 +1,254 @@
+@startuml
+scale 0.5
+
+class Juego {
+    - jugadores: List<Jugador>
+    - turnoActual: Turno
+    - registroPartida: RegistroPartida
+    - configuracion: ConfiguradorPartida
+    + comenzarPartida()
+    + ejecutarFaseActual()
+    + avanzarFase()
+    + crearNuevoTurno()
+}
+
+class Jugador {
+    - nombre: String
+    - estaVivo: boolean
+    - carta: CartaRol
+    - protegido: boolean
+    + proteger()
+    + eliminar()
+    + usarHabilidad(jugadores: List<Jugador>): AccionNocturna
+    + votar(nominado: Jugador)
+    + esMafia(): boolean
+    + estaProtegido(): boolean
+}
+
+class Mazo {
+    - cartas: List<CartaRol>
+    + mezclar()
+    + repartir(): CartaRol
+}
+
+class ConfiguradorPartida {
+    - cantidadJugadores: int
+    + generarMazo(): Mazo
+}
+
+class Turno {
+    - nocturna: Nocturna
+    - diurna: Diurna
+    - faseActual: Fase
+    + ejecutarFaseActual(jugadores: List<Jugador>, registro: RegistroTurno)
+    + avanzarFase(jugadores: List<Jugador>)
+    + estaTerminado(): boolean
+}
+
+class RegistroPartida {
+    - turnos: List<RegistroTurno>
+    + agregarTurno(turno: RegistroTurno)
+    + generarResumen(): ResumenFinal
+}
+
+class RegistroTurno {
+    - accionesNocturnas: List<AccionNocturna>
+    - nominaciones: Map<Jugador, Jugador>
+    - votos: Map<Jugador, Jugador>
+    - eliminadoDiurno: Jugador
+    - eliminadoNocturno: Jugador
+    + agregarAccionNocturna(accion: AccionNocturna)
+    + agregarNominacion(nominador: Jugador, nominado: Jugador)
+    + agregarVoto(votante: Jugador, nominado: Jugador)
+    + setEliminadoDiurno(jugador: Jugador)
+    + setEliminadoNocturno(jugador: Jugador)
+}
+
+abstract class Fase {
+    + {abstract} ejecutar(jugadores: List<Jugador>, registro: RegistroTurno)
+    + estaCompleta(): boolean
+}
+class Diurna extends Fase {
+    - debate: Debate
+    - votacion: Votacion
+    + ejecutar(jugadores: List<Jugador>, registro: RegistroTurno)
+    + revelarSheriff(jugadores: List<Jugador>)
+}
+
+class Debate {
+    - duracion: int
+    - nominados: List<Jugador>
+    + iniciar()
+    + estaActivo(): boolean
+    + nominar(nominador: Jugador, nominado: Jugador)
+    + getNominados(): List<Jugador>
+}
+
+
+class Votacion {
+    - nominados: List<Jugador>
+    - votos: Map<Jugador, Jugador>
+    - desempate: MecanismoDesempate
+    + iniciar(nominados: List<Jugador>)
+    + registrarVoto(votante: Jugador, nominado: Jugador)
+    + resolverVotacion()
+    + hayEmpate(): boolean
+}
+
+interface MecanismoDesempate {
+    + resolver(empatados: List<Jugador>): Jugador
+}
+
+class Ballotage implements MecanismoDesempate {
+    + resolver(empatados: List<Jugador>): Jugador
+}
+
+class SinEliminacion implements MecanismoDesempate {
+    + resolver(empatados: List<Jugador>): Jugador
+}
+
+class Nocturna extends Fase {
+    - acciones: List<AccionNocturna>
+    + ejecutar(jugadores: List<Jugador>, registro: RegistroTurno)
+    - recolectarAcciones(jugadores: List<Jugador>)
+    - resolverAcciones(registro: RegistroTurno)
+}
+
+abstract class CartaRol {
+    - habilidad: HabilidadNocturna
+    + ejecutarAccionNocturna(jugadores: List<Jugador>): AccionNocturna
+    + ejecutarAccionDiurna(jugadores: List<Jugador>): AccionDiurna
+    + esMafia(): boolean
+}
+
+class Mafioso extends CartaRol {
+    + esMafia(): boolean
+    + ejecutarAccionNocturna(jugadores: List<Jugador>): AccionNocturna
+}
+
+class Padrino extends Mafioso {
+    + esMafia(): boolean
+    + ejecutarAccionNocturna(jugadores: List<Jugador>): AccionNocturna
+}
+
+class Ciudadano extends CartaRol {
+    + esMafia(): boolean
+    + ejecutarAccionNocturna(jugadores: List<Jugador>): AccionNocturna
+}
+
+class Detective extends Ciudadano {
+    + ejecutarAccionNocturna(jugadores: List<Jugador>): AccionNocturna
+}
+
+class Medico extends Ciudadano {
+    + ejecutarAccionNocturna(jugadores: List<Jugador>): AccionNocturna
+}
+
+class Sheriff extends Ciudadano {
+    - habilidadUsada: boolean
+    +ejecutarAccionDiurna(jugadores: List<Jugador>): AccionDiurna
+    + revelarInformacionPublica(registro: RegistroTurno)
+}
+
+interface HabilidadNocturna {
+    + ejecutar(objetivo: Jugador): AccionNocturna
+    + obtenerObjetivosValidos(jugadores: List<Jugador>): List<Jugador>
+}
+
+class Nula implements HabilidadNocturna {
+    + ejecutar(objetivo: Jugador): AccionNocturna
+    + obtenerObjetivosValidos(jugadores: List<Jugador>): List<Jugador>
+}
+
+class Eliminar implements HabilidadNocturna {
+    + ejecutar(objetivo: Jugador): AccionNocturna
+    + obtenerObjetivosValidos(jugadores: List<Jugador>): List<Jugador>
+}
+
+class Proteger implements HabilidadNocturna {
+    - ultimoObjetivo: Jugador
+    + ejecutar(objetivo: Jugador): AccionNocturna
+    + obtenerObjetivosValidos(jugadores): List<Jugador>
+}
+
+class Investigar implements HabilidadNocturna {
+    - ultimoObjetivo: Jugador
+    + ejecutar(objetivo: Jugador): AccionNocturna
+    + obtenerObjetivosValidos(jugadores): List<Jugador>
+}
+
+abstract class AccionNocturna {
+    - autor: Jugador
+    - objetivo: Jugador
+    + resolver()
+    + insertarEn(lista: List<AccionNocturna>)
+}
+
+class AEliminar extends AccionNocturna {
+    + resolver()
+    + insertarEn(lista: List<AccionNocturna>)
+}
+
+class AProteger extends AccionNocturna {
+    + resolver()
+    + insertarEn(lista: List<AccionNocturna>)
+}
+
+class AInvestigar extends AccionNocturna {
+    - resultado: boolean
+    + resolver()
+    + getResultado(): boolean
+    + insertarEn(lista: List<AccionNocturna>)
+}
+
+class ANula extends AccionNocturna {
+    + resolver()
+    + insertarEn(lista: List<AccionNocturna>)
+}
+
+abstract class AccionDiurna {
+    - autor: Jugador
+    + resolver()
+}
+
+class ADRevelar extends AccionDiurna{
+    + resolver()
+}
+
+class ADNula extends AccionDiurna{
+    + resolver()
+}
+
+Juego *-- Turno
+Juego *-- RegistroPartida
+Juego *-- ConfiguradorPartida
+Juego *-- Jugador
+Turno *-- Nocturna
+Turno *-- Diurna
+Turno *-- Fase
+Jugador *-- CartaRol
+CartaRol *-- HabilidadNocturna
+Diurna *-- Debate
+Diurna *-- Votacion
+Votacion *-- MecanismoDesempate
+RegistroPartida o-- RegistroTurno
+
+AccionNocturna --> Jugador
+AccionDiurna --> Jugador
+Debate o-- Jugador
+Votacion o-- Jugador
+
+ConfiguradorPartida ..> Mazo
+Mazo o-- CartaRol
+Eliminar ..> AEliminar
+Proteger ..> AProteger
+Investigar ..> AInvestigar
+Nula ..> ANula
+Sheriff ..> ADRevelar
+CartaRol ..> AccionDiurna
+Nocturna ..> AccionNocturna
+Diurna ..> AccionDiurna
+Turno ..> RegistroTurno
+Nocturna ..> RegistroTurno
+Diurna ..> RegistroTurno
+@enduml
