@@ -5,7 +5,7 @@
 
 Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUBA
 
-## Grupo {N}
+## Grupo {3}
 
 * **SALADINO, Joaquín** - [JoaquinSaladino](https://github.com/JoaquinSaladino)
 * **SUYAMA, Nicolas Reiji** - [NRSym](https://github.com/NRSym)
