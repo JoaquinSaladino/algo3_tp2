@@ -1,4 +1,10 @@
 package edu.fiuba.algo3.modelo;
 
-public class Nocturna {
+import java.util.List;
+
+public class Nocturna extends Fase {
+    @Override
+    public void ejecutar(List<Jugador> jugadores) {
+
+    }
 }
