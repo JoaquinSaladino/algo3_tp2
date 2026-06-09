@@ -1,7 +1,7 @@
 
-# TP2 Algoritmos 3: {nombre} 
+# TP2 - Paradigmas de Programación
 
-Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUBA.
+Trabajo Práctico número 2 de la materia Paradigmas de Programación de FIUBA.
 
 ## Grupo {3}
 
@@ -10,7 +10,10 @@ Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUB
 * **VASQUEZ, Ciriaco Lucas Leonel** - [lucasvasquez07](https://github.com/lucasvasquez07)
 * **YURTGULU, Sebastián Eduardo** - [Sebayur](https://github.com/Sebayur)
 
-Corrector: **{Corrector}**
+## Correctores
+
+* **VALDEZ, Santiago** - [SantiValdezUlzurrun](https://github.com/SantiValdezUlzurrun)
+* **ALVAREZ, Cristobal** - [Cristobal710](https://github.com/Cristobal710)
 
 ## Aplicación
 

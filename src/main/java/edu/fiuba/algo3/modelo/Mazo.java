@@ -1,12 +1,34 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Mazo {
 
     private List<CartaRol> cartas;
 
-    public void mezclar() {}
+    public Mazo(List<CartaRol> cartas)
+    {
+        this.cartas = cartas;
+    }
 
-    public CartaRol repartir() {return null;}
+    public boolean estaVacio()
+    {
+        return this.cartas.isEmpty();
+    }
+
+    public void mezclar()
+    {
+        Collections.shuffle(this.cartas);
+    }
+
+    public CartaRol repartir()
+    {
+        if (!this.estaVacio())
+        {
+            return this.cartas.remove(0);
+        }
+
+        return null;
+    }
 }
