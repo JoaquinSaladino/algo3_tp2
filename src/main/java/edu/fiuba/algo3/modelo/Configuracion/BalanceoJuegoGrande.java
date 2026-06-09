@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.Configuracion;
 
 import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.Roles.*;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.Roles.CartaRol;
+
 import java.util.Collections;
 import java.util.List;
 

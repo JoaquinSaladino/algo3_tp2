@@ -1,4 +1,6 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.Roles;
+
+import edu.fiuba.algo3.modelo.Eliminar;
 
 public class Padrino extends Mafioso {
     private Eliminar habilidad;
