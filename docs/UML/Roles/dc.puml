@@ -1,0 +1,15 @@
+@startuml
+abstract class CartaRol {
+- habilidadNocturna: HabilidadNocturna
++{static} CartaRol(habilidad: HabilidadNocturna): CartaRol
++ ejecutarAccionNocturna(autor: Jugador, objetivo: Jugador): AccionNocturna
++{abstract} esMafia: boolean
++{abstract} obtenerNombre(): String
+}
+class Ciudadano extends CartaRol
+class Mafioso extends CartaRol
+class Padrino extends Mafioso
+class Detective extends Ciudadano
+class Medico extends Ciudadano
+class Sheriff extends Ciudadano
+@enduml
