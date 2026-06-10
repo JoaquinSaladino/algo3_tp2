@@ -2,6 +2,7 @@ package edu.fiuba.algo3.testUnitarios;
 
 import edu.fiuba.algo3.modelo.Configuracion.BalanceoJuegoChico;
 import edu.fiuba.algo3.modelo.Excepciones.ObjetivoInvalidoException;
+import edu.fiuba.algo3.modelo.Excepciones.RolNoVisibleException;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Mazo;
 import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Ciudadano;
@@ -68,7 +69,7 @@ public class JugadorTest {
 
         // Act & Assert
         assertThrows(
-                UnsupportedOperationException.class,
+                RolNoVisibleException.class,
                 () -> jugador1.verCartaDe(jugador2)
         );
     }

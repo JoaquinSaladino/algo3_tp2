@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.AccionNocturna.AccionNocturna;
 import edu.fiuba.algo3.modelo.Excepciones.RolNoVisibleException;
 import edu.fiuba.algo3.modelo.Roles.CartaRol;
 
@@ -34,9 +35,8 @@ public class Jugador {
         this.vivo = false;
     }
 
-    public void usarHabilidad(Jugador objetivo)
-    {
-        this.carta.ejecutarAccionNocturna(objetivo);
+    public AccionNocturna usarHabilidad(Jugador objetivo) {
+        return this.carta.ejecutarAccionNocturna(this, objetivo);
     }
 
     public boolean esMafia()
@@ -72,4 +72,7 @@ public class Jugador {
 
     public boolean estaProtegido() { return protegido; }
 
+    public Jugador obtenerObjetivoElegido(){
+        return this;
+    }
 }

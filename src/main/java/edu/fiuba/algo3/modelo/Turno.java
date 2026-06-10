@@ -24,6 +24,8 @@ public class Turno {
     public void ejecutarFaseActual(List<Jugador> jugadores) {
         faseActual.ejecutar(jugadores);
     }
-    public void avanzarFase(List<Jugador> jugadores) {}
+    public void avanzarFase(List<Jugador> jugadores) {
+        this.faseActual = this.diurna;
+    }
     public boolean estaTerminado() {return false;}
 }

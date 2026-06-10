@@ -1,4 +1,20 @@
 package edu.fiuba.algo3.modelo.AccionNocturna;
 
-public class ANula {
+import edu.fiuba.algo3.modelo.Jugador;
+
+import java.util.List;
+
+public class ANula extends AccionNocturna{
+    public ANula(Jugador autor, Jugador objetivo){
+        super(autor,objetivo);
+    }
+    @Override
+    public void resolver() {
+
+    }
+
+    @Override
+    public void insertarEn(List<AccionNocturna> acciones) {
+
+    }
 }

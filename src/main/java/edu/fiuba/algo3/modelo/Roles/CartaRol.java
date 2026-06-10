@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Roles;
 
+import edu.fiuba.algo3.modelo.AccionNocturna.AccionNocturna;
 import edu.fiuba.algo3.modelo.Habilidades.HabilidadNocturna;
 import edu.fiuba.algo3.modelo.Jugador;
 
@@ -12,12 +13,13 @@ public abstract class CartaRol {
         this.habilidadNocturna = habilidad;
     }
 
-    public void ejecutarAccionNocturna(Jugador objetivo)
+    public AccionNocturna ejecutarAccionNocturna(Jugador autor ,Jugador objetivo)
     {
-        this.habilidadNocturna.ejecutar(objetivo);
+        return this.habilidadNocturna.ejecutar(autor,objetivo);
     }
 
     public abstract boolean esMafia();
 
     public abstract String obtenerNombre();
+
 }

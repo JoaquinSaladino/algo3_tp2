@@ -21,7 +21,7 @@ public class MafiaTest {
         ciudadano.asignarCarta(new Ciudadano());
         mafioso.asignarCarta(new Mafioso());
 
-        mafioso.usarHabilidad(ciudadano);
+        (mafioso.usarHabilidad(ciudadano)).resolver();
 
         assertFalse(ciudadano.estaVivo());
     }
