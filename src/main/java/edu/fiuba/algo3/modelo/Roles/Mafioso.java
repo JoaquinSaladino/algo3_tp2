@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Roles;
 
-import edu.fiuba.algo3.modelo.Eliminar;
+import edu.fiuba.algo3.modelo.Habilidades.Eliminar;
 
 public class Mafioso extends CartaRol {
 
@@ -13,6 +13,12 @@ public class Mafioso extends CartaRol {
     public boolean esMafia()
     {
         return true;
+    }
+
+    @Override
+    public String obtenerNombre()
+    {
+        return "Mafioso";
     }
 
 }

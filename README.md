@@ -3,7 +3,7 @@
 
 Trabajo Práctico número 2 de la materia Paradigmas de Programación de FIUBA.
 
-## Grupo {3}
+## Grupo 3
 
 * **SALADINO, Joaquín** - [JoaquinSaladino](https://github.com/JoaquinSaladino)
 * **SUYAMA, Nicolas Reiji** - [NRSym](https://github.com/NRSym)

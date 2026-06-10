@@ -1,5 +1,9 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.Fases.Diurna;
+import edu.fiuba.algo3.modelo.Fases.Fase;
+import edu.fiuba.algo3.modelo.Fases.Nocturna;
+
 import java.util.List;
 
 public class Turno {

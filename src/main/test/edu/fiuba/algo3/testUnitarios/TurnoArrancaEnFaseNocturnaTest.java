@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.testUnitarios;
 
-import edu.fiuba.algo3.modelo.Diurna;
+import edu.fiuba.algo3.modelo.Fases.Diurna;
 import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Nocturna;
+import edu.fiuba.algo3.modelo.Fases.Nocturna;
 import edu.fiuba.algo3.modelo.Turno;
 import org.junit.Test;
 import org.mockito.Mockito;

@@ -1,9 +1,6 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.Configuracion;
 
-import edu.fiuba.algo3.modelo.Configuracion.EstrategiaBalanceo;
-import edu.fiuba.algo3.modelo.Configuracion.BalanceoJuegoChico;
-import edu.fiuba.algo3.modelo.Configuracion.BalanceoJuegoMediano;
-import edu.fiuba.algo3.modelo.Configuracion.BalanceoJuegoGrande;
+import edu.fiuba.algo3.modelo.Mazo;
 
 public class ConfiguracionPartida {
 

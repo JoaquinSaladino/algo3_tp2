@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Roles;
 
-import edu.fiuba.algo3.modelo.Nula;
+import edu.fiuba.algo3.modelo.Habilidades.Nula;
 
 public class Ciudadano extends CartaRol {
 
@@ -13,6 +13,12 @@ public class Ciudadano extends CartaRol {
     public boolean esMafia()
     {
         return false;
+    }
+
+    @Override
+    public String obtenerNombre()
+    {
+        return "Ciudadano";
     }
 
 }

@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Roles;
 
-import edu.fiuba.algo3.modelo.HabilidadNocturna;
+import edu.fiuba.algo3.modelo.Habilidades.HabilidadNocturna;
 import edu.fiuba.algo3.modelo.Jugador;
 
 public abstract class CartaRol {
@@ -18,4 +18,6 @@ public abstract class CartaRol {
     }
 
     public abstract boolean esMafia();
+
+    public abstract String obtenerNombre();
 }
