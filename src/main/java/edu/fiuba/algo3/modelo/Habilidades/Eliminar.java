@@ -13,6 +13,7 @@ public class Eliminar implements HabilidadNocturna {
         if (objetivo.esMafia())
             throw new ObjetivoInvalidoException();
 
-        objetivo.eliminar();
+        if (!objetivo.estaProtegido())
+            objetivo.eliminar();
     }
 }
