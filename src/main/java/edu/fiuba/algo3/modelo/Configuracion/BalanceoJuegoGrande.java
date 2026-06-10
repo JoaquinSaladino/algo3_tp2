@@ -2,6 +2,12 @@ package edu.fiuba.algo3.modelo.Configuracion;
 
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Roles.*;
+import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Ciudadano;
+import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Detective;
+import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Medico;
+import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Sheriff;
+import edu.fiuba.algo3.modelo.Roles.Mafiosos.Mafioso;
+import edu.fiuba.algo3.modelo.Roles.Mafiosos.Padrino;
 
 import java.util.ArrayList;
 import java.util.List;

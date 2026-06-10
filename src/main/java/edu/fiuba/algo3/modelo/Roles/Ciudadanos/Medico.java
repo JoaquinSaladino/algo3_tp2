@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.Roles;
+package edu.fiuba.algo3.modelo.Roles.Ciudadanos;
 
 import edu.fiuba.algo3.modelo.Habilidades.Proteger;
 

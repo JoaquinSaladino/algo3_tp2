@@ -2,12 +2,11 @@ package edu.fiuba.algo3.testUnitarios;
 
 import edu.fiuba.algo3.modelo.Configuracion.BalanceoJuegoChico;
 import edu.fiuba.algo3.modelo.Excepciones.ObjetivoInvalidoException;
-import edu.fiuba.algo3.modelo.Habilidades.Eliminar;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Mazo;
-import edu.fiuba.algo3.modelo.Roles.Ciudadano;
-import edu.fiuba.algo3.modelo.Roles.Detective;
-import edu.fiuba.algo3.modelo.Roles.Mafioso;
+import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Ciudadano;
+import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Detective;
+import edu.fiuba.algo3.modelo.Roles.Mafiosos.Mafioso;
 import org.junit.Test;
 
 import java.util.ArrayList;
