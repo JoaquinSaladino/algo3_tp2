@@ -3,12 +3,12 @@ package edu.fiuba.algo3.testUnitarios;
 import edu.fiuba.algo3.modelo.Excepciones.ObjetivoInvalidoException;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Ciudadano;
+import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Medico;
 import edu.fiuba.algo3.modelo.Roles.Mafiosos.Mafioso;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MafiaTest {
 
@@ -51,5 +51,27 @@ public class MafiaTest {
         mafioso2.asignarCarta(new Mafioso());
 
         assertThrows(ObjetivoInvalidoException.class, () -> mafioso1.usarHabilidad(mafioso2));
+    }
+
+    @Test
+    public void test04MafiosoNoPuedeEliminarACiudadanoProtegido()
+    {
+        //Arrange
+        Jugador mafioso = new Jugador("mafioso");
+        mafioso.asignarCarta(new Mafioso());
+
+        Jugador medico = new Jugador("medico");
+        medico.asignarCarta(new Medico());
+
+        Jugador ciudadano = new Jugador("ciudadano");
+        ciudadano.asignarCarta(new Ciudadano());
+
+        //Act
+        medico.usarHabilidad(ciudadano);
+        mafioso.usarHabilidad(ciudadano);
+
+        //Assert
+        assertTrue(ciudadano.estaVivo());
+
     }
 }

@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Excepciones.ObjetivoInvalidoException;
 
 public class Eliminar implements HabilidadNocturna {
+
     @Override
     public AccionNocturna ejecutar(Jugador autor,Jugador objetivo) {
         if (!objetivo.estaVivo())
