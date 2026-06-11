@@ -4,6 +4,6 @@ import edu.fiuba.algo3.modelo.Jugador;
 
 import java.util.List;
 
-public abstract class Fase {
-    public abstract void ejecutar(List<Jugador> jugadores);
+public interface Fase {
+    void ejecutar(List<Jugador> jugadores);
 }

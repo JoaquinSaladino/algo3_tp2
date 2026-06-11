@@ -4,7 +4,7 @@ import edu.fiuba.algo3.modelo.Jugador;
 
 import java.util.List;
 
-public class Diurna extends Fase {
+public class Diurna implements Fase {
     @Override
     public void ejecutar(List<Jugador> jugadores) {
 

@@ -1,0 +1,11 @@
+@startuml
+interface Fase {
++{abstract} ejecutar(jugadores: List<Jugador>)
+}
+class Diurna implements Fase {
+}
+class Nocturna implements Fase {
+- accionNocturna: List<AccionNocturna>
++{static} Nocturna()
+}
+@enduml

@@ -5,8 +5,6 @@ import edu.fiuba.algo3.modelo.Habilidades.Proteger;
 
 public class Medico extends Ciudadano {
 
-    private Proteger habilidad;
-
     public Medico()
     {
         super(new Proteger());

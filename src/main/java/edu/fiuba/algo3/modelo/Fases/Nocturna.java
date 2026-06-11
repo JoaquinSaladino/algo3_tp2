@@ -6,7 +6,7 @@ import edu.fiuba.algo3.modelo.Jugador;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Nocturna extends Fase {
+public class Nocturna implements Fase {
     private List<AccionNocturna> accionNocturnas;
     public Nocturna(){
         this.accionNocturnas = new ArrayList<>();

@@ -1,0 +1,18 @@
+@startuml Habilidades
+
+interface HabilidadNocturna
+{
+    + ejecutar(autor : Jugador, objetivo : Jugador) : AccionNocturna
+}
+
+class Eliminar {}
+class Investigar {}
+class Nula {}
+class Proteger {}
+
+Eliminar ..|> HabilidadNocturna
+Investigar ..|> HabilidadNocturna
+Nula ..|> HabilidadNocturna
+Proteger ..|> HabilidadNocturna
+
+@enduml

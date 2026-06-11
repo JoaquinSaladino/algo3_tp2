@@ -4,5 +4,5 @@ import edu.fiuba.algo3.modelo.AccionNocturna.AccionNocturna;
 import edu.fiuba.algo3.modelo.Jugador;
 
 public interface HabilidadNocturna {
-    public AccionNocturna ejecutar(Jugador autor, Jugador objetivo);
+    AccionNocturna ejecutar(Jugador autor, Jugador objetivo);
 }

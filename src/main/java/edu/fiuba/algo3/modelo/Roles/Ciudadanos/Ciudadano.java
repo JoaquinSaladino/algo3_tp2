@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Roles.Ciudadanos;
 
 import edu.fiuba.algo3.modelo.Habilidades.HabilidadNocturna;
+import edu.fiuba.algo3.modelo.Habilidades.Investigar;
 import edu.fiuba.algo3.modelo.Habilidades.Nula;
 import edu.fiuba.algo3.modelo.Roles.CartaRol;
 
@@ -10,17 +11,14 @@ public class Ciudadano extends CartaRol {
     {
         super(new Nula());
     }
-
-    protected Ciudadano(HabilidadNocturna habilidad) {
+    public Ciudadano(HabilidadNocturna habilidad) {
         super(habilidad);
     }
-
     @Override
     public boolean esMafia()
     {
         return false;
     }
-
     @Override
     public String obtenerNombre()
     {
