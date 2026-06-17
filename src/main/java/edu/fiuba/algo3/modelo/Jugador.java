@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.Roles.CartaRol;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Jugador {
 
@@ -25,18 +26,28 @@ public class Jugador {
         this.companeros = new ArrayList<>();
     }
 
+    public boolean esMismoNombre(String nombre){
+        return Objects.equals(this.nombre, nombre);
+    }
+
     public void proteger()
     {
         this.protegido = true;
     }
 
+    public void desproteger(){
+        this.protegido=false;
+    }
+
     public void eliminar()
     {
-        this.vivo = false;
+        if (!this.protegido){
+            this.vivo = false;
+        }
     }
 
     public AccionNocturna usarHabilidad(Jugador objetivo) {
-        return this.carta.ejecutarAccionNocturna(this, objetivo);
+        return this.carta.generarAccionNocturna(this, objetivo);
     }
 
     public boolean esMafia()
@@ -60,7 +71,7 @@ public class Jugador {
 
     public String verRol()
     {
-        return this.carta.obtenerNombre();
+        return this.carta.obtenerRol();
     }
 
     public CartaRol verCartaDe(Jugador otroJugador)
@@ -73,6 +84,6 @@ public class Jugador {
     public boolean estaProtegido() { return protegido; }
 
     public Jugador obtenerObjetivoElegido(){
-        return this;
+        return null;
     }
 }

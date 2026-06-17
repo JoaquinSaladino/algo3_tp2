@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.AccionNocturna;
 
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.RegistroNocturno;
 
 import java.util.List;
 
@@ -11,10 +12,8 @@ public class AEliminar extends AccionNocturna {
     }
 
     @Override
-    public void resolver() {
-        if (!this.objetivo.estaProtegido()) {
+    public void resolver(RegistroNocturno registroActual) {
             this.objetivo.eliminar();
-        }
     }
     @Override
     public void insertarEn(List<AccionNocturna> acciones) {

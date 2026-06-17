@@ -57,7 +57,7 @@ public class JugadorTest {
         jugador1.asignarCarta(detective);
 
         // Assert
-        assertEquals(detective.obtenerNombre(), jugador1.verRol());
+        assertEquals(detective.obtenerRol(), jugador1.verRol());
     }
 
     @Test

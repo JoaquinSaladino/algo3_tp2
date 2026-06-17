@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.Habilidades.Nula;
 public class Sheriff extends Ciudadano {
 
     @Override
-    public String obtenerNombre()
+    public String obtenerRol()
     {
         return "Sheriff";
     }

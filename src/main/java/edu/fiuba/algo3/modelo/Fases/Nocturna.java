@@ -1,36 +1,57 @@
 package edu.fiuba.algo3.modelo.Fases;
 
-import edu.fiuba.algo3.modelo.AccionNocturna.AccionNocturna;
+import edu.fiuba.algo3.modelo.AccionNocturna.*;
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.RegistroNocturno;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Nocturna implements Fase {
-    private List<AccionNocturna> accionNocturnas;
-    public Nocturna(){
-        this.accionNocturnas = new ArrayList<>();
-    }
+    private List<AccionNocturna> intencionesRecolectadas;
+
     @Override
-    public void ejecutar(List<Jugador> jugadores) {
-        // 1. RECOLECCIÓN Y ORDENAMIENTO AUTOMÁTICO
+    public void ejecutar(List<Jugador> jugadores, RegistroNocturno registroActual) {
+        // Recolectar acciones de jugadores con habilidades
+        intencionesRecolectadas = new ArrayList<>();
         for (Jugador jugador : jugadores) {
-            // Cada jugador genera su acción según a quién eligió
-            // (En el juego real, el objetivo vendrá seteado previamente por la UI/Controlador)
+            if (!jugador.estaVivo()) continue;
+
             Jugador objetivo = jugador.obtenerObjetivoElegido();
-
-            if (objetivo != null) {
+            if (objetivo != null && objetivo != jugador) {
                 AccionNocturna accion = jugador.usarHabilidad(objetivo);
-
-                // Acá usás tu doble despacho: cada acción sabe dónde ponerse.
-                // AProteger se insertará al principio (índice 0), AEliminar al final.
-                accion.insertarEn(this.accionNocturnas);
+                if (accion != null) {
+                    intencionesRecolectadas.add(accion);
+                }
             }
         }
 
-        // 2. RESOLUCIÓN EN ORDEN
-        for (AccionNocturna accion : accionNocturnas) {
-            accion.resolver();
+        intencionesRecolectadas.stream()
+                .filter(accion -> accion instanceof ASeleccionar)
+                .forEach(accion -> accion.resolver(registroActual));
+
+        intencionesRecolectadas.stream()
+                .filter(accion -> accion instanceof AProteger)
+                .forEach(accion -> accion.resolver(registroActual));
+
+        intencionesRecolectadas.stream()
+                .filter(accion -> accion instanceof AInvestigar)
+                .forEach(accion -> accion.resolver(registroActual));
+
+        Jugador victimaElegidaPorLaMafia = registroActual.obtenerMasVotadoPorLaMafia();
+        if (victimaElegidaPorLaMafia != null && victimaElegidaPorLaMafia.estaVivo()) {
+            AccionNocturna accionEliminar = new AEliminar(null, victimaElegidaPorLaMafia);
+            accionEliminar.resolver(registroActual);
+            victimaElegidaPorLaMafia.desproteger();
+        }
+
+        for (Jugador jugador : jugadores) {
+            if (jugador.estaProtegido()) {
+                jugador.desproteger();
+            }
         }
     }
+
 }
+
+

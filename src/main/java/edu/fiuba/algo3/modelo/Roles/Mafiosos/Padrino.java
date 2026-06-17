@@ -1,16 +1,16 @@
 package edu.fiuba.algo3.modelo.Roles.Mafiosos;
 
-import edu.fiuba.algo3.modelo.Habilidades.Eliminar;
 
 public class Padrino extends Mafioso {
 
+
     @Override
-    public boolean esMafia() {
-        return false;
+    public String investigar() {
+        return "Ciudadano";
     }
 
     @Override
-    public String obtenerNombre()
+    public String obtenerRol()
     {
         return "Padrino";
     }

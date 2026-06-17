@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.AccionNocturna;
 
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.RegistroNocturno;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class ANula extends AccionNocturna{
         super(autor,objetivo);
     }
     @Override
-    public void resolver() {
+    public void resolver(RegistroNocturno registroActual) {
 
     }
 

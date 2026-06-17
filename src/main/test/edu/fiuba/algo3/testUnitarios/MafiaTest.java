@@ -2,10 +2,10 @@ package edu.fiuba.algo3.testUnitarios;
 
 import edu.fiuba.algo3.modelo.Excepciones.ObjetivoInvalidoException;
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.RegistroNocturno;
 import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Ciudadano;
 import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Medico;
 import edu.fiuba.algo3.modelo.Roles.Mafiosos.Mafioso;
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,11 +17,12 @@ public class MafiaTest {
     {
         Jugador ciudadano = new Jugador("J1");
         Jugador mafioso = new Jugador("J2");
+        RegistroNocturno registroActual = new RegistroNocturno();
 
         ciudadano.asignarCarta(new Ciudadano());
         mafioso.asignarCarta(new Mafioso());
 
-        (mafioso.usarHabilidad(ciudadano)).resolver();
+        (mafioso.usarHabilidad(ciudadano)).resolver(registroActual);
 
         assertFalse(ciudadano.estaVivo());
     }
@@ -66,9 +67,11 @@ public class MafiaTest {
         Jugador ciudadano = new Jugador("ciudadano");
         ciudadano.asignarCarta(new Ciudadano());
 
+        RegistroNocturno registroActual = new RegistroNocturno();
+
         //Act
-        medico.usarHabilidad(ciudadano);
-        mafioso.usarHabilidad(ciudadano);
+        medico.usarHabilidad(ciudadano).resolver(registroActual);
+        mafioso.usarHabilidad(ciudadano).resolver(registroActual);
 
         //Assert
         assertTrue(ciudadano.estaVivo());

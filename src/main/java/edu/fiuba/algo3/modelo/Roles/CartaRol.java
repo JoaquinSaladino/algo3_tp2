@@ -13,13 +13,17 @@ public abstract class CartaRol {
         this.habilidadNocturna = habilidad;
     }
 
-    public AccionNocturna ejecutarAccionNocturna(Jugador autor ,Jugador objetivo)
+    public AccionNocturna generarAccionNocturna(Jugador autor , Jugador objetivo)
     {
         return this.habilidadNocturna.ejecutar(autor,objetivo);
     }
 
     public abstract boolean esMafia();
 
-    public abstract String obtenerNombre();
+    public String investigar(){
+        return "Ciudadano";
+    }
+
+    public abstract String obtenerRol();
 
 }

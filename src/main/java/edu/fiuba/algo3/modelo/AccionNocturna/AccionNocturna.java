@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.AccionNocturna;
 
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.RegistroNocturno;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public abstract class AccionNocturna {
         this.autor = autor;
         this.objetivo = objetivo;
     }
-    public abstract void resolver();
+    public abstract void resolver(RegistroNocturno registroActual);
 
     public abstract void insertarEn(List<AccionNocturna> acciones);
 }
