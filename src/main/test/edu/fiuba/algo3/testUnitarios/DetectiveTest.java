@@ -26,7 +26,28 @@ public class DetectiveTest {
     }
 
     @Test
-    public void test02DetectiveInvestigaPadrinoYObtieneResultadoCiudadano() {
+    public void test02DetectiveInvestigaCiudadanoYObtieneResultadoCiudadano() {
+        // Arrange
+        Jugador detective = new Jugador("Detective");
+        Jugador ciudadano = new Jugador("Ciudadano");
+
+        detective.asignarCarta(new Detective());
+        ciudadano.asignarCarta(new Ciudadano());
+
+        RegistroNocturno registro = new RegistroNocturno();
+
+        // Act
+        detective.usarHabilidad(ciudadano).resolver(registro);
+
+        // Assert
+        assertEquals(
+                "Ciudadano",
+                registro.obtenerResultadoInvestigacion(detective)
+        );
+    }
+
+    @Test
+    public void test03DetectiveInvestigaPadrinoYObtieneResultadoCiudadano() {
         // Arrange
         Jugador detective = new Jugador("Detective");
         Jugador padrino = new Jugador("Padrino");
