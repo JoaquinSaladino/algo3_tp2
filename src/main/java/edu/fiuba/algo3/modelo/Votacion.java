@@ -4,6 +4,8 @@ import edu.fiuba.algo3.modelo.Desempate.MecanismoDesempate;
 
 import java.util.*;
 
+import java.util.stream.Collectors;
+
 public class Votacion {
 
     private List<Jugador> nominados;
@@ -47,7 +49,7 @@ public class Votacion {
                 .stream()
                 .filter(e -> e.getValue() == maximo)
                 .map(Map.Entry::getKey)
-                .toList();
+                .collect(Collectors.toList());
 
         if (empatados.size() == 1)
             return empatados.get(0);
