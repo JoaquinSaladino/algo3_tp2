@@ -1,0 +1,89 @@
+@startuml dp
+
+package modelo
+{
+
+    package AccionNocturna
+    {
+        abstract class AccionNocturna
+        class AEliminar
+        class AInvestigar
+        class ANula
+        class AProteger
+        class ASeleccionar
+    }
+
+    package Configuracion
+    {
+        class ConfiguracionPartida
+        interface EstrategiaBalanceo
+        class BalanceoJuegoChico
+        class BalanceoJuegoMediano
+        class BalanceoJuegoGrande
+    }
+
+    package Desempate
+    {
+        interface MecanismoDesempate
+        class Ballotage
+        class SinEliminacion
+    }
+
+    package Execpciones
+    {
+        exception ObjetivoInvalidoException
+        exception RolNoVisibleException
+    }
+
+    package Fases
+    {
+        interface Fase
+        class Diurna
+        class Nocturna
+    }
+
+    package Habilidades
+    {
+        interface HabilidadNocturna
+        class Eliminar
+        class Investigar
+        class Nula
+        class Proteger
+        class Seleccionar
+    }
+
+    package Roles
+    {
+        abstract class CartaRol
+
+        package Ciudadanos
+        {
+            class Ciudadano
+            class Detective
+            class Medico
+            class Sheriff
+        }
+
+        package Mafiosos
+        {
+            class Mafioso
+            class Padrino
+        }
+    }
+
+    class Debate
+
+    class Juego
+
+    class Jugador
+
+    class Mazo
+
+    class RegistroNocturno
+
+    class Turno
+
+    class Votacion
+}
+
+@enduml
