@@ -13,8 +13,11 @@ public class Debate {
         this.nominados = new ArrayList<>();
     }
 
-    public void iniciar() {
+    public void iniciar(List<Jugador> jugadores) {
         nominados.clear();
+        for(Jugador jugador : jugadores) {
+
+        }
     }
 
     public void nominar(Jugador nominador, Jugador nominado) {

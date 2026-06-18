@@ -322,7 +322,6 @@ public class FaseNocturnaTest {
 
         Nocturna fase1 = new Nocturna();
         RegistroNocturno registro1 = new RegistroNocturno();
-        List<Jugador> jugadores = List.of(detective, sospechoso);
 
         // Act: Primera noche, detective investiga
         Jugador detectiveSpy = Mockito.spy(detective);
@@ -330,7 +329,7 @@ public class FaseNocturnaTest {
         List<Jugador> jugadoresSpy = List.of(detectiveSpy, sospechoso);
         fase1.ejecutar(jugadoresSpy, registro1);
 
-        // Assert primera noche
+        // Assert
         assertNotNull(registro1.obtenerResultadoInvestigacion(detectiveSpy));
 
         // Segunda noche: detective intenta investigar de nuevo, la fase lanzará la excepción

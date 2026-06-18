@@ -3,10 +3,13 @@ package edu.fiuba.algo3.testUnitarios;
 import edu.fiuba.algo3.modelo.Configuracion.BalanceoJuegoChico;
 import edu.fiuba.algo3.modelo.Excepciones.ObjetivoInvalidoException;
 import edu.fiuba.algo3.modelo.Excepciones.RolNoVisibleException;
+import edu.fiuba.algo3.modelo.Fases.Nocturna;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Mazo;
+import edu.fiuba.algo3.modelo.RegistroNocturno;
 import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Ciudadano;
 import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Detective;
+import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Medico;
 import edu.fiuba.algo3.modelo.Roles.Mafiosos.Mafioso;
 import org.junit.Test;
 
@@ -118,5 +121,45 @@ public class JugadorTest {
                 ObjetivoInvalidoException.class,
                 () -> mafioso.usarHabilidad(mafioso)
         );
+    }
+
+    @Test
+    public void test07CartaDeJugadorEliminadoEsRevelada(){
+        // Arrange
+
+        Jugador mafioso = new Jugador("Mafioso");
+        mafioso.asignarCarta(new Mafioso());
+
+        Jugador ciudadano = new Jugador("Ciudadano");
+        ciudadano.asignarCarta(new Ciudadano());
+
+        // Act
+        mafioso.eliminar();
+
+        //Assert
+        assertEquals("Mafia", ciudadano.verCartaDe(mafioso).obtenerRol());
+
+    }
+
+    @Test
+    public void test08JugadorMuertoNopuedeSeguirInteractuando(){
+        //Arrange
+        Jugador medico = new Jugador("Medico");
+        Jugador mafioso = new Jugador("Mafia");
+        Jugador ciudadano = new Jugador("Ciudadano");
+
+        medico.asignarCarta(new Medico());
+        mafioso.asignarCarta(new Mafioso());
+        ciudadano.asignarCarta(new Ciudadano());
+
+        Nocturna fase = new Nocturna();
+        RegistroNocturno registro = new RegistroNocturno();
+
+        //Act
+        medico.eliminar();
+        fase.ejecutar(List.of(medico, mafioso, ciudadano), registro);
+
+        //Assert
+        assertFalse(ciudadano.estaProtegido());
     }
 }
