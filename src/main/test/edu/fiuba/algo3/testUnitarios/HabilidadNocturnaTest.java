@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mockito;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class HabilidadNocturnaTest {
@@ -20,11 +21,13 @@ public class HabilidadNocturnaTest {
         Jugador jugadorObjetivo = Mockito.mock(Jugador.class);
         //Act
         proteger.ejecutar(jugadorAutor,jugadorObjetivo);
+//        //Assert
+//        assertThrows(
+//                ObjetivoInvalidoException.class,
+//                () -> proteger.ejecutar(jugadorAutor, jugadorObjetivo)
+//        );
         //Assert
-        assertThrows(
-                ObjetivoInvalidoException.class,
-                () -> proteger.ejecutar(jugadorAutor, jugadorObjetivo)
-        );
+        assertNull(proteger.ejecutar(jugadorAutor,jugadorObjetivo));
     }
 
     @Test

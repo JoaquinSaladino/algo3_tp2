@@ -48,8 +48,8 @@ public class Jugador {
     }
 
     public AccionNocturna usarHabilidad(Jugador objetivo) {
-        if(!this.estaVivo())
-            throw new ObjetivoInvalidoException();
+       if(!this.estaVivo())
+           throw new ObjetivoInvalidoException();
         return this.carta.generarAccionNocturna(this, objetivo);
     }
 

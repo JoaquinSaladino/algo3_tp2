@@ -142,24 +142,18 @@ public class JugadorTest {
     }
 
     @Test
-    public void test08JugadorMuertoNopuedeSeguirInteractuando(){
-        //Arrange
-        Jugador medico = new Jugador("Medico");
-        Jugador mafioso = new Jugador("Mafia");
-        Jugador ciudadano = new Jugador("Ciudadano");
+    public void test08JugadorMuertoNopuedeSeguirInteractuando() {
+        // Arrange
 
-        medico.asignarCarta(new Medico());
+        Jugador mafioso = new Jugador("Mafia");
+        Jugador ciudadano = new Jugador("Persona");
         mafioso.asignarCarta(new Mafioso());
         ciudadano.asignarCarta(new Ciudadano());
 
-        Nocturna fase = new Nocturna();
-        RegistroNocturno registro = new RegistroNocturno();
-
         //Act
-        medico.eliminar();
-        fase.ejecutar(List.of(medico, mafioso, ciudadano), registro);
+        mafioso.eliminar();
 
         //Assert
-        assertFalse(ciudadano.estaProtegido());
+        assertThrows(ObjetivoInvalidoException.class, () -> mafioso.usarHabilidad(ciudadano));
     }
 }
