@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegistroGrandeControlador {
 
@@ -47,9 +49,47 @@ public class RegistroGrandeControlador {
     }
 
     @FXML
-    public void manejarBotonJugar(ActionEvent event)
+    public void manejarBotonJugar(ActionEvent event) {
+        List<String> nombres = new ArrayList<>();
+
+        agregarSiEsValido(nombres, nombreJugador1);
+        agregarSiEsValido(nombres, nombreJugador2);
+        agregarSiEsValido(nombres, nombreJugador3);
+        agregarSiEsValido(nombres, nombreJugador4);
+        agregarSiEsValido(nombres, nombreJugador5);
+        agregarSiEsValido(nombres, nombreJugador6);
+        agregarSiEsValido(nombres, nombreJugador7);
+        agregarSiEsValido(nombres, nombreJugador8);
+        agregarSiEsValido(nombres, nombreJugador9);
+        agregarSiEsValido(nombres, nombreJugador10);
+
+        if (cajaOnceJugador.isVisible())
+        {
+            agregarSiEsValido(nombres, nombreJugador11);
+        }
+
+        if (cajaDoceJugador.isVisible())
+        {
+            agregarSiEsValido(nombres, nombreJugador12);
+        }
+
+        if (nombres.size() < 10)
+        {
+            System.out.println("Error: Se necesitan al menos 10 jugadores para iniciar.");
+            return;
+        }
+
+        System.out.println("Nombres recolectados para la partida: " + nombres);
+    }
+
+    private void agregarSiEsValido(List<String> lista, TextField campo)
     {
-        // Recolectar nombres y dar play
+        String texto = campo.getText();
+
+        if (texto != null && !texto.trim().isEmpty())
+        {
+            lista.add(texto.trim());
+        }
     }
 
     @FXML

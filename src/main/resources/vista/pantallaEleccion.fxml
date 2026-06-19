@@ -27,7 +27,7 @@
             <font><Font name="System Bold" size="20.0" /></font>
         </Button>
 
-        <Button mnemonicParsing="false" onAction="#manejarPartidaMediana" prefHeight="250.0" prefWidth="280.0" style="-fx-background-color: #ff704d; -fx-text-fill: white; -fx-border-color: black; -fx-border-width: 2;" text="PARTIDA MEDIANA&#10;(7 a 9 jugadores)" textAlignment="CENTER">
+        <Button mnemonicParsing="false" onAction="#manejarPartidaMediana" prefHeight="250.0" prefWidth="280.0" style="-fx-background-color: #ff5e4d; -fx-text-fill: white; -fx-border-color: black; -fx-border-width: 2;" text="PARTIDA MEDIANA&#10;(7 a 9 jugadores)" textAlignment="CENTER">
             <font><Font name="System Bold" size="20.0" /></font>
         </Button>
 

@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegistroChicaControlador {
 
@@ -32,9 +34,37 @@ public class RegistroChicaControlador {
     }
 
     @FXML
-    public void manejarBotonJugar(ActionEvent event)
+    public void manejarBotonJugar(ActionEvent event) {
+        List<String> nombres = new ArrayList<>();
+
+        agregarSiEsValido(nombres, nombreJugador1);
+        agregarSiEsValido(nombres, nombreJugador2);
+        agregarSiEsValido(nombres, nombreJugador3);
+        agregarSiEsValido(nombres, nombreJugador4);
+        agregarSiEsValido(nombres, nombreJugador5);
+
+        if (cajaSextoJugador.isVisible())
+        {
+            agregarSiEsValido(nombres, nombreJugador6);
+        }
+
+        if (nombres.size() < 5)
+        {
+            System.out.println("Error: Se necesitan al menos 5 jugadores para iniciar.");
+            return;
+        }
+
+        System.out.println("Nombres recolectados para la partida: " + nombres);
+    }
+
+    private void agregarSiEsValido(List<String> lista, TextField campo)
     {
-        // Recolectar nombres y dar play
+        String texto = campo.getText();
+
+        if (texto != null && !texto.trim().isEmpty())
+        {
+            lista.add(texto.trim());
+        }
     }
 
     @FXML

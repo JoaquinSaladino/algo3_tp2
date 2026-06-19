@@ -31,51 +31,51 @@
         </rowConstraints>
 
         <VBox alignment="CENTER" style="-fx-background-color: #4a6572; -fx-border-color: black; -fx-border-width: 2;" GridPane.columnIndex="0" GridPane.rowIndex="0">
-            <Label text="Jugador 1"><font><Font name="System Bold" size="13.0" /></font></Label>
+            <Label text="Jugador 1" textFill="BLACK"><font><Font name="System Bold" size="13.0" /></font></Label>
             <TextField fx:id="nombreJugador1" alignment="CENTER" promptText="Nombre..." style="-fx-background-color: transparent; -fx-text-fill: white;" />
         </VBox>
         <VBox alignment="CENTER" style="-fx-background-color: #4a6572; -fx-border-color: black; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowIndex="0">
-            <Label text="Jugador 2"><font><Font name="System Bold" size="13.0" /></font></Label>
+            <Label text="Jugador 2" textFill="BLACK"><font><Font name="System Bold" size="13.0" /></font></Label>
             <TextField fx:id="nombreJugador2" alignment="CENTER" promptText="Nombre..." style="-fx-background-color: transparent; -fx-text-fill: white;" />
         </VBox>
         <VBox alignment="CENTER" style="-fx-background-color: #4a6572; -fx-border-color: black; -fx-border-width: 2;" GridPane.columnIndex="2" GridPane.rowIndex="0">
-            <Label text="Jugador 3"><font><Font name="System Bold" size="13.0" /></font></Label>
+            <Label text="Jugador 3" textFill="BLACK"><font><Font name="System Bold" size="13.0" /></font></Label>
             <TextField fx:id="nombreJugador3" alignment="CENTER" promptText="Nombre..." style="-fx-background-color: transparent; -fx-text-fill: white;" />
         </VBox>
         <VBox alignment="CENTER" style="-fx-background-color: #4a6572; -fx-border-color: black; -fx-border-width: 2;" GridPane.columnIndex="3" GridPane.rowIndex="0">
-            <Label text="Jugador 4"><font><Font name="System Bold" size="13.0" /></font></Label>
+            <Label text="Jugador 4" textFill="BLACK"><font><Font name="System Bold" size="13.0" /></font></Label>
             <TextField fx:id="nombreJugador4" alignment="CENTER" promptText="Nombre..." style="-fx-background-color: transparent; -fx-text-fill: white;" />
         </VBox>
 
         <VBox alignment="CENTER" style="-fx-background-color: #4a6572; -fx-border-color: black; -fx-border-width: 2;" GridPane.columnIndex="0" GridPane.rowIndex="1">
-            <Label text="Jugador 5"><font><Font name="System Bold" size="13.0" /></font></Label>
+            <Label text="Jugador 5" textFill="BLACK"><font><Font name="System Bold" size="13.0" /></font></Label>
             <TextField fx:id="nombreJugador5" alignment="CENTER" promptText="Nombre..." style="-fx-background-color: transparent; -fx-text-fill: white;" />
         </VBox>
         <VBox alignment="CENTER" style="-fx-background-color: #4a6572; -fx-border-color: black; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-            <Label text="Jugador 6"><font><Font name="System Bold" size="13.0" /></font></Label>
+            <Label text="Jugador 6" textFill="BLACK"><font><Font name="System Bold" size="13.0" /></font></Label>
             <TextField fx:id="nombreJugador6" alignment="CENTER" promptText="Nombre..." style="-fx-background-color: transparent; -fx-text-fill: white;" />
         </VBox>
         <VBox alignment="CENTER" style="-fx-background-color: #4a6572; -fx-border-color: black; -fx-border-width: 2;" GridPane.columnIndex="2" GridPane.rowIndex="1">
-            <Label text="Jugador 7"><font><Font name="System Bold" size="13.0" /></font></Label>
+            <Label text="Jugador 7" textFill="BLACK"><font><Font name="System Bold" size="13.0" /></font></Label>
             <TextField fx:id="nombreJugador7" alignment="CENTER" promptText="Nombre..." style="-fx-background-color: transparent; -fx-text-fill: white;" />
         </VBox>
         <VBox alignment="CENTER" style="-fx-background-color: #4a6572; -fx-border-color: black; -fx-border-width: 2;" GridPane.columnIndex="3" GridPane.rowIndex="1">
-            <Label text="Jugador 8"><font><Font name="System Bold" size="13.0" /></font></Label>
+            <Label text="Jugador 8" textFill="BLACK"><font><Font name="System Bold" size="13.0" /></font></Label>
             <TextField fx:id="nombreJugador8" alignment="CENTER" promptText="Nombre..." style="-fx-background-color: transparent; -fx-text-fill: white;" />
         </VBox>
 
         <VBox alignment="CENTER" style="-fx-background-color: #4a6572; -fx-border-color: black; -fx-border-width: 2;" GridPane.columnIndex="0" GridPane.rowIndex="2">
-            <Label text="Jugador 9"><font><Font name="System Bold" size="13.0" /></font></Label>
+            <Label text="Jugador 9" textFill="BLACK"><font><Font name="System Bold" size="13.0" /></font></Label>
             <TextField fx:id="nombreJugador9" alignment="CENTER" promptText="Nombre..." style="-fx-background-color: transparent; -fx-text-fill: white;" />
         </VBox>
         <VBox alignment="CENTER" style="-fx-background-color: #4a6572; -fx-border-color: black; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-            <Label text="Jugador 10"><font><Font name="System Bold" size="13.0" /></font></Label>
+            <Label text="Jugador 10" textFill="BLACK"><font><Font name="System Bold" size="13.0" /></font></Label>
             <TextField fx:id="nombreJugador10" alignment="CENTER" promptText="Nombre..." style="-fx-background-color: transparent; -fx-text-fill: white;" />
         </VBox>
 
         <StackPane style="-fx-border-color: black; -fx-border-width: 2; -fx-background-color: #7b8d93;" GridPane.columnIndex="2" GridPane.rowIndex="2">
             <VBox fx:id="cajaOnceJugador" alignment="CENTER" style="-fx-background-color: #4a6572;" visible="false">
-                <Label text="Jugador 11"><font><Font name="System Bold" size="13.0" /></font></Label>
+                <Label text="Jugador 11" textFill="BLACK"><font><Font name="System Bold" size="13.0" /></font></Label>
                 <TextField fx:id="nombreJugador11" alignment="CENTER" promptText="Nombre..." style="-fx-background-color: transparent; -fx-text-fill: white;" />
             </VBox>
             <Button fx:id="botonAgregarOnce" onAction="#manejarAgregarOnceJugador" prefHeight="65.0" prefWidth="210.0" style="-fx-background-color: transparent;" text="+"><font><Font name="System Bold" size="24.0" /></font></Button>
@@ -83,7 +83,7 @@
 
         <StackPane style="-fx-border-color: black; -fx-border-width: 2; -fx-background-color: #7b8d93;" GridPane.columnIndex="3" GridPane.rowIndex="2">
             <VBox fx:id="cajaDoceJugador" alignment="CENTER" style="-fx-background-color: #4a6572;" visible="false">
-                <Label text="Jugador 12"><font><Font name="System Bold" size="13.0" /></font></Label>
+                <Label text="Jugador 12" textFill="BLACK"><font><Font name="System Bold" size="13.0" /></font></Label>
                 <TextField fx:id="nombreJugador12" alignment="CENTER" promptText="Nombre..." style="-fx-background-color: transparent; -fx-text-fill: white;" />
             </VBox>
             <Button fx:id="botonAgregarDoce" onAction="#manejarAgregarDoceJugador" prefHeight="65.0" prefWidth="210.0" style="-fx-background-color: transparent;" text="+"><font><Font name="System Bold" size="24.0" /></font></Button>
