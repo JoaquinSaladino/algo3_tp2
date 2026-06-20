@@ -18,6 +18,10 @@ public class Diurna implements Fase {
     public Diurna() {
     }
 
+    public Diurna(Debate debate, Votacion votacion) {
+        this.debate = debate;
+        this.votacion = votacion;
+    }
     @Override
     public void ejecutar(List<Jugador> jugadores,
                          RegistroNocturno registro) {
