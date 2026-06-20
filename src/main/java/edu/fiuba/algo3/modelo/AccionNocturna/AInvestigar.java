@@ -16,8 +16,4 @@ public class AInvestigar extends AccionNocturna {
         registroActual.registrarInvestigacion(this.autor, this.objetivo);
     }
 
-    @Override
-    public void insertarEn(List<AccionNocturna> acciones) {
-
-    }
 }

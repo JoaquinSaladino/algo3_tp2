@@ -15,9 +15,4 @@ public class AProteger extends AccionNocturna {
     public void resolver(RegistroNocturno registroActual) {
         this.objetivo.proteger();
     }
-
-    @Override
-    public void insertarEn(List<AccionNocturna> acciones) {
-        acciones.add(this);
-    }
 }

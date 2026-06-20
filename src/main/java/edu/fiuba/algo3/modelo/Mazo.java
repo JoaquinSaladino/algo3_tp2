@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.Excepciones.MazoVacioException;
 import edu.fiuba.algo3.modelo.Roles.CartaRol;
 
 import java.util.Collections;
@@ -26,11 +27,11 @@ public class Mazo {
 
     public CartaRol repartir()
     {
-        if (!this.estaVacio())
+        if (this.estaVacio())
         {
-            return this.cartas.remove(0);
+            throw new MazoVacioException();
         }
+        return this.cartas.remove(0);
 
-        return null;
     }
 }

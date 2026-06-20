@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.testUnitarios;
 
+import edu.fiuba.algo3.modelo.Excepciones.MazoVacioException;
 import edu.fiuba.algo3.modelo.Mazo;
 import edu.fiuba.algo3.modelo.Roles.CartaRol;
 import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Ciudadano;
@@ -44,5 +45,12 @@ public class MazoTest {
         assertTrue(cartasMezcladas.containsAll(cartas), "Deben estar las mismas cartas");
         assertNotEquals(cartas, cartasMezcladas, "El orden de las cartas debería haber cambiado");
 
+    }
+
+    @Test
+    public void test02RepartirEnMazoVacioLanzaExcepcion() {
+        Mazo mazo = new Mazo(new ArrayList<>());
+
+        assertThrows(MazoVacioException.class, () -> mazo.repartir());
     }
 }
