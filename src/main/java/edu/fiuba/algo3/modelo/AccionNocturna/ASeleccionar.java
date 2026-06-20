@@ -14,9 +14,4 @@ public class ASeleccionar extends AccionNocturna {
     public void resolver(RegistroNocturno registroActual) {
         registroActual.registrarVotoMafia(this.objetivo,this.autor.obtenerCarta());
     }
-
-    @Override
-    public void insertarEn(List<AccionNocturna> acciones) {
-        // No se inserta directamente en la lista de ejecución final
-    }
 }

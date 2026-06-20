@@ -15,5 +15,4 @@ public abstract class AccionNocturna {
     }
     public abstract void resolver(RegistroNocturno registroActual);
 
-    public abstract void insertarEn(List<AccionNocturna> acciones);
 }

@@ -13,9 +13,4 @@ public class ANula extends AccionNocturna{
     public void resolver(RegistroNocturno registroActual) {
 
     }
-
-    @Override
-    public void insertarEn(List<AccionNocturna> acciones) {
-
-    }
 }

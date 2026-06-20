@@ -15,9 +15,4 @@ public class AEliminar extends AccionNocturna {
     public void resolver(RegistroNocturno registroActual) {
             this.objetivo.eliminar();
     }
-    @Override
-    public void insertarEn(List<AccionNocturna> acciones) {
-        acciones.add(this);
-    }
-
 }
