@@ -7,10 +7,12 @@ import edu.fiuba.algo3.modelo.Jugador;
 public abstract class CartaRol {
 
     private HabilidadNocturna habilidadNocturna;
+    private boolean esMafia;
 
-    public CartaRol(HabilidadNocturna habilidad)
+    public CartaRol(HabilidadNocturna habilidad, boolean esMafia)
     {
         this.habilidadNocturna = habilidad;
+        this.esMafia = esMafia;
     }
 
     public AccionNocturna generarAccionNocturna(Jugador autor , Jugador objetivo)
@@ -18,7 +20,9 @@ public abstract class CartaRol {
         return this.habilidadNocturna.ejecutar(autor,objetivo);
     }
 
-    public abstract boolean esMafia();
+    public boolean esMafia() {
+        return esMafia;
+    };
 
     public String investigar(){
         return "Ciudadano";

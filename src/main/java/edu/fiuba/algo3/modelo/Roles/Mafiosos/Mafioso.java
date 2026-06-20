@@ -7,13 +7,7 @@ public class Mafioso extends CartaRol {
 
     public Mafioso()
     {
-        super(new Seleccionar());
-    }
-
-    @Override
-    public boolean esMafia()
-    {
-        return true;
+        super(new Seleccionar(), true);
     }
 
     @Override

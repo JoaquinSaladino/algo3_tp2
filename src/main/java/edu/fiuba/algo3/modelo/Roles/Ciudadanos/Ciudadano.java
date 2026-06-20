@@ -8,15 +8,10 @@ public class Ciudadano extends CartaRol {
 
     public Ciudadano()
     {
-        super(new Nula());
+        super(new Nula(), false);
     }
     public Ciudadano(HabilidadNocturna habilidad) {
-        super(habilidad);
-    }
-    @Override
-    public boolean esMafia()
-    {
-        return false;
+        super(habilidad, false);
     }
 
     @Override
