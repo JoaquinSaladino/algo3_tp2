@@ -39,5 +39,6 @@ public class Turno {
         }
     }
 
-    public boolean estaTerminado() {return false;}
+//REVISAR (No se usa)
+//    public boolean estaTerminado() {return false;}
 }
