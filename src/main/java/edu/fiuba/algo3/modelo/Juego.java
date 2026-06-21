@@ -45,4 +45,28 @@ public class Juego {
     public void avanzarFase(){
         turnoActual.avanzarFase(jugadores);
     }
+
+    public boolean mafiaGano() {
+        long mafiosos = jugadores.stream()
+                .filter(Jugador::estaVivo)
+                .filter(Jugador::esMafia)
+                .count();
+
+        long ciudadanos = jugadores.stream()
+                .filter(Jugador::estaVivo)
+                .filter(j -> !j.esMafia())
+                .count();
+
+        return mafiosos >= ciudadanos;
+    }
+
+    public boolean ciudadanosGanaron() {
+        return jugadores.stream()
+                .filter(Jugador::estaVivo)
+                .noneMatch(Jugador::esMafia);
+    }
+
+    public boolean juegoTerminado() {
+        return mafiaGano() || ciudadanosGanaron();
+    }
 }
