@@ -12,16 +12,12 @@ import static org.junit.Assert.assertEquals;
 public class JuegoTest {
         @Test
         public void testIniciarJuegoCon5Jugadores(){
-            Jugador jugador1 = new Jugador("J1");
-            Jugador jugador2 = new Jugador("J2");
-            Jugador jugador3 = new Jugador("J3");
-            Jugador jugador4 = new Jugador("J4");
-            Jugador jugador5 = new Jugador("J5");
 
-            List<Jugador> jugadores = List.of(jugador1, jugador2, jugador3, jugador4, jugador5);
+            List<String> jugadores = List.of("jugador1", "jugador2", "jugador3", "jugador4", "jugador5");
 
-            Juego juego = new Juego(jugadores);
-            juego.iniciarPartida();
+            Juego juego = new Juego(5);
+            juego.configurarPartida(jugadores);
+
 
             assertEquals(5, juego.cantidadJugadores());
         }

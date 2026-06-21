@@ -4,7 +4,7 @@ import edu.fiuba.algo3.modelo.Mazo;
 
 public class ConfiguracionPartida {
 
-    private int cantidadJugadores;
+    private final int cantidadJugadores;
 
     public ConfiguracionPartida(int cantidadJugadores)
     {

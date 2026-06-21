@@ -63,7 +63,7 @@ public class RegistroNocturno {
 
     private boolean contieneAlPadrino(List<CartaRol> votantes) {
         for (CartaRol v : votantes) {
-            if (Objects.equals(v.obtenerRol(), "Padrino")) {
+            if (Objects.equals(v.getRol(), "Padrino")) {
                 return true;
             }
         }

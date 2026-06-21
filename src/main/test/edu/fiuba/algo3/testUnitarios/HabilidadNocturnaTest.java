@@ -21,13 +21,10 @@ public class HabilidadNocturnaTest {
         Jugador jugadorObjetivo = Mockito.mock(Jugador.class);
         //Act
         proteger.ejecutar(jugadorAutor,jugadorObjetivo);
-//        //Assert
-//        assertThrows(
-//                ObjetivoInvalidoException.class,
-//                () -> proteger.ejecutar(jugadorAutor, jugadorObjetivo)
-//        );
         //Assert
-        assertNull(proteger.ejecutar(jugadorAutor,jugadorObjetivo));
+        assertThrows(
+                ObjetivoInvalidoException.class,
+                () -> proteger.ejecutar(jugadorAutor,jugadorObjetivo));
     }
 
     @Test

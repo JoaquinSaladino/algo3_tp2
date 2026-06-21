@@ -1,18 +1,21 @@
 package edu.fiuba.algo3.modelo.Roles;
 
 import edu.fiuba.algo3.modelo.AccionNocturna.AccionNocturna;
+import edu.fiuba.algo3.modelo.Bando.Bando;
 import edu.fiuba.algo3.modelo.Habilidades.HabilidadNocturna;
 import edu.fiuba.algo3.modelo.Jugador;
 
-public abstract class CartaRol {
+public class CartaRol  {
+    private final HabilidadNocturna habilidadNocturna;
+    private final Bando bando;
+    private final String rol;
 
-    private HabilidadNocturna habilidadNocturna;
-    private boolean esMafia;
 
-    public CartaRol(HabilidadNocturna habilidad, boolean esMafia)
+    public CartaRol(HabilidadNocturna habilidad , Bando bando , String rol)
     {
         this.habilidadNocturna = habilidad;
-        this.esMafia = esMafia;
+        this.bando = bando;
+        this.rol = rol;
     }
 
     public AccionNocturna generarAccionNocturna(Jugador autor , Jugador objetivo)
@@ -20,14 +23,15 @@ public abstract class CartaRol {
         return this.habilidadNocturna.ejecutar(autor,objetivo);
     }
 
-    public boolean esMafia() {
-        return esMafia;
+    public boolean esMafia(){
+        return bando.esMafia();
     };
 
     public String investigar(){
-        return "Ciudadano";
+        return bando.obtenerResultadoInvestigacion();
     }
 
-    public abstract String obtenerRol();
-
+    public String getRol() {
+        return rol;
+    }
 }

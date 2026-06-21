@@ -2,10 +2,7 @@ package edu.fiuba.algo3.testUnitarios;
 
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.RegistroNocturno;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Detective;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Ciudadano;
-import edu.fiuba.algo3.modelo.Roles.Mafiosos.Mafioso;
-import edu.fiuba.algo3.modelo.Roles.Mafiosos.Padrino;
+import edu.fiuba.algo3.modelo.Roles.RolFactory;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,8 +13,9 @@ public class DetectiveTest {
         // Arrange
         Jugador detective = new Jugador("Detective");
         Jugador mafioso = new Jugador("Mafioso");
-        detective.asignarCarta(new Detective());
-        mafioso.asignarCarta(new Mafioso());
+        RolFactory rolFactory = new RolFactory();
+        detective.asignarCarta(rolFactory.crearCartaDetective());
+        mafioso.asignarCarta(rolFactory.crearCartaMafioso());
         RegistroNocturno registro = new RegistroNocturno();
         //Act
         detective.usarHabilidad(mafioso).resolver(registro);
@@ -30,9 +28,9 @@ public class DetectiveTest {
         // Arrange
         Jugador detective = new Jugador("Detective");
         Jugador ciudadano = new Jugador("Ciudadano");
-
-        detective.asignarCarta(new Detective());
-        ciudadano.asignarCarta(new Ciudadano());
+        RolFactory rolFactory = new RolFactory();
+        detective.asignarCarta(rolFactory.crearCartaDetective());
+        ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
 
         RegistroNocturno registro = new RegistroNocturno();
 
@@ -51,8 +49,9 @@ public class DetectiveTest {
         // Arrange
         Jugador detective = new Jugador("Detective");
         Jugador padrino = new Jugador("Padrino");
-        detective.asignarCarta(new Detective());
-        padrino.asignarCarta(new Padrino());
+        RolFactory rolFactory = new RolFactory();
+        detective.asignarCarta(rolFactory.crearCartaDetective());
+        padrino.asignarCarta(rolFactory.crearCartaPadrino());
         RegistroNocturno registro = new RegistroNocturno();
         // Act
         detective.usarHabilidad(padrino).resolver(registro);

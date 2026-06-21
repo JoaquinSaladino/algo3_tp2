@@ -7,10 +7,8 @@ import edu.fiuba.algo3.modelo.Fases.Nocturna;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Mazo;
 import edu.fiuba.algo3.modelo.RegistroNocturno;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Ciudadano;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Detective;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Medico;
-import edu.fiuba.algo3.modelo.Roles.Mafiosos.Mafioso;
+import edu.fiuba.algo3.modelo.Roles.CartaRol;
+import edu.fiuba.algo3.modelo.Roles.RolFactory;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -54,13 +52,13 @@ public class JugadorTest {
     {
         // Arrange
         Jugador jugador1 = new Jugador("J1");
-
-        Ciudadano detective = new Detective();
+        RolFactory rolFactory = new RolFactory();
+        CartaRol detective = rolFactory.crearCartaDetective();
 
         jugador1.asignarCarta(detective);
 
         // Assert
-        assertEquals(detective.obtenerRol(), jugador1.verRol());
+        assertEquals(detective.getRol(), jugador1.verRol());
     }
 
     @Test
@@ -83,10 +81,10 @@ public class JugadorTest {
         Jugador mafioso1 = new Jugador("J1");
         Jugador mafioso2 = new Jugador("J2");
         Jugador ciudadano = new Jugador("J3");
-
-        mafioso1.asignarCarta(new Mafioso());
-        mafioso2.asignarCarta(new Mafioso());
-        ciudadano.asignarCarta(new Ciudadano());
+        RolFactory rolFactory = new RolFactory();
+        mafioso1.asignarCarta(rolFactory.crearCartaMafioso());
+        mafioso2.asignarCarta(rolFactory.crearCartaMafioso());
+        ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
 
         mafioso1.registrarCompaneros(List.of(mafioso2));
 
@@ -101,9 +99,9 @@ public class JugadorTest {
         // Arrange
         Jugador ciudadano = new Jugador("J1");
         Jugador mafioso = new Jugador("J2");
-
-        ciudadano.asignarCarta(new Ciudadano());
-        mafioso.asignarCarta(new Mafioso());
+        RolFactory rolFactory = new RolFactory();
+        ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
+        mafioso.asignarCarta(rolFactory.crearCartaMafioso());
 
         // Assert
         assertFalse(ciudadano.conoceA(mafioso), "El ciudadano no debería conocer a nadie");
@@ -114,7 +112,9 @@ public class JugadorTest {
     {
         // Arrange
         Jugador mafioso = new Jugador("Mafioso");
-        mafioso.asignarCarta(new Mafioso());
+        RolFactory rolFactory = new RolFactory();
+
+        mafioso.asignarCarta(rolFactory.crearCartaMafioso());
 
         // Act & Assert
         assertThrows(
@@ -126,29 +126,32 @@ public class JugadorTest {
     @Test
     public void test07CartaDeJugadorEliminadoEsRevelada(){
         // Arrange
-
+        RolFactory rolFactory = new RolFactory();
         Jugador mafioso = new Jugador("Mafioso");
-        mafioso.asignarCarta(new Mafioso());
+        mafioso.asignarCarta(rolFactory.crearCartaMafioso());
 
         Jugador ciudadano = new Jugador("Ciudadano");
-        ciudadano.asignarCarta(new Ciudadano());
+        ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
 
         // Act
         mafioso.eliminar();
 
         //Assert
-        assertEquals("Mafia", ciudadano.verCartaDe(mafioso).obtenerRol());
+        assertEquals("Mafioso", ciudadano.verCartaDe(mafioso).getRol());
 
     }
 
     @Test
-    public void test08JugadorMuertoNopuedeSeguirInteractuando() {
-        // Arrange
-
+    public void test08JugadorMuertoNopuedeSeguirInteractuando(){
+        //Arrange
+        Jugador medico = new Jugador("Medico");
         Jugador mafioso = new Jugador("Mafia");
-        Jugador ciudadano = new Jugador("Persona");
-        mafioso.asignarCarta(new Mafioso());
-        ciudadano.asignarCarta(new Ciudadano());
+        Jugador ciudadano = new Jugador("Ciudadano");
+        RolFactory rolFactory = new RolFactory();
+
+        medico.asignarCarta(rolFactory.crearCartaMedico());
+        mafioso.asignarCarta(rolFactory.crearCartaMafioso());
+        ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
 
         //Act
         mafioso.eliminar();

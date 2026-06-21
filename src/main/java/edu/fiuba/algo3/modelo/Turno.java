@@ -7,10 +7,10 @@ import edu.fiuba.algo3.modelo.Fases.Nocturna;
 import java.util.List;
 
 public class Turno {
-    private Nocturna nocturna;
-    private Diurna diurna;
+    private final Nocturna nocturna;
+    private final Diurna diurna;
     private Fase faseActual;
-    private RegistroNocturno registro;
+    private final RegistroNocturno registro;
 
     public Turno() {
         this(new Nocturna(), new Diurna(), new RegistroNocturno());

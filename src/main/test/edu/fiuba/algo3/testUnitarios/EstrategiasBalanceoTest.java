@@ -4,16 +4,11 @@ import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Configuracion.*;
 
 import edu.fiuba.algo3.modelo.Roles.*;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Ciudadano;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Detective;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Medico;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Sheriff;
-import edu.fiuba.algo3.modelo.Roles.Mafiosos.Mafioso;
-import edu.fiuba.algo3.modelo.Roles.Mafiosos.Padrino;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -36,9 +31,9 @@ public class EstrategiasBalanceoTest {
 
         // Assert
         assertEquals(5, cartasRepartidas.size(), "Debe haber 5 cartas en total");
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Mafioso.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Detective.class).count());
-        assertEquals(3, cartasRepartidas.stream().filter(c -> c.getClass() == Ciudadano.class).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c -> Objects.equals(c.getRol(), "Mafioso")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c -> Objects.equals(c.getRol(), "Detective")).count());
+        assertEquals(3, cartasRepartidas.stream().filter(c -> Objects.equals(c.getRol(), "Ciudadano")).count());
     }
 
     @Test
@@ -58,9 +53,9 @@ public class EstrategiasBalanceoTest {
 
         // Assert
         assertEquals(6, cartasRepartidas.size(), "Debe haber 6 cartas en total");
-        assertEquals(2, cartasRepartidas.stream().filter(c -> c.getClass() == Mafioso.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Medico.class).count());
-        assertEquals(3, cartasRepartidas.stream().filter(c -> c.getClass() == Ciudadano.class).count());
+        assertEquals(2, cartasRepartidas.stream().filter(c -> Objects.equals(c.getRol(), "Mafioso")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c -> Objects.equals(c.getRol(), "Medico")).count());
+        assertEquals(3, cartasRepartidas.stream().filter(c -> Objects.equals(c.getRol(), "Ciudadano")).count());
     }
 
     @Test
@@ -80,10 +75,10 @@ public class EstrategiasBalanceoTest {
 
         // Assert
         assertEquals(7, cartasRepartidas.size(), "Debe haber 7 cartas en total");
-        assertEquals(2, cartasRepartidas.stream().filter(c -> c.getClass() == Mafioso.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Detective.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Medico.class).count());
-        assertEquals(3, cartasRepartidas.stream().filter(c -> c.getClass() == Ciudadano.class).count());
+        assertEquals(2, cartasRepartidas.stream().filter(c -> Objects.equals(c.getRol(), "Mafioso")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c -> Objects.equals(c.getRol(), "Detective")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c -> Objects.equals(c.getRol(), "Medico")).count());
+        assertEquals(3, cartasRepartidas.stream().filter(c -> Objects.equals(c.getRol(), "Ciudadano")).count());
     }
 
     @Test
@@ -103,10 +98,10 @@ public class EstrategiasBalanceoTest {
 
         // Assert
         assertEquals(8, cartasRepartidas.size(), "Debe haber 8 cartas en total");
-        assertEquals(2, cartasRepartidas.stream().filter(c -> c.getClass() == Mafioso.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Detective.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Medico.class).count());
-        assertEquals(4, cartasRepartidas.stream().filter(c -> c.getClass() == Ciudadano.class).count());
+        assertEquals(2, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Mafioso")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Detective")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Medico")).count());
+        assertEquals(4, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Ciudadano")).count());
     }
 
     @Test
@@ -126,10 +121,10 @@ public class EstrategiasBalanceoTest {
 
         // Assert
         assertEquals(9, cartasRepartidas.size(), "Debe haber 9 cartas en total");
-        assertEquals(3, cartasRepartidas.stream().filter(c -> c.getClass() == Mafioso.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Detective.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Medico.class).count());
-        assertEquals(4, cartasRepartidas.stream().filter(c -> c.getClass() == Ciudadano.class).count());
+        assertEquals(3, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Mafioso")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Detective")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Medico")).count());
+        assertEquals(4, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Ciudadano")).count());
     }
 
     @Test
@@ -149,12 +144,12 @@ public class EstrategiasBalanceoTest {
 
         // Assert
         assertEquals(10, cartasRepartidas.size(), "Debe haber 10 cartas en total");
-        assertEquals(2, cartasRepartidas.stream().filter(c -> c.getClass() == Mafioso.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Padrino.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Detective.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Medico.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Sheriff.class).count());
-        assertEquals(4, cartasRepartidas.stream().filter(c -> c.getClass() == Ciudadano.class).count());
+        assertEquals(2, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Mafioso")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Padrino")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Detective")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Medico")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Sheriff")).count());
+        assertEquals(4, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Ciudadano")).count());
     }
 
     @Test
@@ -174,12 +169,12 @@ public class EstrategiasBalanceoTest {
 
         // Assert
         assertEquals(11, cartasRepartidas.size(), "Debe haber 11 cartas en total");
-        assertEquals(2, cartasRepartidas.stream().filter(c -> c.getClass() == Mafioso.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Padrino.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Detective.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Medico.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Sheriff.class).count());
-        assertEquals(5, cartasRepartidas.stream().filter(c -> c.getClass() == Ciudadano.class).count());
+        assertEquals(2, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Mafioso")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Padrino")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Detective")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Medico")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Sheriff")).count());
+        assertEquals(5, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Ciudadano")).count());
     }
 
     @Test
@@ -199,12 +194,12 @@ public class EstrategiasBalanceoTest {
 
         // Assert
         assertEquals(12, cartasRepartidas.size(), "Debe haber 12 cartas en total");
-        assertEquals(2, cartasRepartidas.stream().filter(c -> c.getClass() == Mafioso.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Padrino.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Detective.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Medico.class).count());
-        assertEquals(1, cartasRepartidas.stream().filter(c -> c.getClass() == Sheriff.class).count());
-        assertEquals(6, cartasRepartidas.stream().filter(c -> c.getClass() == Ciudadano.class).count());
+        assertEquals(2, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Mafioso")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Padrino")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Detective")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Medico")).count());
+        assertEquals(1, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Sheriff")).count());
+        assertEquals(6, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Ciudadano")).count());
     }
 
 }

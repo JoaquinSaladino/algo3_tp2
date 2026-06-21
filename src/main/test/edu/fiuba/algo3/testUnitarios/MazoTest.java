@@ -3,9 +3,8 @@ package edu.fiuba.algo3.testUnitarios;
 import edu.fiuba.algo3.modelo.Excepciones.MazoVacioException;
 import edu.fiuba.algo3.modelo.Mazo;
 import edu.fiuba.algo3.modelo.Roles.CartaRol;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Ciudadano;
-import edu.fiuba.algo3.modelo.Roles.Mafiosos.Mafioso;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Medico;
+
+import edu.fiuba.algo3.modelo.Roles.RolFactory;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -20,12 +19,13 @@ public class MazoTest {
     {
         // Arrange
         List<CartaRol> cartas = new ArrayList<>();
+        RolFactory rolFactory = new RolFactory();
 
-        cartas.add(new Ciudadano());
-        cartas.add(new Ciudadano());
-        cartas.add(new Medico());
-        cartas.add(new Mafioso());
-        cartas.add(new Ciudadano());
+        cartas.add(rolFactory.crearCartaCiudadano());
+        cartas.add(rolFactory.crearCartaCiudadano());
+        cartas.add(rolFactory.crearCartaMedico());
+        cartas.add(rolFactory.crearCartaMafioso());
+        cartas.add(rolFactory.crearCartaCiudadano());
 
         List<CartaRol> copia = new ArrayList<>(cartas);
         Mazo mazo = new Mazo(copia);

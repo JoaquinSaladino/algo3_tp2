@@ -6,10 +6,8 @@ import edu.fiuba.algo3.modelo.Fases.Diurna;
 import edu.fiuba.algo3.modelo.Fases.Fase;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.RegistroNocturno;
+import edu.fiuba.algo3.modelo.Roles.RolFactory;
 import edu.fiuba.algo3.modelo.Votacion;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Ciudadano;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Medico;
-import edu.fiuba.algo3.modelo.Roles.Mafiosos.Mafioso;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -26,18 +24,18 @@ public class FaseDiurnaTest {
         Jugador jugador1 = new Jugador("Lalo");
         Jugador jugador2 = new Jugador("Toño");
         Jugador jugador3 = new Jugador("Pepe");
-        jugador1.asignarCarta(new Mafioso());
-        jugador2.asignarCarta(new Ciudadano());
-        jugador3.asignarCarta(new Medico());
+        RolFactory rolFactory = new RolFactory();
+        jugador1.asignarCarta(rolFactory.crearCartaMafioso());
+        jugador2.asignarCarta(rolFactory.crearCartaCiudadano());
+        jugador3.asignarCarta(rolFactory.crearCartaMedico());
         List<Jugador> jugadores = List.of(jugador1, jugador2,jugador3);
-
         RegistroNocturno registroNocturno = new RegistroNocturno();
 
         Votacion votacion = new Votacion(new SinEliminacion());
 
         //Act
 
-        votacion.iniciar(List.of(jugador1,jugador2,jugador3));
+        votacion.iniciar(jugadores);
         votacion.registrarVoto(jugador2, jugador1);
         votacion.registrarVoto(jugador3, jugador1);
 
@@ -88,11 +86,11 @@ public class FaseDiurnaTest {
         Jugador jugador1 = new Jugador("Lalo");
         Jugador jugador2 = new Jugador("Toño");
         Jugador jugador3 = new Jugador("Pepe");
-        jugador1.asignarCarta(new Mafioso());
-        jugador2.asignarCarta(new Ciudadano());
-        jugador3.asignarCarta(new Medico());
+        RolFactory rolFactory = new RolFactory();
+        jugador1.asignarCarta(rolFactory.crearCartaMafioso());
+        jugador2.asignarCarta(rolFactory.crearCartaCiudadano());
+        jugador3.asignarCarta(rolFactory.crearCartaMedico());
         List<Jugador> jugadores = List.of(jugador1, jugador2,jugador3);
-
         Votacion votacion = new Votacion(new SinEliminacion());
 
         //Act
@@ -103,7 +101,7 @@ public class FaseDiurnaTest {
         diurna.ejecutar(jugadores, new RegistroNocturno());
 
         //Assert
-        assertEquals("Mafia", jugador2.verCartaDe(jugador1).obtenerRol());
+        assertEquals("Mafioso", jugador1.verRol());
 
     }
 }

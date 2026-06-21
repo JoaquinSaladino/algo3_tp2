@@ -74,7 +74,7 @@ public class Jugador {
 
     public String verRol()
     {
-        return this.carta.obtenerRol();
+        return this.carta.getRol();
     }
 
     public CartaRol verCartaDe(Jugador otroJugador)

@@ -1,13 +1,10 @@
 package edu.fiuba.algo3.testUnitarios;
 
+import edu.fiuba.algo3.modelo.Excepciones.ObjetivoInvalidoException;
 import edu.fiuba.algo3.modelo.Fases.Nocturna;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.RegistroNocturno;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Ciudadano;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Detective;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Medico;
-import edu.fiuba.algo3.modelo.Roles.Mafiosos.Mafioso;
-import edu.fiuba.algo3.modelo.Roles.Mafiosos.Padrino;
+import edu.fiuba.algo3.modelo.Roles.RolFactory;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -23,8 +20,9 @@ public class FaseNocturnaTest {
         // Arrange
         Jugador mafioso = new Jugador("Mafioso");
         Jugador victima = new Jugador("Victima");
-        mafioso.asignarCarta(new Mafioso());
-        victima.asignarCarta(new Ciudadano());
+        RolFactory rolFactory = new RolFactory();
+        mafioso.asignarCarta(rolFactory.crearCartaMafioso());
+        victima.asignarCarta(rolFactory.crearCartaCiudadano());
 
         Nocturna fase = new Nocturna();
         RegistroNocturno registro = new RegistroNocturno();
@@ -47,11 +45,12 @@ public class FaseNocturnaTest {
         Jugador mafioso2 = new Jugador("Mafioso2");
         Jugador ciudadano1 = new Jugador("Ciudadano1");
         Jugador ciudadano2 = new Jugador("Ciudadano2");
+        RolFactory rolFactory = new RolFactory();
 
-        mafioso1.asignarCarta(new Mafioso());
-        mafioso2.asignarCarta(new Mafioso());
-        ciudadano1.asignarCarta(new Ciudadano());
-        ciudadano2.asignarCarta(new Ciudadano());
+        mafioso1.asignarCarta(rolFactory.crearCartaMafioso());
+        mafioso2.asignarCarta(rolFactory.crearCartaMafioso());
+        ciudadano1.asignarCarta(rolFactory.crearCartaCiudadano());
+        ciudadano2.asignarCarta(rolFactory.crearCartaCiudadano());
 
         mafioso1.registrarCompaneros(List.of(mafioso2));
         mafioso2.registrarCompaneros(List.of(mafioso1));
@@ -79,11 +78,12 @@ public class FaseNocturnaTest {
         Jugador padrino = new Jugador("Padrino");
         Jugador ciudadano1 = new Jugador("Ciudadano1");
         Jugador ciudadano2 = new Jugador("Ciudadano2");
+        RolFactory rolFactory = new RolFactory();
 
-        mafioso.asignarCarta(new Mafioso());
-        padrino.asignarCarta(new Padrino());
-        ciudadano1.asignarCarta(new Ciudadano());
-        ciudadano2.asignarCarta(new Ciudadano());
+        mafioso.asignarCarta(rolFactory.crearCartaMafioso());
+        padrino.asignarCarta(rolFactory.crearCartaPadrino());
+        ciudadano1.asignarCarta(rolFactory.crearCartaCiudadano());
+        ciudadano2.asignarCarta(rolFactory.crearCartaCiudadano());
 
         mafioso.registrarCompaneros(List.of(padrino));
         padrino.registrarCompaneros(List.of(mafioso));
@@ -114,13 +114,14 @@ public class FaseNocturnaTest {
         Jugador ciudadano1 = new Jugador("Ciudadano1");
         Jugador ciudadano2 = new Jugador("Ciudadano2");
         Jugador ciudadano3 = new Jugador("Ciudadano3");
+        RolFactory rolFactory = new RolFactory();
 
-        mafioso1.asignarCarta(new Mafioso());
-        mafioso2.asignarCarta(new Mafioso());
-        padrino.asignarCarta(new Padrino());
-        ciudadano1.asignarCarta(new Ciudadano());
-        ciudadano2.asignarCarta(new Ciudadano());
-        ciudadano3.asignarCarta(new Ciudadano());
+        mafioso1.asignarCarta(rolFactory.crearCartaMafioso());
+        mafioso2.asignarCarta(rolFactory.crearCartaMafioso());
+        padrino.asignarCarta(rolFactory.crearCartaPadrino());
+        ciudadano1.asignarCarta(rolFactory.crearCartaCiudadano());
+        ciudadano2.asignarCarta(rolFactory.crearCartaCiudadano());
+        ciudadano3.asignarCarta(rolFactory.crearCartaCiudadano());
 
         List<Jugador> mafiosos = List.of(mafioso1, mafioso2, padrino);
         for (Jugador mafioso : mafiosos) {
@@ -152,10 +153,11 @@ public class FaseNocturnaTest {
         Jugador mafioso1 = new Jugador("Mafioso1");
         Jugador mafioso2 = new Jugador("Mafioso2");
         Jugador ciudadano = new Jugador("Ciudadano");
+        RolFactory rolFactory = new RolFactory();
 
-        mafioso1.asignarCarta(new Mafioso());
-        mafioso2.asignarCarta(new Mafioso());
-        ciudadano.asignarCarta(new Ciudadano());
+        mafioso1.asignarCarta(rolFactory.crearCartaMafioso());
+        mafioso2.asignarCarta(rolFactory.crearCartaMafioso());
+        ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
 
         mafioso1.registrarCompaneros(List.of(mafioso2));
         mafioso2.registrarCompaneros(List.of(mafioso1));
@@ -182,10 +184,11 @@ public class FaseNocturnaTest {
         Jugador mafioso = new Jugador("Mafioso");
         Jugador medico = new Jugador("Medico");
         Jugador ciudadano = new Jugador("Ciudadano");
+        RolFactory rolFactory = new RolFactory();
 
-        mafioso.asignarCarta(new Mafioso());
-        medico.asignarCarta(new Medico());
-        ciudadano.asignarCarta(new Ciudadano());
+        mafioso.asignarCarta(rolFactory.crearCartaMafioso());
+        medico.asignarCarta(rolFactory.crearCartaMedico());
+        ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
 
         Nocturna fase = new Nocturna();
         RegistroNocturno registro = new RegistroNocturno();
@@ -210,10 +213,11 @@ public class FaseNocturnaTest {
         Jugador medico = new Jugador("Medico");
         Jugador ciudadano = new Jugador("Ciudadano");
         Jugador mafioso = new Jugador("Mafioso");
+        RolFactory rolFactory = new RolFactory();
 
-        medico.asignarCarta(new Medico());
-        ciudadano.asignarCarta(new Ciudadano());
-        mafioso.asignarCarta(new Mafioso());
+        medico.asignarCarta(rolFactory.crearCartaMedico());
+        ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
+        mafioso.asignarCarta(rolFactory.crearCartaMafioso());
 
         Nocturna fase1 = new Nocturna();
         RegistroNocturno registro1 = new RegistroNocturno();
@@ -229,7 +233,8 @@ public class FaseNocturnaTest {
 
         Nocturna fase2 = new Nocturna();
         RegistroNocturno registro2 = new RegistroNocturno();
-        fase2.ejecutar(jugadoresSpy, registro2);
+        assertThrows(ObjetivoInvalidoException.class,()-> fase2.ejecutar(jugadoresSpy, registro2));
+
 
         // Assert
         assertFalse(ciudadano.estaVivo());
@@ -241,10 +246,11 @@ public class FaseNocturnaTest {
         Jugador medico = new Jugador("Medico");
         Jugador ciudadano = new Jugador("Ciudadano");
         Jugador mafioso = new Jugador("Mafioso");
+        RolFactory rolFactory = new RolFactory();
 
-        medico.asignarCarta(new Medico());
-        ciudadano.asignarCarta(new Ciudadano());
-        mafioso.asignarCarta(new Mafioso());
+        medico.asignarCarta(rolFactory.crearCartaMedico());
+        ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
+        mafioso.asignarCarta(rolFactory.crearCartaMafioso());
 
         RegistroNocturno registro = new RegistroNocturno();
         Nocturna fase = new Nocturna();
@@ -267,10 +273,11 @@ public class FaseNocturnaTest {
         Jugador detective = new Jugador("Detective");
         Jugador mafioso = new Jugador("Mafioso");
         Jugador ciudadano = new Jugador("Ciudadano");
+        RolFactory rolFactory = new RolFactory();
 
-        detective.asignarCarta(new Detective());
-        mafioso.asignarCarta(new Mafioso());
-        ciudadano.asignarCarta(new Ciudadano());
+        detective.asignarCarta(rolFactory.crearCartaDetective());
+        mafioso.asignarCarta(rolFactory.crearCartaMafioso());
+        ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
 
         RegistroNocturno registro = new RegistroNocturno();
         Nocturna fase = new Nocturna();
@@ -290,9 +297,10 @@ public class FaseNocturnaTest {
         // Arrange
         Jugador detective = new Jugador("Detective");
         Jugador padrino = new Jugador("Padrino");
+        RolFactory rolFactory = new RolFactory();
 
-        detective.asignarCarta(new Detective());
-        padrino.asignarCarta(new Padrino());
+        detective.asignarCarta(rolFactory.crearCartaDetective());
+        padrino.asignarCarta(rolFactory.crearCartaPadrino());
 
         RegistroNocturno registro = new RegistroNocturno();
         Nocturna fase = new Nocturna();
@@ -316,9 +324,10 @@ public class FaseNocturnaTest {
         // Arrange
         Jugador detective = new Jugador("Detective");
         Jugador sospechoso = new Jugador("Sospechoso");
+        RolFactory rolFactory = new RolFactory();
 
-        detective.asignarCarta(new Detective());
-        sospechoso.asignarCarta(new Ciudadano());
+        detective.asignarCarta(rolFactory.crearCartaDetective());
+        sospechoso.asignarCarta(rolFactory.crearCartaCiudadano());
 
         Nocturna fase1 = new Nocturna();
         RegistroNocturno registro1 = new RegistroNocturno();

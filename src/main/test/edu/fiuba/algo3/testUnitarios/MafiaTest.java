@@ -4,9 +4,7 @@ import edu.fiuba.algo3.modelo.Excepciones.ObjetivoInvalidoException;
 import edu.fiuba.algo3.modelo.Fases.Nocturna;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.RegistroNocturno;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Ciudadano;
-import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Medico;
-import edu.fiuba.algo3.modelo.Roles.Mafiosos.Mafioso;
+import edu.fiuba.algo3.modelo.Roles.RolFactory;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -22,8 +20,10 @@ public class MafiaTest {
         Jugador ciudadano = new Jugador("J1");
         Jugador mafioso = new Jugador("J2");
         RegistroNocturno registroActual = new RegistroNocturno();
-        ciudadano.asignarCarta(new Ciudadano());
-        mafioso.asignarCarta(new Mafioso());
+        RolFactory rolFactory = new RolFactory();
+
+        ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
+        mafioso.asignarCarta(rolFactory.crearCartaMafioso());
 
 //        (mafioso.usarHabilidad(ciudadano)).resolver(registroActual);
 
@@ -41,9 +41,10 @@ public class MafiaTest {
 
         Jugador ciudadano = new Jugador("J1");
         Jugador mafioso = new Jugador("J2");
+        RolFactory rolFactory = new RolFactory();
 
-        ciudadano.asignarCarta(new Ciudadano());
-        mafioso.asignarCarta(new Mafioso());
+        ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
+        mafioso.asignarCarta(rolFactory.crearCartaMafioso());
 
         ciudadano.eliminar();
 
@@ -55,9 +56,10 @@ public class MafiaTest {
     {
         Jugador mafioso1 = new Jugador("J1");
         Jugador mafioso2 = new Jugador("J2");
+        RolFactory rolFactory = new RolFactory();
 
-        mafioso1.asignarCarta(new Mafioso());
-        mafioso2.asignarCarta(new Mafioso());
+        mafioso1.asignarCarta(rolFactory.crearCartaMafioso());
+        mafioso2.asignarCarta(rolFactory.crearCartaMafioso());
 
         assertThrows(ObjetivoInvalidoException.class, () -> mafioso1.usarHabilidad(mafioso2));
     }
@@ -66,14 +68,16 @@ public class MafiaTest {
     public void test04MafiosoNoPuedeEliminarACiudadanoProtegido()
     {
         //Arrange
+        RolFactory rolFactory = new RolFactory();
+
         Jugador mafioso = new Jugador("mafioso");
-        mafioso.asignarCarta(new Mafioso());
+        mafioso.asignarCarta(rolFactory.crearCartaMafioso());
 
         Jugador medico = new Jugador("medico");
-        medico.asignarCarta(new Medico());
+        medico.asignarCarta(rolFactory.crearCartaMedico());
 
         Jugador ciudadano = new Jugador("ciudadano");
-        ciudadano.asignarCarta(new Ciudadano());
+        ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
 
         RegistroNocturno registroActual = new RegistroNocturno();
 
