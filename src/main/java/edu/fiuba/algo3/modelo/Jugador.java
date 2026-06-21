@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.AccionNocturna.AccionNocturna;
+import edu.fiuba.algo3.modelo.Excepciones.JugadorSinCartaException;
 import edu.fiuba.algo3.modelo.Excepciones.ObjetivoInvalidoException;
 import edu.fiuba.algo3.modelo.Excepciones.RolNoVisibleException;
 import edu.fiuba.algo3.modelo.Roles.CartaRol;
@@ -48,13 +49,16 @@ public class Jugador {
     }
 
     public AccionNocturna usarHabilidad(Jugador objetivo) {
-       if(!this.estaVivo())
-           throw new ObjetivoInvalidoException();
+        if (this.carta == null)
+            throw new JugadorSinCartaException();
+        if (!this.estaVivo())
+            throw new ObjetivoInvalidoException();
         return this.carta.generarAccionNocturna(this, objetivo);
     }
 
-    public boolean esMafia()
-    {
+    public boolean esMafia() {
+        if (this.carta == null)
+            throw new JugadorSinCartaException();
         return this.carta.esMafia();
     }
 
@@ -70,10 +74,15 @@ public class Jugador {
 
     public void asignarCarta(CartaRol carta) { this.carta = carta; }
 
-    public CartaRol obtenerCarta() { return this.carta; }
+    public CartaRol obtenerCarta() {
+        if (this.carta == null)
+            throw new JugadorSinCartaException();
+        return this.carta;
+    }
 
-    public String verRol()
-    {
+    public String verRol() {
+        if (this.carta == null)
+            throw new JugadorSinCartaException();
         return this.carta.getRol();
     }
 

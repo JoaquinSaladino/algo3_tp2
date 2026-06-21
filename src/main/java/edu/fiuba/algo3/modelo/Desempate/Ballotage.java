@@ -9,6 +9,9 @@ public class Ballotage implements MecanismoDesempate {
     @Override
     public Jugador resolver(List<Jugador> empatados) {
 
-        return empatados.get(0);
+        if (empatados.size() == 1)
+            return empatados.get(0);
+
+        return null;
     }
 }
