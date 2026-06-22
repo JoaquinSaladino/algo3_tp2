@@ -49,8 +49,9 @@ public class MazoTest {
 
     @Test
     public void test02RepartirEnMazoVacioLanzaExcepcion() {
+        //Arrange
         Mazo mazo = new Mazo(new ArrayList<>());
-
+        //Act & Assert
         assertThrows(MazoVacioException.class, () -> mazo.repartir());
     }
 }

@@ -39,6 +39,10 @@ public class Turno {
         }
     }
 
+    public String getProximoJugador() {
+        return "";
+    }
+
 //REVISAR (No se usa)
 //    public boolean estaTerminado() {return false;}
 }

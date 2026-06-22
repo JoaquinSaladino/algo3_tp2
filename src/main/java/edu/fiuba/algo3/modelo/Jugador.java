@@ -20,6 +20,8 @@ public class Jugador {
 
     private List<Jugador> companeros;
 
+    private Jugador objetivoElegido;
+
     public Jugador(String nombre)
     {
         this.nombre = nombre;
@@ -27,6 +29,8 @@ public class Jugador {
         this.protegido = false;
         this.companeros = new ArrayList<>();
     }
+
+    public String obtenerNombre() { return nombre; }
 
     public boolean esMismoNombre(String nombre){
         return Objects.equals(this.nombre, nombre);
@@ -98,7 +102,11 @@ public class Jugador {
 
     public boolean estaProtegido() { return protegido; }
 
+    public void seleccionarObjetivo(Jugador objetivo){
+        this.objetivoElegido = objetivo;
+    }
+
     public Jugador obtenerObjetivoElegido(){
-        return null;
+        return this.objetivoElegido;
     }
 }
