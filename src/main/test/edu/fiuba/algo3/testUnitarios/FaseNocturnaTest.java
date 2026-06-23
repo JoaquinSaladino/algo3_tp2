@@ -28,11 +28,11 @@ public class FaseNocturnaTest {
         RegistroNocturno registro = new RegistroNocturno();
 
         Jugador mafiosoSpy = Mockito.spy(mafioso);
-        Mockito.when(mafiosoSpy.obtenerObjetivoElegido()).thenReturn(victima);
         List<Jugador> jugadores = List.of(mafiosoSpy, victima);
 
         // Act
-        assertTrue(victima.estaVivo());
+        fase.iniciar(jugadores);
+        fase.seleccionarObjetivo(victima);
         fase.ejecutar(jugadores, registro);
 
         // Assert
@@ -61,8 +61,6 @@ public class FaseNocturnaTest {
         // Act: empate sin resolver
         Jugador mafioso1Spy = Mockito.spy(mafioso1);
         Jugador mafioso2Spy = Mockito.spy(mafioso2);
-        Mockito.when(mafioso1Spy.obtenerObjetivoElegido()).thenReturn(ciudadano1);
-        Mockito.when(mafioso2Spy.obtenerObjetivoElegido()).thenReturn(ciudadano2);
         List<Jugador> jugadores = List.of(mafioso1Spy, mafioso2Spy, ciudadano1, ciudadano2);
         fase.ejecutar(jugadores, registro);
 
@@ -94,10 +92,12 @@ public class FaseNocturnaTest {
         // Act
         Jugador mafiosoSpy = Mockito.spy(mafioso);
         Jugador padrinoSpy = Mockito.spy(padrino);
-        Mockito.when(mafiosoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano1);
-        Mockito.when(padrinoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano2);
         List<Jugador> jugadores = List.of(mafiosoSpy, padrinoSpy, ciudadano1, ciudadano2);
 
+        fase.iniciar(jugadores);
+        fase.seleccionarObjetivo(ciudadano1);
+        fase.avanzarJugador();
+        fase.seleccionarObjetivo(ciudadano2);
         fase.ejecutar(jugadores, registro);
 
         // Assert
@@ -136,10 +136,14 @@ public class FaseNocturnaTest {
         Jugador mafioso1Spy = Mockito.spy(mafioso1);
         Jugador mafioso2Spy = Mockito.spy(mafioso2);
         Jugador padrinoSpy = Mockito.spy(padrino);
-        Mockito.when(mafioso1Spy.obtenerObjetivoElegido()).thenReturn(ciudadano1);
-        Mockito.when(mafioso2Spy.obtenerObjetivoElegido()).thenReturn(ciudadano1);
-        Mockito.when(padrinoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano2);
         List<Jugador> jugadoresSpy = List.of(mafioso1Spy, mafioso2Spy, padrinoSpy, ciudadano1, ciudadano2, ciudadano3);
+
+        fase.iniciar(jugadoresSpy);
+        fase.seleccionarObjetivo(ciudadano1);
+        fase.avanzarJugador();
+        fase.seleccionarObjetivo(ciudadano1);
+        fase.avanzarJugador();
+        fase.seleccionarObjetivo(ciudadano2);
         fase.ejecutar(jugadoresSpy, registro);
 
         // Assert
@@ -172,6 +176,10 @@ public class FaseNocturnaTest {
         List<Jugador> jugadores = List.of(mafioso1Spy, mafioso2Spy, ciudadano);
 
         // Act
+        fase.iniciar(jugadores);
+        fase.seleccionarObjetivo(ciudadano);
+        fase.avanzarJugador();
+        fase.seleccionarObjetivo(ciudadano);
         fase.ejecutar(jugadores, registro);
 
         // Assert
@@ -227,12 +235,21 @@ public class FaseNocturnaTest {
         Jugador medicoSpy = Mockito.spy(medico);
         Mockito.when(medicoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano);
         List<Jugador> jugadoresSpy = List.of(medicoSpy, ciudadano, mafiosoSpy);
+
+        fase1.iniciar(jugadoresSpy);
+        fase1.seleccionarObjetivo(ciudadano);
         fase1.ejecutar(jugadoresSpy, registro1);
 
         assertTrue(ciudadano.estaVivo());
 
         Nocturna fase2 = new Nocturna();
         RegistroNocturno registro2 = new RegistroNocturno();
+        fase2.iniciar(jugadoresSpy);
+        fase2.seleccionarObjetivo(ciudadano);
+        fase2.avanzarJugador();
+        fase2.avanzarJugador();
+        fase2.seleccionarObjetivo(ciudadano);
+        fase2.ejecutar(jugadoresSpy, registro2);
 
         assertThrows(ObjetivoInvalidoException.class,()-> fase2.ejecutar(jugadoresSpy, registro2));
     }
@@ -259,6 +276,11 @@ public class FaseNocturnaTest {
         Mockito.when(medicoSpy.estaVivo()).thenReturn(false);
         List<Jugador> jugadoresSpy = List.of(medicoSpy, ciudadano, mafiosoSpy);
         // Act
+        fase.iniciar(jugadoresSpy);
+
+        fase.avanzarJugador();
+        fase.seleccionarObjetivo(ciudadano);
+
         fase.ejecutar(jugadoresSpy, registro);
         // Assert
         assertFalse(ciudadano.estaVivo());
