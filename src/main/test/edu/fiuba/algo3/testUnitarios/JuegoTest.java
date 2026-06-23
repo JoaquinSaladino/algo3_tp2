@@ -97,6 +97,40 @@ public class JuegoTest {
         String resumen = juego.obtenerResultadoFase();
         System.out.println(resumen);
         assertTrue(juego.avanzarFase());
+    }
+
+    @Test public void testDeIntegracionSimulandoLaFaseDiurnaDe5jugadores(){
+        // Arrange: Configuramos el juego con 5 jugadores
+        Juego juego = new Juego();
+        RolFactory rolFactory = new RolFactory();
+        Jugador jugador1 = new Jugador("Pepe");
+        jugador1.asignarCarta(rolFactory.crearCartaCiudadano());
+
+        Jugador jugador2 = new Jugador("Carlos");
+        jugador2.asignarCarta(rolFactory.crearCartaMafioso());
+
+        Jugador jugador3 = new Jugador("Leo");
+        jugador3.asignarCarta(rolFactory.crearCartaCiudadano());
+
+        Jugador jugador4 = new Jugador("Manfred");
+        jugador4.asignarCarta(rolFactory.crearCartaMedico());
+
+        Jugador jugador5 = new Jugador("Ricardo");
+        jugador5.asignarCarta(rolFactory.crearCartaCiudadano());
+
+        juego.setJugadores(List.of(jugador1,jugador2,jugador3,jugador4,jugador5));
+        juego.iniciarPartida();
+
+        juego.ejecutarFaseActual();
+        System.out.println(juego.obtenerResultadoFase());
+        juego.avanzarFase();
+
+        //Jugador 1
+        String jugadorActual1 = juego.getJugadorActual();
+        assertEquals("Pepe", jugadorActual1);
+
+        List<String> objetivosJugador1 = juego.obtenerObjetivos();
+        assertFalse(objetivosJugador1.isEmpty());
 
     }
 

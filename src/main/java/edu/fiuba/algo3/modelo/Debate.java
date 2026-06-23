@@ -20,7 +20,7 @@ public class Debate {
         }
     }
 
-    public void nominar(Jugador nominador, Jugador nominado) {
+    public void nominar( Jugador nominado) {
 
         if (!nominado.estaVivo())
             throw new ObjetivoInvalidoException();
@@ -29,6 +29,15 @@ public class Debate {
             nominados.add(nominado);
     }
 
+    public List<String> obtenerObjetivosValidos (Jugador jugadorActual , List<Jugador> jugadores){
+        List<String> jugadoresValidos = new ArrayList<>();
+        for (Jugador jugador : jugadores) {
+            if(jugador!=jugadorActual && jugador.estaVivo()) {
+                jugadoresValidos.add(jugador.getNombre());
+            }
+        }
+        return jugadoresValidos;
+    }
     public List<Jugador> getNominados() {
         return nominados;
     }

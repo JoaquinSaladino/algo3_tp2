@@ -57,6 +57,16 @@ public class Votacion {
         return desempate.resolver(empatados);
     }
 
+    public List<String> obtenerObjetivosValidos(){
+        List<String> jugadoresValidos = new ArrayList<>();
+        for (Jugador jugador : nominados) {
+            if(jugador.estaVivo()) {
+                jugadoresValidos.add(jugador.getNombre());
+            }
+        }
+        return jugadoresValidos;
+    }
+
     public boolean hayEmpate() {
 
         int maximo = votos.values()
