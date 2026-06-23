@@ -34,9 +34,9 @@ public class Nocturna implements Fase {
             AccionNocturna accionEliminar = new AEliminar(null, victimaDeLaMafia);
             accionEliminar.resolver(registro);
             if(victimaDeLaMafia.estaVivo()){
-                resumenFinal = "El Jugador" + victimaDeLaMafia.getNombre() + "fue atacado , pero estaba protegido";
+                resumenFinal = "El Jugador " + victimaDeLaMafia.getNombre() + " fue atacado , pero estaba protegido";
             }else{
-                resumenFinal = "El Jugador" + victimaDeLaMafia.getNombre() + "ha muerto";
+                resumenFinal = "El Jugador " + victimaDeLaMafia.getNombre() + " ha muerto";
             }
             victimaDeLaMafia.desproteger();
         }else{

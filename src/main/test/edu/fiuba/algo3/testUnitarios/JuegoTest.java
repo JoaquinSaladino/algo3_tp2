@@ -2,6 +2,7 @@ package edu.fiuba.algo3.testUnitarios;
 
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Roles.RolFactory;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -29,47 +30,74 @@ public class JuegoTest {
     }
 
     @Test
-    public void testDeIntegracion() {
+    public void testDeIntegracionSimulandoLaFaseNocturnaDe5Jugadores() {
         // Arrange: Configuramos el juego con 5 jugadores
         Juego juego = new Juego();
-        List<String> nombres = List.of("jugador1", "jugador2", "jugador3", "jugador4", "jugador5");
+        RolFactory rolFactory = new RolFactory();
+        Jugador jugador1 = new Jugador("Pepe");
+        jugador1.asignarCarta(rolFactory.crearCartaCiudadano());
 
-        juego.configurarPartida(nombres);
+        Jugador jugador2 = new Jugador("Carlos");
+        jugador2.asignarCarta(rolFactory.crearCartaMafioso());
+
+        Jugador jugador3 = new Jugador("Leo");
+        jugador3.asignarCarta(rolFactory.crearCartaCiudadano());
+
+        Jugador jugador4 = new Jugador("Manfred");
+        jugador4.asignarCarta(rolFactory.crearCartaMedico());
+
+        Jugador jugador5 = new Jugador("Ricardo");
+        jugador5.asignarCarta(rolFactory.crearCartaCiudadano());
+
+        juego.setJugadores(List.of(jugador1,jugador2,jugador3,jugador4,jugador5));
         juego.iniciarPartida();
 
         // Act & Assert
-        // 1. Verificamos que el turno inicie con el primer jugador
+        // Jugador 1 CIUDADANO
         String jugadorActual = juego.getJugadorActual();
-        assertEquals("jugador1", jugadorActual);
-
-        // 2. Obtenemos el rol (esto valida que se haya repartido correctamente)
+        assertEquals("Pepe", jugadorActual);
         String rol = juego.getRolJugadorActual(jugadorActual);
         assertNotNull(rol);
-
-        // 3. Obtenemos objetivos nocturnos (la lógica del modelo filtrará según el rol automáticamente)
-        List<String> objetivos = juego.obtenerObjetivos();
-
-        // 4. Seleccionamos un objetivo (si el jugador puede hacerlo)
-        // Nota: Como no sabemos si el rol tiene habilidad nocturna o si es válido,
-        // controlamos el flujo con la lista obtenida
-        if (!objetivos.isEmpty()) {
-            String objetivoElegido = objetivos.get(0);
-            boolean resultado = juego.seleccionarObjetivo( objetivoElegido);
-
-            // Verificamos que la acción fue registrada
-            assertTrue(resultado);
-        }
-        juego.avanzarJugadorActual();
+        List<String> objetivosJugador1 = juego.obtenerObjetivos();
+        assertTrue(objetivosJugador1.isEmpty());
+        // Jugador2 MAFIOSO
+        assertTrue (juego.avanzarJugadorActual());
         String jugadorActual2 = juego.getJugadorActual();
         assertNotSame(jugadorActual2, jugadorActual);
-        assertEquals("jugador2", jugadorActual2);
-        // 5. Avanzamos fase para comprobar la integración del Turno
-        juego.ejecutarFaseActual();
-        juego.avanzarFase();
+        assertEquals("Carlos", jugadorActual2);
+        List<String> objetivosJugador2 = juego.obtenerObjetivos();
+        assertFalse(objetivosJugador2.isEmpty());
+        assertTrue(juego.seleccionarObjetivo(objetivosJugador2.get(0)));
+        // Jugador3 CIUDADANO
+        assertTrue (juego.avanzarJugadorActual());
+        String jugadorActual3 = juego.getJugadorActual();
+        assertNotSame(jugadorActual3, jugadorActual2);
+        assertEquals("Leo", jugadorActual3);
+        List<String> objetivosJugador3 = juego.obtenerObjetivos();
+        assertTrue(objetivosJugador3.isEmpty());
+        // Jugador4 MÉDICO
+        assertTrue (juego.avanzarJugadorActual());
+        String jugadorActual4 = juego.getJugadorActual();
+        assertNotSame(jugadorActual4, jugadorActual3);
+        assertEquals("Manfred", jugadorActual4);
+        List<String> objetivosJugador4 = juego.obtenerObjetivos();
+        assertFalse(objetivosJugador4.isEmpty());
+        assertTrue(juego.seleccionarObjetivo(objetivosJugador4.get(0)));
 
-        // Si el juego terminara por alguna condición inicial (poco probable pero posible en TDD),
-        // podríamos verificarlo aquí:
-        // assertFalse(juego.juegoTerminado());
+        //Jugador5 CIUDADANO
+        assertTrue (juego.avanzarJugadorActual());
+        String jugadorActual5 = juego.getJugadorActual();
+        assertNotSame(jugadorActual5, jugadorActual2);
+        assertEquals("Ricardo", jugadorActual5);
+        List<String> objetivosJugador5 = juego.obtenerObjetivos();
+        assertTrue(objetivosJugador5.isEmpty());
+        // Fin fase nocturna se obtiene Resumen de que paso a la noche.
+        assertFalse(juego.avanzarJugadorActual());
+        juego.ejecutarFaseActual();
+        String resumen = juego.obtenerResultadoFase();
+        System.out.println(resumen);
+        assertTrue(juego.avanzarFase());
+
     }
 
 }

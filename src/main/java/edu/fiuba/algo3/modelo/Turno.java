@@ -39,6 +39,7 @@ public class Turno {
         if (this.faseActual == this.nocturna) {
             this.faseActual = this.diurna;
             this.faseActual.iniciar(jugadores);
+            return true;
         } else {
             this.faseActual = this.nocturna;
         }
