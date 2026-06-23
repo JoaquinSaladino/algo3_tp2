@@ -230,28 +230,16 @@ public class FaseNocturnaTest {
         Nocturna fase1 = new Nocturna();
         RegistroNocturno registro1 = new RegistroNocturno();
 
-        Jugador mafiosoSpy = Mockito.spy(mafioso);
-        Mockito.when(mafiosoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano);
-        Jugador medicoSpy = Mockito.spy(medico);
-        Mockito.when(medicoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano);
-        List<Jugador> jugadoresSpy = List.of(medicoSpy, ciudadano, mafiosoSpy);
+        List<Jugador> jugadores = List.of(medico, ciudadano, mafioso);
 
-        fase1.iniciar(jugadoresSpy);
-        fase1.seleccionarObjetivo(ciudadano);
-        fase1.ejecutar(jugadoresSpy, registro1);
-
+        fase1.iniciar(jugadores);
+        assertTrue(fase1.seleccionarObjetivo(ciudadano));
+        fase1.ejecutar(jugadores, registro1);
         assertTrue(ciudadano.estaVivo());
 
         Nocturna fase2 = new Nocturna();
-        RegistroNocturno registro2 = new RegistroNocturno();
-        fase2.iniciar(jugadoresSpy);
-        fase2.seleccionarObjetivo(ciudadano);
-        fase2.avanzarJugador();
-        fase2.avanzarJugador();
-        fase2.seleccionarObjetivo(ciudadano);
-        fase2.ejecutar(jugadoresSpy, registro2);
-
-        assertThrows(ObjetivoInvalidoException.class,()-> fase2.ejecutar(jugadoresSpy, registro2));
+        fase2.iniciar(jugadores);
+        assertFalse(fase2.seleccionarObjetivo(ciudadano));
     }
 
     @Test
@@ -302,13 +290,12 @@ public class FaseNocturnaTest {
         Nocturna fase = new Nocturna();
 
         // Act
-        Jugador detectiveSpy = Mockito.spy(detective);
-        Mockito.when(detectiveSpy.obtenerObjetivoElegido()).thenReturn(mafioso);
-        List<Jugador> jugadores = List.of(detectiveSpy, mafioso, ciudadano);
+        List<Jugador> jugadores = List.of(detective, mafioso, ciudadano);
+        fase.iniciar(jugadores);
+        fase.seleccionarObjetivo(mafioso);
         fase.ejecutar(jugadores, registro);
-
         // Assert
-        assertEquals("Mafia", registro.obtenerResultadoInvestigacion(detectiveSpy));
+        assertEquals("Mafia", registro.obtenerResultadoInvestigacion(detective));
     }
 
     @Test
@@ -325,13 +312,13 @@ public class FaseNocturnaTest {
         Nocturna fase = new Nocturna();
 
         // Act
-        Jugador detectiveSpy = Mockito.spy(detective);
-        Mockito.when(detectiveSpy.obtenerObjetivoElegido()).thenReturn(padrino);
-        List<Jugador> jugadores = List.of(detectiveSpy, padrino);
+        List<Jugador> jugadores = List.of(detective, padrino);
+        fase.iniciar(jugadores);
+        fase.seleccionarObjetivo(padrino);
         fase.ejecutar(jugadores, registro);
 
         // Assert
-        assertEquals("Ciudadano", registro.obtenerResultadoInvestigacion(detectiveSpy));
+        assertEquals("Ciudadano", registro.obtenerResultadoInvestigacion(detective));
     }
 
 
@@ -350,24 +337,22 @@ public class FaseNocturnaTest {
 
         Nocturna fase1 = new Nocturna();
         RegistroNocturno registro1 = new RegistroNocturno();
+        List<Jugador> jugadores = List.of(detective, sospechoso);
 
         // Act: Primera noche, detective investiga
-        Jugador detectiveSpy = Mockito.spy(detective);
-        Mockito.when(detectiveSpy.obtenerObjetivoElegido()).thenReturn(sospechoso);
-        List<Jugador> jugadoresSpy = List.of(detectiveSpy, sospechoso);
-        fase1.ejecutar(jugadoresSpy, registro1);
+
+        fase1.iniciar(jugadores);
+        assertTrue(fase1.seleccionarObjetivo(sospechoso));
+        fase1.ejecutar(jugadores, registro1);
 
         // Assert
-        assertNotNull(registro1.obtenerResultadoInvestigacion(detectiveSpy));
+        assertNotNull(registro1.obtenerResultadoInvestigacion(detective));
 
         // Segunda noche: detective intenta investigar de nuevo, la fase lanzará la excepción
         Nocturna fase2 = new Nocturna();
         RegistroNocturno registro2 = new RegistroNocturno();
-        Mockito.when(detectiveSpy.obtenerObjetivoElegido()).thenReturn(sospechoso);
-        assertThrows(
-                edu.fiuba.algo3.modelo.Excepciones.ObjetivoInvalidoException.class,
-                () -> fase2.ejecutar(jugadoresSpy, registro2)
-        );
+        fase2.iniciar(jugadores);
+        assertFalse(fase2.seleccionarObjetivo(sospechoso));
     }
 
 }
