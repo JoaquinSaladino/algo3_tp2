@@ -26,13 +26,13 @@ public class MafiaTest {
         ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
         mafioso.asignarCarta(rolFactory.crearCartaMafioso());
 
-//        (mafioso.usarHabilidad(ciudadano)).resolver(registroActual);
-        //Act
-        Jugador mafiosoSpy = Mockito.spy(mafioso);
-        Mockito.when(mafiosoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano);
-
         Nocturna fase = new Nocturna();
-        fase.ejecutar(List.of(mafiosoSpy, ciudadano), registroActual);
+        List<Jugador> jugadores = List.of(mafioso, ciudadano);
+
+        //Act
+        fase.iniciar(jugadores);
+        fase.seleccionarObjetivo(ciudadano);
+        fase.ejecutar(jugadores, registroActual);
         //Assert
         assertFalse(ciudadano.estaVivo());
     }
@@ -48,9 +48,21 @@ public class MafiaTest {
         ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
         mafioso.asignarCarta(rolFactory.crearCartaMafioso());
         //Act
-        ciudadano.eliminar();
-        //Assert
-        assertThrows(ObjetivoInvalidoException.class, () -> mafioso.usarHabilidad(ciudadano));
+        Nocturna fase1 = new Nocturna();
+        RegistroNocturno registro1 = new RegistroNocturno();
+        List<Jugador> jugadores = List.of(mafioso, ciudadano);
+
+        //Act
+        fase1.iniciar(jugadores);
+        fase1.seleccionarObjetivo(ciudadano);
+        fase1.ejecutar(jugadores, registro1);
+        assertFalse(ciudadano.estaVivo());
+
+        Nocturna fase2 = new Nocturna();
+        RegistroNocturno registro2 = new RegistroNocturno();
+
+        fase2.iniciar(jugadores);
+        assertFalse(fase2.seleccionarObjetivo(ciudadano));
     }
 
     @Test
@@ -64,7 +76,17 @@ public class MafiaTest {
         mafioso1.asignarCarta(rolFactory.crearCartaMafioso());
         mafioso2.asignarCarta(rolFactory.crearCartaMafioso());
         //Act & Assert
-        assertThrows(ObjetivoInvalidoException.class, () -> mafioso1.usarHabilidad(mafioso2));
+
+        Nocturna fase = new Nocturna();
+        RegistroNocturno registroActual = new RegistroNocturno();
+        List<Jugador> jugadores = List.of(mafioso1, mafioso2);
+
+        //Act
+        fase.iniciar(jugadores);
+        fase.seleccionarObjetivo(mafioso2);
+        fase.ejecutar(jugadores, registroActual);
+        //Assert
+        assertTrue(mafioso2.estaVivo());
     }
 
     @Test
@@ -82,14 +104,17 @@ public class MafiaTest {
         Jugador ciudadano = new Jugador("ciudadano");
         ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
 
+        Nocturna fase = new Nocturna();
         RegistroNocturno registroActual = new RegistroNocturno();
+        List<Jugador> jugadores = List.of(medico, mafioso, ciudadano);
 
         //Act
-        medico.usarHabilidad(ciudadano).resolver(registroActual);
-        mafioso.usarHabilidad(ciudadano).resolver(registroActual);
-
+        fase.iniciar(jugadores);
+        fase.seleccionarObjetivo(ciudadano);
+        fase.avanzarJugador();
+        fase.seleccionarObjetivo(ciudadano);
+        fase.ejecutar(jugadores, registroActual);
         //Assert
         assertTrue(ciudadano.estaVivo());
-
     }
 }
