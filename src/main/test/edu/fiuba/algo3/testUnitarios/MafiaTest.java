@@ -17,6 +17,7 @@ public class MafiaTest {
     @Test
     public void test01MafiosoPuedeEliminarACiudadanoVivo()
     {
+        //Arrange
         Jugador ciudadano = new Jugador("J1");
         Jugador mafioso = new Jugador("J2");
         RegistroNocturno registroActual = new RegistroNocturno();
@@ -26,41 +27,43 @@ public class MafiaTest {
         mafioso.asignarCarta(rolFactory.crearCartaMafioso());
 
 //        (mafioso.usarHabilidad(ciudadano)).resolver(registroActual);
-
+        //Act
         Jugador mafiosoSpy = Mockito.spy(mafioso);
         Mockito.when(mafiosoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano);
 
         Nocturna fase = new Nocturna();
         fase.ejecutar(List.of(mafiosoSpy, ciudadano), registroActual);
+        //Assert
         assertFalse(ciudadano.estaVivo());
     }
 
     @Test
     public void test02MafiosoNoPuedeEliminarACiudadanoMuerto()
     {
-
+        //Arrange
         Jugador ciudadano = new Jugador("J1");
         Jugador mafioso = new Jugador("J2");
         RolFactory rolFactory = new RolFactory();
 
         ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
         mafioso.asignarCarta(rolFactory.crearCartaMafioso());
-
+        //Act
         ciudadano.eliminar();
-
+        //Assert
         assertThrows(ObjetivoInvalidoException.class, () -> mafioso.usarHabilidad(ciudadano));
     }
 
     @Test
     public void test03MafiosoNoPuedeEliminarAMafioso()
     {
+        //Arrange
         Jugador mafioso1 = new Jugador("J1");
         Jugador mafioso2 = new Jugador("J2");
         RolFactory rolFactory = new RolFactory();
 
         mafioso1.asignarCarta(rolFactory.crearCartaMafioso());
         mafioso2.asignarCarta(rolFactory.crearCartaMafioso());
-
+        //Act & Assert
         assertThrows(ObjetivoInvalidoException.class, () -> mafioso1.usarHabilidad(mafioso2));
     }
 

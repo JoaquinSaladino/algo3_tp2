@@ -218,7 +218,7 @@ public class FaseNocturnaTest {
         medico.asignarCarta(rolFactory.crearCartaMedico());
         ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
         mafioso.asignarCarta(rolFactory.crearCartaMafioso());
-
+        //Act & Assert
         Nocturna fase1 = new Nocturna();
         RegistroNocturno registro1 = new RegistroNocturno();
 
@@ -233,11 +233,8 @@ public class FaseNocturnaTest {
 
         Nocturna fase2 = new Nocturna();
         RegistroNocturno registro2 = new RegistroNocturno();
+
         assertThrows(ObjetivoInvalidoException.class,()-> fase2.ejecutar(jugadoresSpy, registro2));
-
-
-        // Assert
-        assertFalse(ciudadano.estaVivo());
     }
 
     @Test

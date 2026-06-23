@@ -62,5 +62,10 @@ public class Turno {
         return faseActual.obtenerResumenFase();
     }
 
+    public String getProximoJugador() {
+        return "";
+    }
 
+//REVISAR (No se usa)
+//    public boolean estaTerminado() {return false;}
 }

@@ -11,9 +11,11 @@ public class Juego {
     private List<Jugador> jugadores;
     private Turno turnoActual;
     private Mazo mazo;
+    private Debate debate;
 
     public Juego() {
         this.turnoActual = new Turno();
+        this.debate = new Debate();
     }
 
     public void configurarPartida(List<String> nombresJugadores){
@@ -27,6 +29,7 @@ public class Juego {
         this.jugadores = new ArrayList<>();
         nombresJugadores.forEach( nombreJugador -> jugadores.add( crearJugador(nombreJugador) ));
     }
+
     private Jugador crearJugador(String nombre){
         CartaRol carta= mazo.repartir();
         Jugador instanciaJugador = new Jugador(nombre);
@@ -120,5 +123,9 @@ public class Juego {
 
     public boolean juegoTerminado() {
         return mafiaGano() || ciudadanosGanaron();
+    }
+
+    public void setJugadores(List<Jugador> jugadores){
+        this.jugadores = jugadores;
     }
 }

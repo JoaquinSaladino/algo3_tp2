@@ -30,6 +30,8 @@ public class Jugador {
     public String getNombre(){
         return nombre;
     }
+    public String obtenerNombre() { return nombre; }
+
     public boolean esMismoNombre(String nombre){
         return Objects.equals(this.nombre, nombre);
     }

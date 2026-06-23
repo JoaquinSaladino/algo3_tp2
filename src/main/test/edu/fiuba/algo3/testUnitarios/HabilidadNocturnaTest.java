@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class HabilidadNocturnaTest {
     @Test
     public void test01LaHabilidadProtegerNoPermiteUsarlaDosVecesEnElMismoObjetivo(){
-        //Arrenge
+        //Arrange
         HabilidadNocturna proteger = new Proteger();
         Jugador jugadorAutor = Mockito.mock(Jugador.class);
         Jugador jugadorObjetivo = Mockito.mock(Jugador.class);
@@ -29,7 +29,7 @@ public class HabilidadNocturnaTest {
 
     @Test
     public void test02LaHabilidadInvestigarNoPermiteUsarlaDosVecesEnElMismoObjetivo(){
-        //Arrenge
+        //Arrange
         HabilidadNocturna investigar = new Investigar();
         Jugador jugadorAutor = Mockito.mock(Jugador.class);
         Jugador jugadorObjetivo = Mockito.mock(Jugador.class);
