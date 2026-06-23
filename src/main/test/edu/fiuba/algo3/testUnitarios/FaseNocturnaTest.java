@@ -28,11 +28,11 @@ public class FaseNocturnaTest {
         RegistroNocturno registro = new RegistroNocturno();
 
         Jugador mafiosoSpy = Mockito.spy(mafioso);
-        Mockito.when(mafiosoSpy.obtenerObjetivoElegido()).thenReturn(victima);
         List<Jugador> jugadores = List.of(mafiosoSpy, victima);
 
         // Act
-        assertTrue(victima.estaVivo());
+        fase.iniciar(jugadores);
+        fase.seleccionarObjetivo(victima);
         fase.ejecutar(jugadores, registro);
 
         // Assert
@@ -59,11 +59,11 @@ public class FaseNocturnaTest {
         Nocturna fase = new Nocturna();
 
         // Act: empate sin resolver
-        Jugador mafioso1Spy = Mockito.spy(mafioso1);
-        Jugador mafioso2Spy = Mockito.spy(mafioso2);
-        Mockito.when(mafioso1Spy.obtenerObjetivoElegido()).thenReturn(ciudadano1);
-        Mockito.when(mafioso2Spy.obtenerObjetivoElegido()).thenReturn(ciudadano2);
-        List<Jugador> jugadores = List.of(mafioso1Spy, mafioso2Spy, ciudadano1, ciudadano2);
+        List<Jugador> jugadores = List.of(mafioso1, mafioso2, ciudadano1, ciudadano2);
+        fase.iniciar(jugadores);
+        fase.seleccionarObjetivo(ciudadano1);
+        fase.avanzarJugador();
+        fase.seleccionarObjetivo(ciudadano2);
         fase.ejecutar(jugadores, registro);
 
         // Assert: ambos ciudadanos deben estar vivos
@@ -92,12 +92,12 @@ public class FaseNocturnaTest {
         Nocturna fase = new Nocturna();
 
         // Act
-        Jugador mafiosoSpy = Mockito.spy(mafioso);
-        Jugador padrinoSpy = Mockito.spy(padrino);
-        Mockito.when(mafiosoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano1);
-        Mockito.when(padrinoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano2);
-        List<Jugador> jugadores = List.of(mafiosoSpy, padrinoSpy, ciudadano1, ciudadano2);
+        List<Jugador> jugadores = List.of(mafioso, padrino, ciudadano1, ciudadano2);
 
+        fase.iniciar(jugadores);
+        fase.seleccionarObjetivo(ciudadano1);
+        fase.avanzarJugador();
+        fase.seleccionarObjetivo(ciudadano2);
         fase.ejecutar(jugadores, registro);
 
         // Assert
@@ -132,15 +132,14 @@ public class FaseNocturnaTest {
         Nocturna fase = new Nocturna();
         List<Jugador> jugadores = List.of(mafioso1, mafioso2, padrino, ciudadano1, ciudadano2, ciudadano3);
 
-        // Act:
-        Jugador mafioso1Spy = Mockito.spy(mafioso1);
-        Jugador mafioso2Spy = Mockito.spy(mafioso2);
-        Jugador padrinoSpy = Mockito.spy(padrino);
-        Mockito.when(mafioso1Spy.obtenerObjetivoElegido()).thenReturn(ciudadano1);
-        Mockito.when(mafioso2Spy.obtenerObjetivoElegido()).thenReturn(ciudadano1);
-        Mockito.when(padrinoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano2);
-        List<Jugador> jugadoresSpy = List.of(mafioso1Spy, mafioso2Spy, padrinoSpy, ciudadano1, ciudadano2, ciudadano3);
-        fase.ejecutar(jugadoresSpy, registro);
+        // Act
+        fase.iniciar(jugadores);
+        fase.seleccionarObjetivo(ciudadano1);
+        fase.avanzarJugador();
+        fase.seleccionarObjetivo(ciudadano1);
+        fase.avanzarJugador();
+        fase.seleccionarObjetivo(ciudadano2);
+        fase.ejecutar(jugadores, registro);
 
         // Assert
         assertFalse(ciudadano1.estaVivo());
@@ -164,14 +163,13 @@ public class FaseNocturnaTest {
 
         Nocturna fase = new Nocturna();
         RegistroNocturno registro = new RegistroNocturno();
-        Jugador mafioso1Spy = Mockito.spy(mafioso1);
-        Mockito.when(mafioso1Spy.obtenerObjetivoElegido()).thenReturn(ciudadano);
-        Jugador mafioso2Spy = Mockito.spy(mafioso2);
-        Mockito.when(mafioso2Spy.obtenerObjetivoElegido()).thenReturn(ciudadano);
-
-        List<Jugador> jugadores = List.of(mafioso1Spy, mafioso2Spy, ciudadano);
+        List<Jugador> jugadores = List.of(mafioso1, mafioso2, ciudadano);
 
         // Act
+        fase.iniciar(jugadores);
+        fase.seleccionarObjetivo(ciudadano);
+        fase.avanzarJugador();
+        fase.seleccionarObjetivo(ciudadano);
         fase.ejecutar(jugadores, registro);
 
         // Assert
@@ -192,15 +190,13 @@ public class FaseNocturnaTest {
 
         Nocturna fase = new Nocturna();
         RegistroNocturno registro = new RegistroNocturno();
-
-        Jugador mafiosoSpy = Mockito.spy(mafioso);
-        Mockito.when(mafiosoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano);
-        Jugador medicoSpy = Mockito.spy(medico);
-        Mockito.when(medicoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano);
-
-        List<Jugador> jugadores = List.of(mafiosoSpy, medicoSpy, ciudadano);
+        List<Jugador> jugadores = List.of(mafioso, medico, ciudadano);
 
         // Act
+        fase.iniciar(jugadores);
+        fase.seleccionarObjetivo(ciudadano);
+        fase.avanzarJugador();
+        fase.seleccionarObjetivo(ciudadano);
         fase.ejecutar(jugadores, registro);
 
         // Assert
@@ -222,19 +218,16 @@ public class FaseNocturnaTest {
         Nocturna fase1 = new Nocturna();
         RegistroNocturno registro1 = new RegistroNocturno();
 
-        Jugador mafiosoSpy = Mockito.spy(mafioso);
-        Mockito.when(mafiosoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano);
-        Jugador medicoSpy = Mockito.spy(medico);
-        Mockito.when(medicoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano);
-        List<Jugador> jugadoresSpy = List.of(medicoSpy, ciudadano, mafiosoSpy);
-        fase1.ejecutar(jugadoresSpy, registro1);
+        List<Jugador> jugadores = List.of(medico, ciudadano, mafioso);
 
+        fase1.iniciar(jugadores);
+        assertTrue(fase1.seleccionarObjetivo(ciudadano));
+        fase1.ejecutar(jugadores, registro1);
         assertTrue(ciudadano.estaVivo());
 
         Nocturna fase2 = new Nocturna();
-        RegistroNocturno registro2 = new RegistroNocturno();
-
-        assertThrows(ObjetivoInvalidoException.class,()-> fase2.ejecutar(jugadoresSpy, registro2));
+        fase2.iniciar(jugadores);
+        assertFalse(fase2.seleccionarObjetivo(ciudadano));
     }
 
     @Test
@@ -249,17 +242,25 @@ public class FaseNocturnaTest {
         ciudadano.asignarCarta(rolFactory.crearCartaCiudadano());
         mafioso.asignarCarta(rolFactory.crearCartaMafioso());
 
-        RegistroNocturno registro = new RegistroNocturno();
-        Nocturna fase = new Nocturna();
-
-        Jugador mafiosoSpy = Mockito.spy(mafioso);
-        Mockito.when(mafiosoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano);
-        Jugador medicoSpy = Mockito.spy(medico);
-        Mockito.when(medicoSpy.obtenerObjetivoElegido()).thenReturn(ciudadano);
-        Mockito.when(medicoSpy.estaVivo()).thenReturn(false);
-        List<Jugador> jugadoresSpy = List.of(medicoSpy, ciudadano, mafiosoSpy);
+        RegistroNocturno registro1 = new RegistroNocturno();
+        Nocturna fase1 = new Nocturna();
+        List<Jugador> jugadores = List.of(medico, ciudadano, mafioso);
         // Act
-        fase.ejecutar(jugadoresSpy, registro);
+        fase1.iniciar(jugadores);
+        fase1.avanzarJugador();
+        fase1.avanzarJugador();
+        fase1.seleccionarObjetivo(medico);
+        fase1.ejecutar(jugadores, registro1);
+
+        assertFalse(medico.estaVivo());
+
+        Nocturna fase2 = new Nocturna();
+        RegistroNocturno registro2 = new RegistroNocturno();
+
+        fase2.iniciar(jugadores);
+        fase2.avanzarJugador();
+        fase2.seleccionarObjetivo(ciudadano);
+        fase2.ejecutar(jugadores, registro2);
         // Assert
         assertFalse(ciudadano.estaVivo());
     }
@@ -280,13 +281,12 @@ public class FaseNocturnaTest {
         Nocturna fase = new Nocturna();
 
         // Act
-        Jugador detectiveSpy = Mockito.spy(detective);
-        Mockito.when(detectiveSpy.obtenerObjetivoElegido()).thenReturn(mafioso);
-        List<Jugador> jugadores = List.of(detectiveSpy, mafioso, ciudadano);
+        List<Jugador> jugadores = List.of(detective, mafioso, ciudadano);
+        fase.iniciar(jugadores);
+        fase.seleccionarObjetivo(mafioso);
         fase.ejecutar(jugadores, registro);
-
         // Assert
-        assertEquals("Mafia", registro.obtenerResultadoInvestigacion(detectiveSpy));
+        assertEquals("Mafia", registro.obtenerResultadoInvestigacion(detective));
     }
 
     @Test
@@ -303,13 +303,13 @@ public class FaseNocturnaTest {
         Nocturna fase = new Nocturna();
 
         // Act
-        Jugador detectiveSpy = Mockito.spy(detective);
-        Mockito.when(detectiveSpy.obtenerObjetivoElegido()).thenReturn(padrino);
-        List<Jugador> jugadores = List.of(detectiveSpy, padrino);
+        List<Jugador> jugadores = List.of(detective, padrino);
+        fase.iniciar(jugadores);
+        fase.seleccionarObjetivo(padrino);
         fase.ejecutar(jugadores, registro);
 
         // Assert
-        assertEquals("Ciudadano", registro.obtenerResultadoInvestigacion(detectiveSpy));
+        assertEquals("Ciudadano", registro.obtenerResultadoInvestigacion(detective));
     }
 
 
@@ -328,24 +328,22 @@ public class FaseNocturnaTest {
 
         Nocturna fase1 = new Nocturna();
         RegistroNocturno registro1 = new RegistroNocturno();
+        List<Jugador> jugadores = List.of(detective, sospechoso);
 
         // Act: Primera noche, detective investiga
-        Jugador detectiveSpy = Mockito.spy(detective);
-        Mockito.when(detectiveSpy.obtenerObjetivoElegido()).thenReturn(sospechoso);
-        List<Jugador> jugadoresSpy = List.of(detectiveSpy, sospechoso);
-        fase1.ejecutar(jugadoresSpy, registro1);
+
+        fase1.iniciar(jugadores);
+        assertTrue(fase1.seleccionarObjetivo(sospechoso));
+        fase1.ejecutar(jugadores, registro1);
 
         // Assert
-        assertNotNull(registro1.obtenerResultadoInvestigacion(detectiveSpy));
+        assertNotNull(registro1.obtenerResultadoInvestigacion(detective));
 
         // Segunda noche: detective intenta investigar de nuevo, la fase lanzará la excepción
         Nocturna fase2 = new Nocturna();
         RegistroNocturno registro2 = new RegistroNocturno();
-        Mockito.when(detectiveSpy.obtenerObjetivoElegido()).thenReturn(sospechoso);
-        assertThrows(
-                edu.fiuba.algo3.modelo.Excepciones.ObjetivoInvalidoException.class,
-                () -> fase2.ejecutar(jugadoresSpy, registro2)
-        );
+        fase2.iniciar(jugadores);
+        assertFalse(fase2.seleccionarObjetivo(sospechoso));
     }
 
 }

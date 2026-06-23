@@ -66,16 +66,14 @@ public class Nocturna implements Fase {
 
     @Override
     public boolean seleccionarObjetivo(Jugador objetivo) {
-        try{
-        this.jugadorActual.usarHabilidad(objetivo);
-        AccionNocturna accion = this.jugadorActual.usarHabilidad(objetivo);
-        if (accion != null) {
-            intenciones.add(accion);
-        }
-        return true;
-        }catch (Error e){
+        if(!this.jugadorActual.obtenerCarta().esObjetivoValido(this.jugadorActual, objetivo)) {
             return false;
         }
+        AccionNocturna accion = this.jugadorActual.usarHabilidad(objetivo);
+            if(accion != null) {
+                intenciones.add(accion);
+            }
+            return true;
     }
 
     @Override

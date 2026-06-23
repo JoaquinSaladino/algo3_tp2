@@ -15,6 +15,7 @@ public class Diurna implements Fase {
     private Jugador jugadorActual;
     private Debate debate;
     private Votacion votacion;
+    private String resumenFinal;
 
     public Diurna() {
     }
@@ -22,6 +23,7 @@ public class Diurna implements Fase {
     public Diurna(Debate debate, Votacion votacion) {
         this.debate = debate;
         this.votacion = votacion;
+        this.resumenFinal = "";
     }
 
     @Override
@@ -44,18 +46,24 @@ public class Diurna implements Fase {
 
         if (eliminado != null) {
             eliminado.eliminar();
+            resumenFinal = "El jugador " + eliminado.getNombre() + " ha sido eliminado.";
+        } else {
+            resumenFinal = "No hubo eliminaciones en el dia.";
         }
     }
 
     @Override
     public Jugador getJugadorActual() {
-        return null;
+        return jugadorActual;
     }
 
     @Override
     public boolean avanzarJugador() {
-        return false;
-    }
+        if (iterador.hasNext()) {
+            jugadorActual = iterador.next();
+            return true;
+        }
+        return false;    }
 
     @Override
     public List<String> obtenerObjetivosValidos(List<Jugador> jugadores) {
@@ -70,11 +78,16 @@ public class Diurna implements Fase {
 
     @Override
     public boolean seleccionarObjetivo( Jugador objetivo) {
-        return false;
+        if(objetivo == jugadorActual || !objetivo.estaVivo()) {
+            return false;
+        } else {
+            votacion.registrarVoto(jugadorActual, objetivo);
+            return true;
+        }
     }
 
     @Override
     public String obtenerResumenFase() {
-        return "";
+        return resumenFinal;
     }
 }

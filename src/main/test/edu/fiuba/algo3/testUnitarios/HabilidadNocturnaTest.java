@@ -24,7 +24,7 @@ public class HabilidadNocturnaTest {
         //Assert
         assertThrows(
                 ObjetivoInvalidoException.class,
-                () -> proteger.ejecutar(jugadorAutor,jugadorObjetivo));
+                () -> proteger.validarObjetivo(jugadorAutor,jugadorObjetivo));
     }
 
     @Test
@@ -38,7 +38,7 @@ public class HabilidadNocturnaTest {
         //Assert
         assertThrows(
                 ObjetivoInvalidoException.class,
-                () -> investigar.ejecutar(jugadorAutor, jugadorObjetivo)
+                () -> investigar.validarObjetivo(jugadorAutor, jugadorObjetivo)
         );
     }
 }
