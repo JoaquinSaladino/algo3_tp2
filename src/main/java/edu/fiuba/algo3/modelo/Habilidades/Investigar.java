@@ -10,10 +10,14 @@ public class Investigar implements HabilidadNocturna {
 
     @Override
     public AccionNocturna ejecutar(Jugador autor, Jugador objetivo) {
-        if (objetivo == objetivoAnterior)
-            throw new ObjetivoInvalidoException();
         objetivoAnterior = objetivo;
         return new AInvestigar(autor,objetivo);
+    }
+
+    @Override
+    public void validarObjetivo(Jugador autor, Jugador posibleObjetivo) {
+        if (posibleObjetivo == objetivoAnterior || autor == posibleObjetivo)
+            throw new ObjetivoInvalidoException();
     }
 
 }

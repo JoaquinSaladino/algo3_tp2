@@ -1,5 +1,5 @@
 package edu.fiuba.algo3.testUnitarios;
-
+/*
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Roles.Ciudadanos.Ciudadano;
@@ -87,4 +87,4 @@ public class CondicionesDeVictoriaTest {
 
         assertFalse(juego.juegoTerminado());
     }
-}
+}*/

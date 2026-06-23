@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.Roles;
 
 import edu.fiuba.algo3.modelo.AccionNocturna.AccionNocturna;
 import edu.fiuba.algo3.modelo.Bando.Bando;
+import edu.fiuba.algo3.modelo.Excepciones.ObjetivoInvalidoException;
 import edu.fiuba.algo3.modelo.Habilidades.HabilidadNocturna;
 import edu.fiuba.algo3.modelo.Jugador;
 
@@ -33,5 +34,15 @@ public class CartaRol  {
 
     public String getRol() {
         return rol;
+    }
+
+    public boolean esObjetivoValido(Jugador jugador, Jugador posibleObjetivo) {
+        try {
+            habilidadNocturna.validarObjetivo(jugador,posibleObjetivo);
+            return true;
+        }catch (ObjetivoInvalidoException e){
+
+            return false;
+        }
     }
 }

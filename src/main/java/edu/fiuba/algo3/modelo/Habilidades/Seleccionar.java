@@ -9,14 +9,16 @@ public class Seleccionar  implements HabilidadNocturna {
 
     @Override
     public AccionNocturna ejecutar(Jugador autor, Jugador objetivo) {
-        if (!objetivo.estaVivo()) {
-            System.out.println("hola");
-            throw new ObjetivoInvalidoException();
-        }
-        if (objetivo.esMafia()) {
-            System.out.println("hola2");
-            throw new ObjetivoInvalidoException();
-        }
         return new ASeleccionar(autor,objetivo);
+    }
+
+    @Override
+    public void validarObjetivo(Jugador autor, Jugador posibleObjetivo) {
+        if (!posibleObjetivo.estaVivo()) {
+            throw new ObjetivoInvalidoException();
+        }
+        if (posibleObjetivo.esMafia()) {
+            throw new ObjetivoInvalidoException();
+        }
     }
 }

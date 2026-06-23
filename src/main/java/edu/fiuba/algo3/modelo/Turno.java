@@ -27,18 +27,40 @@ public class Turno {
         this.registro = registro;
     }
 
+    public void iniciarFase(List<Jugador> jugadores) {
+        this.faseActual.iniciar(jugadores);
+    }
+
     public void ejecutarFaseActual(List<Jugador> jugadores) {
         faseActual.ejecutar(jugadores , registro);
     }
 
-    public void avanzarFase(List<Jugador> jugadores) {
+    public boolean avanzarFase(List<Jugador> jugadores) {
         if (this.faseActual == this.nocturna) {
             this.faseActual = this.diurna;
+            this.faseActual.iniciar(jugadores);
         } else {
             this.faseActual = this.nocturna;
         }
+        return false;
+    }
+    public String getJugadorActual() {
+        return faseActual.getJugadorActual().getNombre();
     }
 
-//REVISAR (No se usa)
-//    public boolean estaTerminado() {return false;}
+    public boolean avanzarJugador() {
+        return this.faseActual.avanzarJugador();
+
+    }
+    public boolean seleccionarObjetivoNocturno( Jugador objetivo) {
+        return faseActual.seleccionarObjetivo(objetivo);
+    }
+    public List<String> obtenerObjetivosValidos(List<Jugador> jugadores) {
+        return faseActual.obtenerObjetivosValidos(jugadores);
+    }
+    public String obtenerResumenFase() {
+        return faseActual.obtenerResumenFase();
+    }
+
+
 }

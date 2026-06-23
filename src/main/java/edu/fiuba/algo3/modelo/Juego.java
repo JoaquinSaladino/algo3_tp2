@@ -5,7 +5,6 @@ import edu.fiuba.algo3.modelo.Roles.CartaRol;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Juego {
@@ -13,15 +12,17 @@ public class Juego {
     private Turno turnoActual;
     private Mazo mazo;
 
-    public Juego(int cantidadJugadores) {
+    public Juego() {
         this.turnoActual = new Turno();
     }
+
     public void configurarPartida(List<String> nombresJugadores){
         int cantidadJugadores = nombresJugadores.size();
         this.mazo = new ConfiguracionPartida(cantidadJugadores).generarMazo();
         this.mazo.mezclar();
         crearJugadores(nombresJugadores);
     }
+
     private void crearJugadores(List<String> nombresJugadores){
         this.jugadores = new ArrayList<>();
         nombresJugadores.forEach( nombreJugador -> jugadores.add( crearJugador(nombreJugador) ));
@@ -34,7 +35,7 @@ public class Juego {
     }
 
     public void iniciarPartida(){
-
+        turnoActual.iniciarFase(jugadores);
         var mafiosos = jugadores.stream()
                 .filter(Jugador::esMafia)
                 .collect(Collectors.toList());
@@ -47,44 +48,54 @@ public class Juego {
         }
     }
 
-    public String getProximoJugador(){
-        return turnoActual.getProximoJugador();
+    public boolean avanzarJugadorActual(){
+       return turnoActual.avanzarJugador();
     }
 
-    public List<String> obtenerObjetivosValidos(String nombreJugadorActual){
-        Optional<Jugador> jugadorActual = jugadores.stream()
-                .filter(jugador -> jugador.esMismoNombre(nombre))
-                .findFirst();
-
-        FiltroObjetivos filtro = new FiltroObjetivos();
-        //Falta Terminar para que el jugador actual pase con el resto de jugadores por un filtro en base al rol.
-        return jugadorActual;
+    public String getJugadorActual(){
+        return turnoActual.getJugadorActual();
     }
 
-    public void seleccionarObjetivo(String nombreJugadorActual){
-
+    public String getRolJugadorActual(String nombre){
+        return buscarJugadorPorNombre(nombre).verRol();
     }
 
-    public void nominarObjetivo(String nombreJugadorActual){
-
+    public Jugador buscarJugadorPorNombre(String nombre) {
+        return this.jugadores.stream()
+                .filter(j -> j.esMismoNombre(nombre))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Jugador no encontrado: " + nombre));
     }
 
-    public List<String> obtenerNominados (){
-        return ;
+    public List<String> obtenerObjetivos(){
+        return this.turnoActual.obtenerObjetivosValidos(jugadores);
     }
-    public void votarObjetivo(String nombreJugadorActual){
 
+    public boolean seleccionarObjetivo( String nombreObjetivo){
+        Jugador objetivo = buscarJugadorPorNombre(nombreObjetivo);
+        return turnoActual.seleccionarObjetivoNocturno(objetivo);
     }
+
     public int cantidadJugadores(){
         return jugadores.size();
     }
 
     public void ejecutarFaseActual(){
-        turnoActual.ejecutarFaseActual(jugadores);
+
+        this.turnoActual.ejecutarFaseActual(jugadores);
     }
 
-    public void avanzarFase(){
-        turnoActual.avanzarFase(jugadores);
+    public String obtenerResultadoFase(){
+
+        return turnoActual.obtenerResumenFase();
+    }
+
+    public boolean avanzarFase(){
+        return this.turnoActual.avanzarFase(jugadores);
+    }
+
+    public void avanzarTurno(){
+        this.turnoActual = new Turno();
     }
 
     public boolean mafiaGano() {

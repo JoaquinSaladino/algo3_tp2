@@ -5,4 +5,6 @@ import edu.fiuba.algo3.modelo.Jugador;
 
 public interface HabilidadNocturna {
     AccionNocturna ejecutar(Jugador autor, Jugador objetivo);
+
+    void validarObjetivo(Jugador objetivo, Jugador posibleObjetivo);
 }

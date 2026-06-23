@@ -9,12 +9,15 @@ public class Eliminar implements HabilidadNocturna {
 
     @Override
     public AccionNocturna ejecutar(Jugador autor,Jugador objetivo) {
-        if (!objetivo.estaVivo())
-            throw new ObjetivoInvalidoException();
-
-        if (objetivo.esMafia())
-            throw new ObjetivoInvalidoException();
 
         return new AEliminar(autor,objetivo);
+    }
+
+    @Override
+    public void validarObjetivo(Jugador autor, Jugador posibleObjetivo) {
+        if (!posibleObjetivo.estaVivo())
+            throw new ObjetivoInvalidoException();
+        if (posibleObjetivo.esMafia())
+            throw new ObjetivoInvalidoException();
     }
 }

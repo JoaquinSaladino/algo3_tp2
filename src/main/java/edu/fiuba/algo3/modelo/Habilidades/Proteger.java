@@ -9,9 +9,13 @@ public class Proteger implements HabilidadNocturna {
     private Jugador objetivoAnterior;
     @Override
     public AccionNocturna ejecutar(Jugador autor, Jugador objetivo) {
-        if (objetivoAnterior == objetivo)
-            throw new ObjetivoInvalidoException();
         objetivoAnterior = objetivo;
         return new AProteger(autor,objetivo);
+    }
+
+    @Override
+    public void validarObjetivo(Jugador autor, Jugador posibleObjetivo) {
+        if (objetivoAnterior == posibleObjetivo)
+            throw new ObjetivoInvalidoException();
     }
 }

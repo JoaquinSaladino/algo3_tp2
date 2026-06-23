@@ -17,7 +17,6 @@ public class Jugador {
     private boolean vivo;
     private CartaRol carta;
     private boolean protegido;
-
     private List<Jugador> companeros;
 
     public Jugador(String nombre)
@@ -28,6 +27,9 @@ public class Jugador {
         this.companeros = new ArrayList<>();
     }
 
+    public String getNombre(){
+        return nombre;
+    }
     public boolean esMismoNombre(String nombre){
         return Objects.equals(this.nombre, nombre);
     }
@@ -100,5 +102,15 @@ public class Jugador {
 
     public Jugador obtenerObjetivoElegido(){
         return null;
+    }
+
+    public List<String> obtenerObjetivosValidos(List<Jugador> jugadores) {
+        List<String> objetivosValidos = new ArrayList<>();
+        for (Jugador posibleObjetivo : jugadores) {
+            if (this.obtenerCarta().esObjetivoValido(this, posibleObjetivo)) {
+                objetivosValidos.add(posibleObjetivo.getNombre());
+            }
+        }
+        return objetivosValidos;
     }
 }
