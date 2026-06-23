@@ -111,16 +111,18 @@ public class JugadorTest {
     public void test06LaMafiaNoPuedeSeleccionarOtroMafioso()
     {
         // Arrange
-        Jugador mafioso = new Jugador("Mafioso");
         RolFactory rolFactory = new RolFactory();
 
-        mafioso.asignarCarta(rolFactory.crearCartaMafioso());
+        Jugador mafioso1 = new Jugador("Mafioso");
+        mafioso1.asignarCarta(rolFactory.crearCartaMafioso());
 
+        Jugador mafioso2 = new Jugador("Mafioso");
+        mafioso2.asignarCarta(rolFactory.crearCartaMafioso());
         // Act & Assert
-        assertThrows(
-                ObjetivoInvalidoException.class,
-                () -> mafioso.usarHabilidad(mafioso)
-        );
+        CartaRol carta = rolFactory.crearCartaMafioso();
+
+        //Act Assert
+        assertFalse(carta.esObjetivoValido(mafioso1, mafioso2));
     }
 
     @Test
