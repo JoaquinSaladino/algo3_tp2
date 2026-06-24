@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.Desempate.SinEliminacion;
 import edu.fiuba.algo3.modelo.Fases.Diurna;
 import edu.fiuba.algo3.modelo.Fases.Fase;
 import edu.fiuba.algo3.modelo.Fases.Nocturna;
@@ -13,7 +14,7 @@ public class Turno {
     private final RegistroNocturno registro;
 
     public Turno() {
-        this(new Nocturna(), new Diurna(), new RegistroNocturno());
+        this(new Nocturna(), new Diurna(new Debate(), new Votacion(new SinEliminacion())), new RegistroNocturno());
     }
 
     public Turno(Nocturna nocturna, Diurna diurna) {
