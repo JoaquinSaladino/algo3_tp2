@@ -29,7 +29,12 @@ public class Turno {
     }
 
     public void iniciarFase(List<Jugador> jugadores) {
+        System.out.println("Entrando a iniciarFase");
         this.faseActual.iniciar(jugadores);
+        System.out.println(
+                "Jugador actual despues de iniciar: "
+                        + this.faseActual.getJugadorActual()
+        );
     }
 
     public void ejecutarFaseActual(List<Jugador> jugadores) {
@@ -43,9 +48,11 @@ public class Turno {
             return true;
         } else {
             this.faseActual = this.nocturna;
+            this.faseActual.iniciar(jugadores);
+            return false;
         }
-        return false;
     }
+
     public String getJugadorActual() {
         return faseActual.getJugadorActual().getNombre();
     }

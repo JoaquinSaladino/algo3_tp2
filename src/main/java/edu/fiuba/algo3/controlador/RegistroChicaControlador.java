@@ -66,6 +66,7 @@ public class RegistroChicaControlador {
 
         try
         {
+            System.out.println("Juego registro: " + juego);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaFaseNocturna.fxml"));
             Parent root = loader.load();
 

@@ -65,6 +65,9 @@ public class Diurna implements Fase {
                 this.estadoNominacion = false;
                 this.reiniciarIterator();
                 this.votacion.iniciar(this.debate.getNominados());
+                if (iterador.hasNext()) {
+                    jugadorActual = iterador.next();
+                }
                 return true;
             }
             return false;
