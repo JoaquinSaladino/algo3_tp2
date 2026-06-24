@@ -30,7 +30,6 @@ public class Jugador {
     public String getNombre(){
         return nombre;
     }
-    public String obtenerNombre() { return nombre; }
 
     public boolean esMismoNombre(String nombre){
         return Objects.equals(this.nombre, nombre);
@@ -71,6 +70,14 @@ public class Jugador {
         this.companeros = companeros;
     }
 
+    public List<String> obtenerCompaneros(){
+        List<String> listaCompaneros = new ArrayList<>();
+        for(Jugador companero : companeros){
+            listaCompaneros.add(companero.getNombre());
+        }
+        return listaCompaneros;
+    }
+
     public boolean conoceA(Jugador otroJugador)
     {
         return this.companeros.contains(otroJugador);
@@ -101,10 +108,6 @@ public class Jugador {
     public boolean estaVivo() { return vivo; }
 
     public boolean estaProtegido() { return protegido; }
-
-    public Jugador obtenerObjetivoElegido(){
-        return null;
-    }
 
     public List<String> obtenerObjetivosValidos(List<Jugador> jugadores) {
         List<String> objetivosValidos = new ArrayList<>();

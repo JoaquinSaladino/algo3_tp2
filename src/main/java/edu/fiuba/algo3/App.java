@@ -1,5 +1,6 @@
 package edu.fiuba.algo3;
 
+import edu.fiuba.algo3.modelo.Juego;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +8,18 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application {
+
+    private static Juego juegoActual;
+
+    public static Juego getJuego()
+    {
+        if (juegoActual == null)
+        {
+            juegoActual = new Juego();
+        }
+
+        return juegoActual;
+    }
 
     @Override
     public void start(Stage escenarioPrincipal) throws Exception

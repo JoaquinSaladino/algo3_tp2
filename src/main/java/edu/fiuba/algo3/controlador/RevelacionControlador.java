@@ -1,5 +1,8 @@
 package edu.fiuba.algo3.controlador;
 
+import edu.fiuba.algo3.App;
+import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Jugador;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,29 +20,13 @@ public class RevelacionControlador {
     @FXML private Button btnSiguiente;
 
     private int indiceActual = 0;
-
-    // Temporal para probar vista
-    private static class JugadorMock
-    {
-        String nombre; String rol;
-        JugadorMock(String n, String r) { this.nombre = n; this.rol = r; }
-    }
-
-    // Esta lista es una simulacion de la que nos daria la clase Juego ya ordenada
-    private List<JugadorMock> jugadoresOrdenados;
+    private List<Jugador> listaJugadores;
 
     @FXML
     public void initialize()
     {
-        jugadoresOrdenados = Arrays.asList(
-                new JugadorMock("J1", "PADRINO"),
-                new JugadorMock("J2", "MAFIOSO"),
-                new JugadorMock("J3", "DETECTIVE"),
-                new JugadorMock("J4", "MÉDICO"),
-                new JugadorMock("J5", "SHERIFF"),
-                new JugadorMock("J6", "CIUDADANO"),
-                new JugadorMock("J7", "CIUDADANO")
-        );
+        Juego juego = App.getJuego();
+        this.listaJugadores = juego.getJugadores();
 
         indiceActual = 0;
         mostrarJugadorActual();
@@ -47,11 +34,11 @@ public class RevelacionControlador {
 
     private void mostrarJugadorActual()
     {
-        JugadorMock j = jugadoresOrdenados.get(indiceActual);
-        lblNombre.setText("#" + j.nombre);
-        lblRol.setText(j.rol);
+        Jugador j = listaJugadores.get(indiceActual);
+        lblNombre.setText("#" + j.getNombre());
+        lblRol.setText(j.verRol());
 
-        switch (j.rol)
+        switch (j.verRol())
         {
             case "PADRINO":
                 lblRol.setTextFill(Color.web("#8b0000"));
@@ -65,7 +52,7 @@ public class RevelacionControlador {
                 lblRol.setTextFill(Color.web("#a06e5d"));
                 break;
 
-            case "MÉDICO":
+            case "MEDICO":
                 lblRol.setTextFill(Color.web("#66b3cc"));
                 break;
 
@@ -79,7 +66,7 @@ public class RevelacionControlador {
         }
 
         btnAnterior.setDisable(indiceActual == 0);
-        btnSiguiente.setDisable(indiceActual == jugadoresOrdenados.size() - 1);
+        btnSiguiente.setDisable(indiceActual == listaJugadores.size() - 1);
     }
 
     @FXML
@@ -95,7 +82,7 @@ public class RevelacionControlador {
     @FXML
     public void manejarSiguiente(ActionEvent event)
     {
-        if (indiceActual < jugadoresOrdenados.size() - 1)
+        if (indiceActual < listaJugadores.size() - 1)
         {
             indiceActual++;
             mostrarJugadorActual();

@@ -70,10 +70,10 @@ public class Nocturna implements Fase {
             return false;
         }
         AccionNocturna accion = this.jugadorActual.usarHabilidad(objetivo);
-            if(accion != null) {
-                intenciones.add(accion);
-            }
-            return true;
+        if(accion != null) {
+            return accion.resolver(registroNocturno);
+        }
+        return true;
     }
 
     @Override
@@ -86,9 +86,4 @@ public class Nocturna implements Fase {
         return jugadorActual;
     }
 
-    public String getResumenFinal() {
-        return resumenFinal;
-    }
 }
-
-

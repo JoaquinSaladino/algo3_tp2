@@ -82,7 +82,7 @@
     <HBox alignment="BOTTOM_LEFT" spacing="20.0">
         <Button onAction="#manejarBotonSalir" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #fca311; -fx-border-color: black; -fx-border-width: 2;" text="SALIR"><font><Font name="System Bold" size="16.0" /></font></Button>
         <Button onAction="#manejarBotonVolver" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #fca311; -fx-border-color: black; -fx-border-width: 2;" text="VOLVER"><font><Font name="System Bold" size="16.0" /></font></Button>
-        <Button onAction="#manejarBotonJugar" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #ff5e4d; -fx-border-color: black; -fx-border-width: 2;" text="JUGAR"><font><Font name="System Bold" size="16.0" /></font></Button>
+        <Button fx:id="botonJugar" onAction="#manejarBotonJugar" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #ff5e4d; -fx-border-color: black; -fx-border-width: 2;" text="JUGAR"><font><Font name="System Bold" size="16.0" /></font></Button>
         <Region HBox.hgrow="ALWAYS" />
         <ImageView fitHeight="60.0" fitWidth="120.0" preserveRatio="true"><image><Image url="@/imagenes/logo_fiuba.png" /></image></ImageView>
     </HBox>

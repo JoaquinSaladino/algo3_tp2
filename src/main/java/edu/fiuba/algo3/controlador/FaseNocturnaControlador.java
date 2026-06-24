@@ -1,13 +1,25 @@
 package edu.fiuba.algo3.controlador;
 
+import edu.fiuba.algo3.App;
+import edu.fiuba.algo3.modelo.Juego;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import java.util.Arrays;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.util.List;
 
 public class FaseNocturnaControlador {
@@ -19,34 +31,53 @@ public class FaseNocturnaControlador {
     @FXML private TilePane panelJugadores;
     @FXML private Button btnAccion;
 
-    private List<String> jugadoresVivos;
-    private String candidatoSeleccionado = "";
+    @FXML private VBox overlayTransicion;
+    @FXML private Label lblJugadorTransicion;
 
-    private String rolActual = "DETECTIVE"; // Cambiar para probar otros
+    private String candidatoSeleccionado = "";
+    private Juego juego;
 
     @FXML
     public void initialize()
     {
-        jugadoresVivos = Arrays.asList("J1", "J2", "J3", "J4", "J5", "J6", "J7", "J8");
-        prepararPantalla();
+        this.juego = App.getJuego();
+        prepararTurno();
     }
 
-    private void prepararPantalla()
-    {
+    public void prepararTurno() {
+        String nombreActual = juego.getJugadorActual();
+        String rolActual = juego.getRolJugadorActual(nombreActual);
+        List<String> objetivos = juego.obtenerObjetivos();
+
+        List<String> companeros = juego.obtenerCompanerosJugadorActual();
+
+        lblJugadorTransicion.setText("#" + nombreActual);
+        overlayTransicion.setVisible(true);
+
         candidatoSeleccionado = "";
         lblJugadorElegido.setText("...");
         btnAccion.setDisable(true);
-        lblTurnoJugador.setText("--- Jugador Oculto ---");
+        lblTurnoJugador.setText("#" + nombreActual);
 
         configurarParaRol(rolActual);
-        dibujarGrillaJugadores();
+        dibujarGrillaJugadores(rolActual, objetivos, companeros);
+    }
+
+    @FXML
+    public void manejarBotonEstoyListo(ActionEvent event)
+    {
+        overlayTransicion.setVisible(false);
     }
 
     private void configurarParaRol(String rol)
     {
-        switch (rol)
+        if (rol == null) return;
+        String rolNormalizado = rol.toUpperCase();
+
+        switch (rolNormalizado)
         {
             case "MAFIOSO":
+            case "PADRINO":
                 lblTituloRol.setText("TURNO DE LA MAFIA");
                 lblInstruccionAccion.setText("ELEGÍ A TU VÍCTIMA PARA ELIMINARLA...");
                 btnAccion.setText("ELIMINAR");
@@ -54,6 +85,7 @@ public class FaseNocturnaControlador {
                 break;
 
             case "MEDICO":
+            case "MÉDICO":
                 lblTituloRol.setText("TURNO DEL MÉDICO");
                 lblInstruccionAccion.setText("ELEGÍ A UN JUGADOR PARA PROTEGERLO ESTA NOCHE...");
                 btnAccion.setText("PROTEGER");
@@ -66,14 +98,45 @@ public class FaseNocturnaControlador {
                 btnAccion.setText("INVESTIGAR");
                 btnAccion.setStyle("-fx-background-color: #a06e5d; -fx-text-fill: white; -fx-border-color: black; -fx-border-width: 3; -fx-background-radius: 5;");
                 break;
+
+            case "CIUDADANO":
+            case "SHERIFF":
+                lblTituloRol.setText("TURNO DEL " + rolNormalizado);
+                lblInstruccionAccion.setText("ESTÁS DURMIENDO PROFUNDAMENTE. NO ESCUCHÁS NADA...");
+                btnAccion.setText("PASAR TURNO");
+                btnAccion.setStyle("-fx-background-color: #7b8d93; -fx-text-fill: black; -fx-border-color: black; -fx-border-width: 3; -fx-background-radius: 5;");
+                break;
+
+            default:
+                lblTituloRol.setText("TURNO DE: " + rolNormalizado);
+                btnAccion.setText("ACCIONAR");
+                break;
         }
     }
 
-    private void dibujarGrillaJugadores()
+    private void dibujarGrillaJugadores(String rol, List<String> objetivosValidos, List<String> compañeros)
     {
         panelJugadores.getChildren().clear();
 
-        for (String nombre : jugadoresVivos)
+        if (objetivosValidos.isEmpty()) {
+            Label lblZzz = new Label("z Z z Z z . . .");
+            lblZzz.setFont(Font.font("System", FontWeight.BOLD, 60));
+            lblZzz.setTextFill(Color.web("#5a7a94"));
+            panelJugadores.getChildren().add(lblZzz);
+            btnAccion.setDisable(false);
+            return;
+        }
+
+        if ((rol.equalsIgnoreCase("MAFIOSO") || rol.equalsIgnoreCase("PADRINO")) && compañeros != null && !compañeros.isEmpty())
+        {
+            Label lblCompas = new Label("Tus compañeros son: " + String.join(", ", compañeros));
+            lblCompas.setFont(Font.font("System", FontWeight.BOLD, 18));
+            lblCompas.setTextFill(Color.web("#cc0000"));
+            lblCompas.setPadding(new Insets(0, 0, 20, 0));
+            panelJugadores.getChildren().add(lblCompas);
+        }
+
+        for (String nombre : objetivosValidos)
         {
             Button btn = new Button(nombre);
             btn.setPrefSize(180, 60);
@@ -85,10 +148,12 @@ public class FaseNocturnaControlador {
                 lblJugadorElegido.setText("#" + nombre);
                 btnAccion.setDisable(false);
 
-                panelJugadores.getChildren().forEach(nodo -> nodo.setStyle("-fx-background-color: #2b3e50; -fx-text-fill: white; -fx-border-color: black; -fx-border-width: 2;"));
+                panelJugadores.getChildren().stream()
+                        .filter(nodo -> nodo instanceof Button)
+                        .forEach(nodo -> nodo.setStyle("-fx-background-color: #2b3e50; -fx-text-fill: white; -fx-border-color: black; -fx-border-width: 2;"));
+
                 btn.setStyle("-fx-background-color: #ffffff; -fx-text-fill: black; -fx-border-color: black; -fx-border-width: 3;");
             });
-
             panelJugadores.getChildren().add(btn);
         }
     }
@@ -96,7 +161,47 @@ public class FaseNocturnaControlador {
     @FXML
     public void manejarBotonAccion(ActionEvent event)
     {
-        System.out.println("El " + rolActual + " ejecutó su acción sobre: " + candidatoSeleccionado);
-        // Pasar decision a Juego y avanzar rol segun configuracion
+        if (candidatoSeleccionado.isEmpty())
+            return;
+        String nombre = juego.getJugadorActual();
+        String rol = juego.getRolJugadorActual(nombre);
+
+        juego.seleccionarObjetivo(candidatoSeleccionado);
+
+        String texto;
+        if(rol.equals("Detective")) {
+            String resultado = juego.obtenerResultadoInvestigacion(nombre, candidatoSeleccionado);
+            texto = candidatoSeleccionado + " es " + resultado;
+        }
+
+
+
+        boolean hayMasJugadores = juego.avanzarJugadorActual();
+
+        if (hayMasJugadores)
+        {
+            prepararTurno();
+        }
+
+        else
+        {
+            juego.ejecutarFaseActual();
+            System.out.println(juego.obtenerResultadoFase());
+            // System.out.println("Fin de la fase nocturna. Transicionando a la Fase Diurna...");
+            // Bloque try-catch con FXMLLoader para pasar a pantallaFaseDiurna.fxml
+
+            try
+            {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaFaseDiurna.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) btnAccion.getScene().getWindow();
+                stage.setScene(new Scene(root, 1000, 600));
+            }
+
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 }

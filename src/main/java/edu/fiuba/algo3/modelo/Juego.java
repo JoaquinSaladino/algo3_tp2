@@ -128,4 +128,19 @@ public class Juego {
     public void setJugadores(List<Jugador> jugadores){
         this.jugadores = jugadores;
     }
+
+    public List<Jugador> getJugadores()
+    {
+        return this.jugadores;
+    }
+
+    public List<String> obtenerCompanerosJugadorActual() {
+        String nombre = turnoActual.getJugadorActual();
+        Jugador actual = buscarJugadorPorNombre(nombre);
+        return actual.obtenerCompaneros();
+    }
+
+    public String obtenerResultadoInvestigacion(String detective, String objetivo) {
+        return buscarJugadorPorNombre(objetivo).obtenerCarta().investigar();
+    }
 }

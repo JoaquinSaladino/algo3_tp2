@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.controlador;
 
+import edu.fiuba.algo3.App;
+import edu.fiuba.algo3.modelo.Juego;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +28,8 @@ public class RegistroChicaControlador {
     @FXML private Button botonAgregarSexto;
     @FXML private VBox cajaSextoJugador;
     @FXML private TextField nombreJugador6;
+
+    @FXML private Button botonJugar;
 
     @FXML
     public void manejarAgregarSextoJugador(ActionEvent event) {
@@ -55,6 +59,25 @@ public class RegistroChicaControlador {
         }
 
         System.out.println("Nombres recolectados para la partida: " + nombres);
+
+        Juego juego = App.getJuego();
+        juego.configurarPartida(nombres);
+        juego.iniciarPartida();
+
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaFaseNocturna.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) botonJugar.getScene().getWindow();
+            stage.setScene(new Scene(root, 1000, 600));
+        }
+
+        catch (IOException e)
+        {
+            System.err.println("Error al cambiar a la pantalla de Fase Nocturna.");
+            e.printStackTrace();
+        }
     }
 
     private void agregarSiEsValido(List<String> lista, TextField campo)
