@@ -34,6 +34,9 @@ public class FaseNocturnaControlador {
     @FXML private VBox overlayTransicion;
     @FXML private Label lblJugadorTransicion;
 
+    @FXML private VBox overlayResultado;
+    @FXML private Label lblResultadoTexto;
+
     private String candidatoSeleccionado = "";
     private Juego juego;
 
@@ -159,49 +162,60 @@ public class FaseNocturnaControlador {
     }
 
     @FXML
-    public void manejarBotonAccion(ActionEvent event)
-    {
-        if (candidatoSeleccionado.isEmpty())
-            return;
+    public void manejarBotonAccion(ActionEvent event) {
         String nombre = juego.getJugadorActual();
         String rol = juego.getRolJugadorActual(nombre);
+        boolean tieneAccion = !rol.equals("Ciudadano") && !rol.equals("Sheriff");
 
-        juego.seleccionarObjetivo(candidatoSeleccionado);
+        if (tieneAccion && candidatoSeleccionado.isEmpty()) return;
 
-        String texto;
-        if(rol.equals("Detective")) {
-            String resultado = juego.obtenerResultadoInvestigacion(nombre, candidatoSeleccionado);
-            texto = candidatoSeleccionado + " es " + resultado;
+        if(tieneAccion) {
+            juego.seleccionarObjetivo(candidatoSeleccionado);
+            if (rol.equals("Detective")) {
+                String resultado = juego.obtenerResultadoInvestigacion(nombre, candidatoSeleccionado);
+                lblResultadoTexto.setText(candidatoSeleccionado + " es " + resultado);
+                overlayResultado.setVisible(true);
+                return;
+            }
         }
+        manejarContinuar(event);
+//
+//        boolean haySiguiente = juego.avanzarJugadorActual();
+//        if (haySiguiente) {
+//            prepararTurno();
+//        } else {
+//            juego.ejecutarFaseActual();
+//            System.out.println(juego.obtenerResultadoFase());
+//            try {
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaFaseDiurna.fxml"));
+//                Parent root = loader.load();
+//                Stage stage = (Stage) btnAccion.getScene().getWindow();
+//                stage.setScene(new Scene(root, 1000, 600));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+    }
 
+    @FXML
+    public void manejarContinuar(ActionEvent event) {
+        overlayResultado.setVisible(false);
 
-
-        boolean hayMasJugadores = juego.avanzarJugadorActual();
-
-        if (hayMasJugadores)
-        {
+        boolean haySiguiente = juego.avanzarJugadorActual();
+        if (haySiguiente) {
             prepararTurno();
-        }
-
-        else
-        {
+        } else {
             juego.ejecutarFaseActual();
             System.out.println(juego.obtenerResultadoFase());
-            // System.out.println("Fin de la fase nocturna. Transicionando a la Fase Diurna...");
-            // Bloque try-catch con FXMLLoader para pasar a pantallaFaseDiurna.fxml
-
-            try
-            {
+            try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaFaseDiurna.fxml"));
                 Parent root = loader.load();
                 Stage stage = (Stage) btnAccion.getScene().getWindow();
                 stage.setScene(new Scene(root, 1000, 600));
-            }
-
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 }
+

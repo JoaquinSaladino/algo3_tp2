@@ -71,7 +71,7 @@ public class Nocturna implements Fase {
         }
         AccionNocturna accion = this.jugadorActual.usarHabilidad(objetivo);
         if(accion != null) {
-            return accion.resolver(registroNocturno);
+            intenciones.add(accion);
         }
         return true;
     }
