@@ -16,6 +16,8 @@ public class Investigar implements HabilidadNocturna {
 
     @Override
     public void validarObjetivo(Jugador autor, Jugador posibleObjetivo) {
+        if (!posibleObjetivo.estaVivo())
+            throw new ObjetivoInvalidoException();
         if (posibleObjetivo == objetivoAnterior || autor == posibleObjetivo)
             throw new ObjetivoInvalidoException();
     }

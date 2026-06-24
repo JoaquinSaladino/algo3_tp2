@@ -21,6 +21,8 @@ public class Nocturna implements Fase {
     }
 
     public void iniciar(List<Jugador> jugadores) {
+        this.intenciones = new ArrayList<>();
+        this.resumenFinal = "";
         this.iterador = jugadores.stream().filter(Jugador::estaVivo).iterator();
         avanzarJugador();
     }
@@ -86,4 +88,8 @@ public class Nocturna implements Fase {
         return jugadorActual;
     }
 
+    @Override
+    public boolean estaEnNominacion() {
+        return false;
+    }
 }

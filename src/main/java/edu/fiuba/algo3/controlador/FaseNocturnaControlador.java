@@ -24,25 +24,34 @@ import java.util.List;
 
 public class FaseNocturnaControlador {
 
-    @FXML private Label lblTurnoJugador;
-    @FXML private Label lblTituloRol;
-    @FXML private Label lblInstruccionAccion;
-    @FXML private Label lblJugadorElegido;
-    @FXML private TilePane panelJugadores;
-    @FXML private Button btnAccion;
+    @FXML
+    private Label lblTurnoJugador;
+    @FXML
+    private Label lblTituloRol;
+    @FXML
+    private Label lblInstruccionAccion;
+    @FXML
+    private Label lblJugadorElegido;
+    @FXML
+    private TilePane panelJugadores;
+    @FXML
+    private Button btnAccion;
 
-    @FXML private VBox overlayTransicion;
-    @FXML private Label lblJugadorTransicion;
+    @FXML
+    private VBox overlayTransicion;
+    @FXML
+    private Label lblJugadorTransicion;
 
-    @FXML private VBox overlayResultado;
-    @FXML private Label lblResultadoTexto;
+    @FXML
+    private VBox overlayResultado;
+    @FXML
+    private Label lblResultadoTexto;
 
     private String candidatoSeleccionado = "";
     private Juego juego;
 
     @FXML
-    public void initialize()
-    {
+    public void initialize() {
         this.juego = App.getJuego();
         prepararTurno();
     }
@@ -67,18 +76,15 @@ public class FaseNocturnaControlador {
     }
 
     @FXML
-    public void manejarBotonEstoyListo(ActionEvent event)
-    {
+    public void manejarBotonEstoyListo(ActionEvent event) {
         overlayTransicion.setVisible(false);
     }
 
-    private void configurarParaRol(String rol)
-    {
+    private void configurarParaRol(String rol) {
         if (rol == null) return;
         String rolNormalizado = rol.toUpperCase();
 
-        switch (rolNormalizado)
-        {
+        switch (rolNormalizado) {
             case "MAFIOSO":
             case "PADRINO":
                 lblTituloRol.setText("TURNO DE LA MAFIA");
@@ -117,8 +123,7 @@ public class FaseNocturnaControlador {
         }
     }
 
-    private void dibujarGrillaJugadores(String rol, List<String> objetivosValidos, List<String> compañeros)
-    {
+    private void dibujarGrillaJugadores(String rol, List<String> objetivosValidos, List<String> compañeros) {
         panelJugadores.getChildren().clear();
 
         if (objetivosValidos.isEmpty()) {
@@ -130,8 +135,7 @@ public class FaseNocturnaControlador {
             return;
         }
 
-        if ((rol.equalsIgnoreCase("MAFIOSO") || rol.equalsIgnoreCase("PADRINO")) && compañeros != null && !compañeros.isEmpty())
-        {
+        if ((rol.equalsIgnoreCase("MAFIOSO") || rol.equalsIgnoreCase("PADRINO")) && compañeros != null && !compañeros.isEmpty()) {
             Label lblCompas = new Label("Tus compañeros son: " + String.join(", ", compañeros));
             lblCompas.setFont(Font.font("System", FontWeight.BOLD, 18));
             lblCompas.setTextFill(Color.web("#cc0000"));
@@ -139,8 +143,7 @@ public class FaseNocturnaControlador {
             panelJugadores.getChildren().add(lblCompas);
         }
 
-        for (String nombre : objetivosValidos)
-        {
+        for (String nombre : objetivosValidos) {
             Button btn = new Button(nombre);
             btn.setPrefSize(180, 60);
             btn.setFont(Font.font("System", FontWeight.BOLD, 16));
@@ -169,7 +172,7 @@ public class FaseNocturnaControlador {
 
         if (tieneAccion && candidatoSeleccionado.isEmpty()) return;
 
-        if(tieneAccion) {
+        if (tieneAccion) {
             juego.seleccionarObjetivo(candidatoSeleccionado);
             if (rol.equals("Detective")) {
                 String resultado = juego.obtenerResultadoInvestigacion(nombre, candidatoSeleccionado);
@@ -207,15 +210,27 @@ public class FaseNocturnaControlador {
         } else {
             juego.ejecutarFaseActual();
             System.out.println(juego.obtenerResultadoFase());
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaFaseDiurna.fxml"));
-                Parent root = loader.load();
-                Stage stage = (Stage) btnAccion.getScene().getWindow();
-                stage.setScene(new Scene(root, 1000, 600));
-            } catch (IOException e) {
-                e.printStackTrace();
+
+            if (juego.juegoTerminado()) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaFinDePartida.fxml"));
+                    Stage stage = (Stage) btnAccion.getScene().getWindow();
+                    stage.setScene(new Scene(loader.load(), 1000, 600));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return;
+            }
+                juego.avanzarFase();
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaFaseDiurna.fxml"));
+                    Parent root = loader.load();
+                    Stage stage = (Stage) btnAccion.getScene().getWindow();
+                    stage.setScene(new Scene(root, 1000, 600));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
-}
 

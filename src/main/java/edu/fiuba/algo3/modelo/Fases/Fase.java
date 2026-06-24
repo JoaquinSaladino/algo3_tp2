@@ -13,4 +13,5 @@ public interface Fase {
     List<String> obtenerObjetivosValidos(List<Jugador> jugadores);
     boolean seleccionarObjetivo(Jugador objetivo);
     String obtenerResumenFase();
+    boolean estaEnNominacion();
 }

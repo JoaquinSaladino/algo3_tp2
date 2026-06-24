@@ -1,15 +1,26 @@
 package edu.fiuba.algo3.controlador;
 
+import edu.fiuba.algo3.App;
+import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Jugador;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
+
+import javax.swing.text.LabelView;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FaseDiurnaControlador {
 
@@ -17,16 +28,22 @@ public class FaseDiurnaControlador {
     @FXML private Label lblJugadorElegido;
     @FXML private TilePane panelJugadores;
     @FXML private Button btnVotar;
+    @FXML private Label lblInstruccion;
 
     private List<String> jugadoresVivos;
     private int indiceTurnoActual = 0;
     private String candidatoSeleccionado = "";
-
+    private Juego juego;
     @FXML
     public void initialize()
     {
-        jugadoresVivos = Arrays.asList("J1", "J2", "J3", "J4", "J5", "J6", "J7", "J8");
+        this.juego = App.getJuego();
+        this.jugadoresVivos = juego.getJugadores().stream()
+                .filter(Jugador::estaVivo)
+                .map(Jugador::getNombre)
+                .collect(Collectors.toList());
         prepararTurno();
+
     }
 
     private void prepararTurno() {
@@ -35,12 +52,19 @@ public class FaseDiurnaControlador {
         lblJugadorElegido.setText("...");
         btnVotar.setDisable(true);
 
-        String jugadorActual = jugadoresVivos.get(indiceTurnoActual);
+        String jugadorActual = juego.getJugadorActual();
         lblTurnoJugador.setText("#" + jugadorActual);
 
-        panelJugadores.getChildren().clear();
+        if(juego.estaEnNominacion()) {
+            lblInstruccion.setText("NOMINA A UN JUGADOR...");
+            btnVotar.setText("NOMINAR");
+        } else {
+            lblInstruccion.setText("VOTA A UN JUGADOR...");
+            btnVotar.setText("VOTAR");
+        }
 
-        for (String nombre : jugadoresVivos)
+        panelJugadores.getChildren().clear();
+        for (String nombre : juego.obtenerObjetivos())
         {
             Button btnJugador = crearBotonJugador(nombre);
 
@@ -75,19 +99,34 @@ public class FaseDiurnaControlador {
     @FXML
     public void manejarBotonVotar(ActionEvent event)
     {
-        System.out.println(jugadoresVivos.get(indiceTurnoActual) + " votó por: " + candidatoSeleccionado);
+        System.out.println(juego.getJugadorActual() + " votó por: " + candidatoSeleccionado);
+        juego.seleccionarObjetivo(candidatoSeleccionado);
 
-        indiceTurnoActual++;
-
-        if (indiceTurnoActual < jugadoresVivos.size())
+        boolean haySiguiente = juego.avanzarJugadorActual();
+        if (haySiguiente)
         {
             prepararTurno();
         }
 
         else
         {
-            System.out.println("¡Fin de la votación! Procesando eliminados...");
-            // Conectar con pantalla de resultados
+            juego.ejecutarFaseActual();
+            System.out.println(juego.obtenerResultadoFase());
+            try {
+                if(juego.juegoTerminado()) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaFinDePartida.fxml"));
+                    Stage stage = (Stage) btnVotar.getScene().getWindow();
+                    stage.setScene(new Scene(loader.load(), 1000, 600));
+                } else {
+                    juego.avanzarFase();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaFaseNocturna.fxml"));
+                    Stage stage = (Stage) btnVotar.getScene().getWindow();
+                    stage.setScene(new Scene(loader.load(), 1000, 600));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 }

@@ -143,4 +143,9 @@ public class Juego {
     public String obtenerResultadoInvestigacion(String detective, String objetivo) {
         return buscarJugadorPorNombre(objetivo).obtenerCarta().investigar();
     }
+
+    public boolean estaEnNominacion()
+    {
+        return turnoActual.estaEnNominacion();
+    }
 }

@@ -39,7 +39,7 @@
                 <Insets bottom="40.0" left="20.0" right="20.0" top="40.0" />
             </padding>
 
-            <Label alignment="CENTER" text="ELEGÍ A UN JUGADOR PARA NOMINARLO A ELIMINACIÓN..." textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <Label fx:id="lblInstruccion" alignment="CENTER" text="ELEGÍ A UN JUGADOR PARA NOMINARLO A ELIMINACIÓN..." textAlignment="CENTER" textFill="WHITE" wrapText="true">
                 <font><Font name="System Bold" size="22.0" /></font>
             </Label>
 

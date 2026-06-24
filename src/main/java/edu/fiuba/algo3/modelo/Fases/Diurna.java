@@ -30,6 +30,9 @@ public class Diurna implements Fase {
 
     @Override
     public void iniciar(List<Jugador> jugadores) {
+        this.estadoNominacion = true;
+        this.resumenFinal = "";
+        this.debate = new Debate();
         this.iterador = jugadores.stream()
                 .filter(Jugador::estaVivo)
                 .collect(Collectors.toList()).listIterator();
@@ -65,7 +68,7 @@ public class Diurna implements Fase {
                 this.estadoNominacion = false;
                 this.reiniciarIterator();
                 this.votacion.iniciar(this.debate.getNominados());
-                return true;
+                return this.avanzarJugador();
             }
             return false;
         }
@@ -105,5 +108,10 @@ public class Diurna implements Fase {
         while (iterador.hasPrevious()){
             iterador.previous();
         }
+    }
+
+    @Override
+    public boolean estaEnNominacion() {
+        return estadoNominacion;
     }
 }
