@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.testUnitarios;
 
+import edu.fiuba.algo3.modelo.Configuracion.ConfiguracionPartida;
 import edu.fiuba.algo3.modelo.Excepciones.MazoVacioException;
 import edu.fiuba.algo3.modelo.Mazo;
 import edu.fiuba.algo3.modelo.Roles.CartaRol;
@@ -54,4 +55,44 @@ public class MazoTest {
         //Act & Assert
         assertThrows(MazoVacioException.class, () -> mazo.repartir());
     }
+
+    @Test
+    public void test03ConfiguracionConMenosDe5Jugadores(){
+        assertThrows(IllegalArgumentException.class, () -> new ConfiguracionPartida(4));
+    }
+
+    @Test
+    public void test04ConfiguracionConMasDe12Jugadores(){
+        assertThrows(IllegalArgumentException.class, () -> new ConfiguracionPartida(13));
+    }
+
+    @Test
+    public void test05GenerarMazoCon5JugadoresUsaBalanceoChico() {
+        ConfiguracionPartida config = new ConfiguracionPartida(5);
+        Mazo mazo = config.generarMazo();
+        int count = 0;
+        while (!mazo.estaVacio()) { mazo.repartir(); count++; }
+        assertEquals(5, count);
+    }
+
+    @Test
+    public void test06GenerarMazoCon8JugadoresUsaBalanceoChico() {
+        ConfiguracionPartida config = new ConfiguracionPartida(8);
+        Mazo mazo = config.generarMazo();
+        int count = 0;
+        while (!mazo.estaVacio()) { mazo.repartir(); count++; }
+        assertEquals(8, count);
+    }
+
+    @Test
+    public void test07GenerarMazoCon12JugadoresUsaBalanceoChico() {
+        ConfiguracionPartida config = new ConfiguracionPartida(12);
+        Mazo mazo = config.generarMazo();
+        int count = 0;
+        while (!mazo.estaVacio()) { mazo.repartir(); count++; }
+        assertEquals(12, count);
+    }
+
+
+
 }

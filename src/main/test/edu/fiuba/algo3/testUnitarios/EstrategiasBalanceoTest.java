@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class EstrategiasBalanceoTest {
 
@@ -202,4 +203,12 @@ public class EstrategiasBalanceoTest {
         assertEquals(6, cartasRepartidas.stream().filter(c ->  Objects.equals(c.getRol(), "Ciudadano")).count());
     }
 
+    @Test
+    public void test09PatidaGrandeConMenosDe10Jugadores() {
+        //Arrange
+        EstrategiaBalanceo estrategiaBalanceo = new BalanceoJuegoGrande();
+
+        //Act Assert
+        assertNull(estrategiaBalanceo.crearMazo(5));
+    }
 }
