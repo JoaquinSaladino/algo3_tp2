@@ -113,16 +113,9 @@ public class FaseDiurnaControlador {
             juego.ejecutarFaseActual();
             System.out.println(juego.obtenerResultadoFase());
             try {
-                if(juego.juegoTerminado()) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaFinDePartida.fxml"));
-                    Stage stage = (Stage) btnVotar.getScene().getWindow();
-                    stage.setScene(new Scene(loader.load(), 1000, 600));
-                } else {
-                    juego.avanzarFase();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaFaseNocturna.fxml"));
-                    Stage stage = (Stage) btnVotar.getScene().getWindow();
-                    stage.setScene(new Scene(loader.load(), 1000, 600));
-                }
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaResultadoDiurno.fxml"));
+                Stage stage = (Stage) btnVotar.getScene().getWindow();
+                stage.setScene(new Scene(loader.load(), 1000, 600));
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -24,28 +24,17 @@ import java.util.List;
 
 public class FaseNocturnaControlador {
 
-    @FXML
-    private Label lblTurnoJugador;
-    @FXML
-    private Label lblTituloRol;
-    @FXML
-    private Label lblInstruccionAccion;
-    @FXML
-    private Label lblJugadorElegido;
-    @FXML
-    private TilePane panelJugadores;
-    @FXML
-    private Button btnAccion;
+    @FXML private Label lblTurnoJugador;
+    @FXML private Label lblTituloRol;
+    @FXML private Label lblInstruccionAccion;
+    @FXML private Label lblJugadorElegido;
+    @FXML private TilePane panelJugadores;
+    @FXML private Button btnAccion;
+    @FXML private VBox overlayTransicion;
+    @FXML private Label lblJugadorTransicion;
 
-    @FXML
-    private VBox overlayTransicion;
-    @FXML
-    private Label lblJugadorTransicion;
-
-    @FXML
-    private VBox overlayResultado;
-    @FXML
-    private Label lblResultadoTexto;
+    @FXML private VBox overlayResultado;
+    @FXML private Label lblResultadoTexto;
 
     private String candidatoSeleccionado = "";
     private Juego juego;
@@ -182,22 +171,6 @@ public class FaseNocturnaControlador {
             }
         }
         manejarContinuar(event);
-//
-//        boolean haySiguiente = juego.avanzarJugadorActual();
-//        if (haySiguiente) {
-//            prepararTurno();
-//        } else {
-//            juego.ejecutarFaseActual();
-//            System.out.println(juego.obtenerResultadoFase());
-//            try {
-//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaFaseDiurna.fxml"));
-//                Parent root = loader.load();
-//                Stage stage = (Stage) btnAccion.getScene().getWindow();
-//                stage.setScene(new Scene(root, 1000, 600));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 
     @FXML
@@ -221,16 +194,16 @@ public class FaseNocturnaControlador {
                 }
                 return;
             }
-                juego.avanzarFase();
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaFaseDiurna.fxml"));
-                    Parent root = loader.load();
-                    Stage stage = (Stage) btnAccion.getScene().getWindow();
-                    stage.setScene(new Scene(root, 1000, 600));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            String resumen = juego.obtenerResultadoFase();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaResultadoNocturno.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) btnAccion.getScene().getWindow();
+                stage.setScene(new Scene(root, 1000, 600));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
+}
 
