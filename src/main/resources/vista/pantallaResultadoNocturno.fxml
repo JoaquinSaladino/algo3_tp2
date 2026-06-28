@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controlador.ResultadoNocturnoControlador">
+    <VBox alignment="CENTER" spacing="40.0" style="-fx-background-color: #0b1014;">
+    <padding><Insets bottom="60.0" left="40.0" right="40.0" top="60.0" /></padding>
+
+    <Label text="RESULTADO DE LA NOCHE" textFill="#fca311">
+        <font><Font name="System Bold" size="36.0" /></font>
+    </Label>
+
+    <Region VBox.vgrow="ALWAYS"/>
+
+    <Label fx:id="lblResultado" alignment="CENTER" text="..." textFill="WHITE" wrapText="true">
+            <font><Font name="System Bold" size="28.0" /></font>
+    </Label>
+
+    <Region VBox.vgrow="ALWAYS"/>
+
+    <Button fx:id="btnContinuar" mnemonicParsing="false" onAction="#manejarBotonContinuar" prefHeight="70.0" prefWidth="350.0" style="-fx-background-color: #fca311; -fx-border-color: black; -fx-border-width: 3; -fx-background-radius: 5;"
+            text="CONTINUAR A LA FASE DIURNA">
+        <font><Font name="System Bold" size="22.0" /></font>
+    </Button>
+    </VBox>
+</StackPane>

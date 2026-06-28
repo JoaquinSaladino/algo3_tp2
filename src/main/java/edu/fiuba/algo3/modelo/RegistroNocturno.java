@@ -83,6 +83,10 @@ public class RegistroNocturno {
         return ultimaInvestigacion;
     }
 
+    public void limpiar(){
+        votosMafia.clear();
+        resultadosInvestigacion.clear();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

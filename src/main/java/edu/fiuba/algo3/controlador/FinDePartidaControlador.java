@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.controlador;
 
+import edu.fiuba.algo3.App;
+import edu.fiuba.algo3.modelo.Juego;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,8 +23,12 @@ public class FinDePartidaControlador {
     @FXML
     public void initialize()
     {
-        //setearVictoriaMafia();
-        setearVictoriaPueblo();
+        Juego juego = App.getJuego();
+        if(juego.mafiaGano()) {
+            setearVictoriaMafia();
+        }else {
+            setearVictoriaPueblo();
+        }
     }
 
     public void setearVictoriaMafia()

@@ -44,7 +44,6 @@ public class FaseNocturnaControlador {
     public void initialize()
     {
         this.juego = App.getJuego();
-        System.out.println("Juego controlador: " + juego);
         prepararTurno();
     }
 
@@ -208,7 +207,6 @@ public class FaseNocturnaControlador {
         } else {
             juego.ejecutarFaseActual();
             System.out.println(juego.obtenerResultadoFase());
-            juego.avanzarFase();
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/pantallaFaseDiurna.fxml"));
                 Parent root = loader.load();
