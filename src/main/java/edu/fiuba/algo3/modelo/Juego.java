@@ -38,11 +38,7 @@ public class Juego {
     }
 
     public void iniciarPartida(){
-        System.out.println("=== iniciarPartida ===");
-        System.out.println("Jugadores: " + jugadores.size());
         turnoActual.iniciarFase(jugadores);
-        System.out.println("Jugador inicial: " +
-                turnoActual.getJugadorActual());
         var mafiosos = jugadores.stream()
                 .filter(Jugador::esMafia)
                 .collect(Collectors.toList());
@@ -56,7 +52,7 @@ public class Juego {
     }
 
     public boolean avanzarJugadorActual(){
-       return turnoActual.avanzarJugador();
+        return turnoActual.avanzarJugador();
     }
 
     public String getJugadorActual(){
@@ -101,10 +97,9 @@ public class Juego {
         return this.turnoActual.avanzarFase(jugadores);
     }
 
-    //public void avanzarTurno(){
-        //this.turnoActual = new Turno();
-        //this.turnoActual.iniciarFase(jugadores);
-    //}
+    public void avanzarTurno(){
+        this.turnoActual = new Turno();
+    }
 
     public boolean mafiaGano() {
         long mafiosos = jugadores.stream()

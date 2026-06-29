@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.Fases;
 
 import edu.fiuba.algo3.modelo.AccionNocturna.*;
-import edu.fiuba.algo3.modelo.Excepciones.ObjetivoInvalidoException;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.RegistroNocturno;
 

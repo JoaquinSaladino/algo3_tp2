@@ -5,8 +5,6 @@ import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.RegistroNocturno;
 import edu.fiuba.algo3.modelo.Votacion;
 import java.util.*;
-import edu.fiuba.algo3.modelo.Debate;
-import edu.fiuba.algo3.modelo.Votacion;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,9 +16,6 @@ public class Diurna implements Fase {
     private Votacion votacion;
     private String resumenFinal;
 
-    public Diurna() {
-    }
-
     public Diurna(Debate debate, Votacion votacion) {
         this.debate = debate;
         this.votacion = votacion;
@@ -30,6 +25,9 @@ public class Diurna implements Fase {
 
     @Override
     public void iniciar(List<Jugador> jugadores) {
+        this.estadoNominacion = true;
+        this.resumenFinal = "";
+        this.debate = new Debate();
         this.iterador = jugadores.stream()
                 .filter(Jugador::estaVivo)
                 .collect(Collectors.toList()).listIterator();
@@ -65,7 +63,7 @@ public class Diurna implements Fase {
                 this.estadoNominacion = false;
                 this.reiniciarIterator();
                 this.votacion.iniciar(this.debate.getNominados());
-                return true;
+                return this.avanzarJugador();
             }
             return false;
         }
@@ -105,5 +103,10 @@ public class Diurna implements Fase {
         while (iterador.hasPrevious()){
             iterador.previous();
         }
+    }
+
+    @Override
+    public boolean estaEnNominacion() {
+        return estadoNominacion;
     }
 }

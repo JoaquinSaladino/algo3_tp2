@@ -8,8 +8,8 @@ import java.util.List;
 public interface Fase {
     void iniciar(List<Jugador> jugadores);
     void ejecutar(List<Jugador> jugadores, RegistroNocturno registro);
-    Jugador getJugadorActual(); // Nueva responsabilidad
-    boolean avanzarJugador();   // Nueva responsabilidad
+    Jugador getJugadorActual();
+    boolean avanzarJugador();
     List<String> obtenerObjetivosValidos(List<Jugador> jugadores);
     boolean seleccionarObjetivo(Jugador objetivo);
     String obtenerResumenFase();

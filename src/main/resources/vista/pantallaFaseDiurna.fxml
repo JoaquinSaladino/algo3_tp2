@@ -59,29 +59,6 @@
             <Button fx:id="btnVotar" mnemonicParsing="false" onAction="#manejarBotonVotar" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #fca311; -fx-border-color: black; -fx-border-width: 3; -fx-background-radius: 5; -fx-border-radius: 5;" text="VOTAR">
                 <font><Font name="System Bold" size="24.0" /></font>
             </Button>
-            <StackPane fx:id="overlayResultado"
-                       visible="false"
-                       style="-fx-background-color: rgba(0,0,0,0.8);">
-
-                <VBox alignment="CENTER" spacing="20">
-
-                    <Label text="RESULTADO DE LA VOTACIÓN"/>
-
-                    <Label fx:id="lblResultadoTexto"/>
-
-                    <Button text="CONTINUAR"
-                            onAction="#manejarContinuar"
-                            prefWidth="250"
-                            prefHeight="60"
-                            style="-fx-font-size:18px;
-                                   -fx-font-weight:bold;
-                                   -fx-background-color:#fca311;
-                                   -fx-border-color:black;
-                                   -fx-border-width:2;"/>
-
-                </VBox>
-
-            </StackPane>
         </VBox>
     </VBox>
 </HBox>

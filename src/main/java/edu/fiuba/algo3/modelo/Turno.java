@@ -39,13 +39,14 @@ public class Turno {
     public boolean avanzarFase(List<Jugador> jugadores) {
         if (this.faseActual == this.nocturna) {
             this.faseActual = this.diurna;
-            this.faseActual.iniciar(jugadores);
-            return true;
         } else {
             this.faseActual = this.nocturna;
+            this.registro.limpiar();
         }
-        return false;
+        this.faseActual.iniciar(jugadores);
+        return true;
     }
+
     public String getJugadorActual() {
         return faseActual.getJugadorActual().getNombre();
     }
@@ -68,6 +69,8 @@ public class Turno {
         return "";
     }
 
-//REVISAR (No se usa)
-//    public boolean estaTerminado() {return false;}
+    public boolean estaEnNominacion()
+    {
+        return faseActual.estaEnNominacion();
+    }
 }
