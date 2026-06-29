@@ -1,0 +1,196 @@
+@startuml
+scale 1
+skinparam classAttributeIconSize 0
+
+'=========================
+' MODELO
+'=========================
+
+class Juego
+class Jugador
+class Turno
+class Mazo
+class RegistroNocturno
+
+'=========================
+' CONFIGURACION
+'=========================
+
+class ConfiguracionPartida
+interface EstrategiaBalanceo
+class BalanceoJuegoChico
+class BalanceoJuegoMediano
+class BalanceoJuegoGrande
+
+'=========================
+' FASES
+'=========================
+
+interface Fase
+class Nocturna
+class Diurna
+class Debate
+class Votacion
+
+'=========================
+' DESEMPATE
+'=========================
+
+interface MecanismoDesempate
+class SinEliminacion
+class Ballotage
+
+'=========================
+' ROLES
+'=========================
+
+class CartaRol
+class RolFactory
+
+'=========================
+' BANDOS
+'=========================
+
+interface Bando
+class BandoCiudadano
+class BandoMafia
+class BandoPadrino
+
+'=========================
+' HABILIDADES
+'=========================
+
+interface HabilidadNocturna
+class Nula
+class Proteger
+class Investigar
+class Seleccionar
+
+'=========================
+' ACCIONES NOCTURNAS
+'=========================
+
+abstract class AccionNocturna
+class ANula
+class AProteger
+class AInvestigar
+class ASeleccionar
+class AEliminar
+
+'=========================
+' CONDICIONES DE VICTORIA
+'=========================
+
+interface CondicionVictoria
+class CondicionVictoriaCiudadano
+class CondicionVictoriaMafia
+
+'=========================
+' EXCEPCIONES
+'=========================
+
+class JugadorSinCartaException
+class MazoVacioException
+class ObjetivoInvalidoException
+class RolNoVisibleException
+
+'=========================
+' HERENCIA
+'=========================
+
+Fase <|.. Nocturna
+Fase <|.. Diurna
+
+MecanismoDesempate <|.. SinEliminacion
+MecanismoDesempate <|.. Ballotage
+
+Bando <|.. BandoCiudadano
+Bando <|.. BandoMafia
+BandoMafia <|-- BandoPadrino
+
+HabilidadNocturna <|.. Nula
+HabilidadNocturna <|.. Proteger
+HabilidadNocturna <|.. Investigar
+HabilidadNocturna <|.. Seleccionar
+HabilidadNocturna <|.. Eliminar
+
+AccionNocturna <|-- ANula
+AccionNocturna <|-- AProteger
+AccionNocturna <|-- AInvestigar
+AccionNocturna <|-- ASeleccionar
+AccionNocturna <|-- AEliminar
+
+EstrategiaBalanceo <|.. BalanceoJuegoChico
+EstrategiaBalanceo <|.. BalanceoJuegoMediano
+EstrategiaBalanceo <|.. BalanceoJuegoGrande
+
+CondicionVictoria <|.. CondicionVictoriaCiudadano
+CondicionVictoria <|.. CondicionVictoriaMafia
+
+JugadorSinCartaException --|> RuntimeException
+MazoVacioException --|> RuntimeException
+ObjetivoInvalidoException --|> RuntimeException
+RolNoVisibleException --|> RuntimeException
+
+'=========================
+' COMPOSICIONES
+'=========================
+
+Juego *-- Turno
+Juego *-- Mazo
+Juego *-- Jugador
+
+Turno *-- Nocturna
+Turno *-- Diurna
+Turno *-- RegistroNocturno
+
+Diurna *-- Debate
+Diurna *-- Votacion
+
+CartaRol *-- HabilidadNocturna
+CartaRol *-- Bando
+
+'=========================
+' AGREGACIONES
+'=========================
+
+Mazo o-- CartaRol
+RegistroNocturno o-- Jugador
+Debate o-- Jugador
+Votacion o-- Jugador
+
+'=========================
+' DEPENDENCIAS
+'=========================
+
+ConfiguracionPartida ..> EstrategiaBalanceo
+
+BalanceoJuegoChico ..> RolFactory
+BalanceoJuegoMediano ..> RolFactory
+BalanceoJuegoGrande ..> RolFactory
+
+RolFactory ..> CartaRol
+
+BalanceoJuegoChico ..> Mazo
+BalanceoJuegoMediano ..> Mazo
+BalanceoJuegoGrande ..> Mazo
+
+Nocturna ..> AccionNocturna
+
+Seleccionar ..> ASeleccionar
+Proteger ..> AProteger
+Investigar ..> AInvestigar
+Nula ..> ANula
+Eliminar ..> AEliminar
+
+AccionNocturna --> Jugador
+
+CondicionVictoriaCiudadano ..> Jugador
+CondicionVictoriaMafia ..> Jugador
+
+'=========================
+' ASOCIACIONES
+'=========================
+Votacion --> MecanismoDesempate
+
+@enduml
