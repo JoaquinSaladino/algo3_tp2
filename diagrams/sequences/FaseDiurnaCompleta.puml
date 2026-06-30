@@ -1,0 +1,77 @@
+@startuml
+title Caso de uso: Fase diurna completa
+
+actor Usuario
+
+participant FaseDiurnaControlador as Controlador
+participant Juego
+participant Diurna
+participant Debate
+participant Votacion
+participant MecanismoDesempate
+
+== Nominación ==
+
+loop cada jugador vivo
+
+Usuario -> Controlador : Nominar jugador
+
+Controlador -> Juego : seleccionarObjetivo(nombre)
+
+Usuario -> Controlador : Confirmar
+
+Controlador -> Juego : avanzarJugadorActual()
+
+end
+
+Controlador -> Juego : ejecutarFaseActual()
+
+Juego -> Diurna : ejecutar()
+
+Diurna -> Debate : iniciar()
+
+Diurna -> Debate : registrar nominaciones()
+
+Debate --> Diurna : nominados
+
+== Votación ==
+
+Diurna -> Votacion : iniciar(nominados)
+
+loop cada jugador vivo
+
+Usuario -> Controlador : votar
+
+Controlador -> Juego : seleccionarObjetivo(nombre)
+
+Controlador -> Juego : avanzarJugadorActual()
+
+end
+
+Controlador -> Juego : ejecutarFaseActual()
+
+Juego -> Diurna : ejecutar()
+
+Diurna -> Votacion : registrarVoto(...)
+
+Diurna -> Votacion : resolverVotacion()
+
+alt empate
+
+Votacion -> MecanismoDesempate : resolver()
+
+MecanismoDesempate --> Votacion : jugador
+
+end
+
+Votacion --> Diurna : eliminado
+
+Diurna -> eliminado : eliminar()
+
+Diurna --> Juego
+
+Juego --> Controlador : resumen
+
+Controlador -> Usuario : Mostrar resultado diurno
+
+@enduml
