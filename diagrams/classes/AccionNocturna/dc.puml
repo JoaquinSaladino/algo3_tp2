@@ -1,0 +1,46 @@
+@startuml AccionNocturna
+
+abstract class AccionNocturna
+{
+    # autor : Jugador
+    # objetivo : Jugador
+
+    + AccionNocturna(autor: Jugador, objetivo: Jugador)
+    + {abstract} resolver()
+    + {abstract} insertarEn(acciones : List<AccionNocturna>)
+}
+
+class AEliminar
+{
+    + AEliminar(autor: Jugador, objetivo: Jugador)
+    + resolver()
+    + insertarEn(acciones : List<AccionNocturna>)
+}
+
+class AInvestigar
+{
+    + AInvestigar(autor: Jugador, objetivo: Jugador)
+    + resolver()
+    + insertarEn(acciones : List<AccionNocturna>)
+}
+
+class ANula
+{
+    + ANula(autor: Jugador, objetivo: Jugador)
+    + resolver()
+    + insertarEn(acciones : List<AccionNocturna>)
+}
+
+class AProteger
+{
+    + AProteger(autor: Jugador, objetivo: Jugador)
+    + resolver()
+    + insertarEn(acciones : List<AccionNocturna>)
+}
+
+AEliminar --|> AccionNocturna
+AInvestigar --|> AccionNocturna
+ANula --|> AccionNocturna
+AProteger --|> AccionNocturna
+
+@enduml

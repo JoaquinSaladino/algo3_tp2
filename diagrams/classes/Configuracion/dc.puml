@@ -1,0 +1,27 @@
+@startuml Configuracion
+
+class ConfiguracionPartida
+{
+
+    - cantidadJugadores : int
+
+    + ConfiguracionPartida(cantidadJugadores : int)
+    + generarMazo() : Mazo
+}
+
+interface EstrategiaBalanceo
+{
+    + crearMazo(cantidadJugadores : int) : Mazo
+}
+
+class BalanceoJuegoChico {}
+class BalanceoJuegoMediano {}
+class BalanceoJuegoGrande {}
+
+ConfiguracionPartida --> EstrategiaBalanceo
+
+BalanceoJuegoChico ..> EstrategiaBalanceo
+BalanceoJuegoMediano ..> EstrategiaBalanceo
+BalanceoJuegoGrande ..> EstrategiaBalanceo
+
+@enduml

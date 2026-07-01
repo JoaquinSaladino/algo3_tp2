@@ -1,0 +1,11 @@
+@startuml Desempate
+
+interface MecanismoDesempate {}
+
+class Ballotage {}
+class SinEliminacion {}
+
+Ballotage ..> MecanismoDesempate
+SinEliminacion ..> MecanismoDesempate
+
+@enduml

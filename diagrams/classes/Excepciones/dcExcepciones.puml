@@ -1,0 +1,20 @@
+@startuml
+
+class RuntimeException
+
+class ObjetivoInvalidoException {
+    + ObjetivoInvalidoException()
+    --
+    "El objetivo seleccionado no es válido"
+}
+
+class RolNoVisibleException {
+    + RolNoVisibleException()
+    --
+    "No se puede ver el rol de otro jugador"
+}
+
+ObjetivoInvalidoException --|> RuntimeException
+RolNoVisibleException --|> RuntimeException
+
+@enduml

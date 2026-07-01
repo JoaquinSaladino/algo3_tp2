@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<HBox prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controlador.FaseDiurnaControlador">
+
+    <VBox prefWidth="700.0" style="-fx-background-color: #fcebd5;">
+
+        <HBox alignment="CENTER_LEFT" prefHeight="80.0" spacing="20.0" style="-fx-background-color: #992222; -fx-border-color: black; -fx-border-width: 0 1 1 0;">
+            <padding><Insets left="30.0" /></padding>
+            <Label text="Turno de:" textFill="WHITE">
+                <font><Font name="System Bold" size="28.0" /></font>
+            </Label>
+            <Label fx:id="lblTurnoJugador" alignment="CENTER" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #fca311; -fx-border-color: black; -fx-border-width: 2; -fx-background-radius: 5; -fx-border-radius: 5;" text="#NombreJugador_i">
+                <font><Font name="System Bold" size="20.0" /></font>
+            </Label>
+        </HBox>
+
+        <TilePane fx:id="panelJugadores" alignment="CENTER" hgap="20.0" vgap="20.0" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets bottom="30.0" left="30.0" right="30.0" top="40.0" />
+            </padding>
+        </TilePane>
+
+    </VBox>
+
+    <VBox prefWidth="300.0" style="-fx-border-color: black; -fx-border-width: 0 0 0 2;">
+
+        <HBox alignment="CENTER" prefHeight="80.0" style="-fx-background-color: #4a6572; -fx-border-color: black; -fx-border-width: 0 0 2 0;">
+            <Label text="FASE DIURNA" textFill="BLACK">
+                <font><Font name="System Bold" size="26.0" /></font>
+            </Label>
+        </HBox>
+
+        <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: #b32828;" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets bottom="40.0" left="20.0" right="20.0" top="40.0" />
+            </padding>
+
+            <Label fx:id="lblInstruccion" alignment="CENTER" text="ELEGÍ A UN JUGADOR PARA NOMINARLO A ELIMINACIÓN..." textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                <font><Font name="System Bold" size="22.0" /></font>
+            </Label>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <VBox alignment="CENTER" spacing="15.0">
+                <Label text="El jugador elegido es:" textFill="WHITE">
+                    <font><Font name="System Bold" size="18.0" /></font>
+                </Label>
+                <Label fx:id="lblJugadorElegido" alignment="CENTER" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: WHITE; -fx-border-color: black; -fx-border-width: 2; -fx-background-radius: 5; -fx-border-radius: 5;" text="...">
+                    <font><Font name="System Bold" size="20.0" /></font>
+                </Label>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <Button fx:id="btnVotar" mnemonicParsing="false" onAction="#manejarBotonVotar" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #fca311; -fx-border-color: black; -fx-border-width: 3; -fx-background-radius: 5; -fx-border-radius: 5;" text="VOTAR">
+                <font><Font name="System Bold" size="24.0" /></font>
+            </Button>
+        </VBox>
+    </VBox>
+</HBox>

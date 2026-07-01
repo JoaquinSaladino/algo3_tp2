@@ -1,0 +1,68 @@
+@startuml
+scale 1
+
+package "modelo" {
+    class App
+    class Juego
+    class Jugador
+}
+
+package "Controlador" {
+
+class InicioControlador
+class EleccionControlador
+
+class RegistroChicaControlador
+class RegistroMedianaControlador
+class RegistroGrandeControlador
+
+class FaseNocturnaControlador
+class FaseDiurnaControlador
+
+class ResultadoNocturnoControlador
+class ResultadoDiurnoControlador
+
+class FinDePartidaControlador
+class RevelacionControlador
+
+}
+
+InicioControlador ..> EleccionControlador
+
+EleccionControlador ..> RegistroChicaControlador
+EleccionControlador ..> RegistroMedianaControlador
+EleccionControlador ..> RegistroGrandeControlador
+
+RegistroChicaControlador --> Juego
+RegistroMedianaControlador --> Juego
+RegistroGrandeControlador --> Juego
+
+FaseNocturnaControlador --> Juego
+FaseDiurnaControlador --> Juego
+
+ResultadoNocturnoControlador --> Juego
+ResultadoDiurnoControlador --> Juego
+
+FinDePartidaControlador --> Juego
+RevelacionControlador --> Juego
+
+RevelacionControlador --> Jugador
+
+'=========================
+' DEPENDENCIAS
+'=========================
+
+RegistroChicaControlador ..> App
+RegistroMedianaControlador ..> App
+RegistroGrandeControlador ..> App
+
+FaseNocturnaControlador ..> App
+FaseDiurnaControlador ..> App
+
+ResultadoNocturnoControlador ..> App
+ResultadoDiurnoControlador ..> App
+
+FinDePartidaControlador ..> App
+RevelacionControlador ..> App
+
+@enduml

@@ -1,0 +1,60 @@
+@startuml
+title Caso de uso: Fase nocturna completa
+
+actor Usuario
+
+participant FaseNocturnaControlador as Controlador
+participant Juego
+participant Nocturna
+participant Jugador
+participant AccionNocturna
+participant RegistroNocturno
+
+== Turno de cada jugador ==
+
+loop Mientras haya jugadores nocturnos
+Usuario -> Controlador : seleccionar objetivo
+Controlador -> Juego : seleccionarObjetivo(nombre)
+
+Usuario -> Controlador : Accionar
+Controlador -> Juego : avanzarJugadorActual()
+
+alt quedan jugadores
+Juego --> Controlador
+Controlador -> Controlador : prepararTurno()
+else último jugador
+Juego --> Controlador
+end
+end
+
+== Resolución de la noche ==
+
+Controlador -> Juego : ejecutarFaseActual()
+
+Juego -> Nocturna : ejecutar(jugadores)
+
+loop cada jugador vivo
+
+Nocturna -> Jugador : usarHabilidad(objetivo)
+
+Jugador --> Nocturna : AccionNocturna
+
+Nocturna -> AccionNocturna : resolver(registro)
+
+AccionNocturna -> RegistroNocturno : registrar(...)
+
+end
+
+Nocturna -> RegistroNocturno : obtenerMasVotadoPorLaMafia()
+
+RegistroNocturno --> Nocturna : jugador
+
+Nocturna -> Jugador : eliminar()
+
+Nocturna --> Juego
+
+Juego --> Controlador : resumen
+
+Controlador -> Usuario : Mostrar resultado nocturno
+
+@enduml

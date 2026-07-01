@@ -1,0 +1,121 @@
+package edu.fiuba.algo3.modelo;
+
+import edu.fiuba.algo3.modelo.AccionNocturna.AccionNocturna;
+import edu.fiuba.algo3.modelo.Excepciones.JugadorSinCartaException;
+import edu.fiuba.algo3.modelo.Excepciones.ObjetivoInvalidoException;
+import edu.fiuba.algo3.modelo.Excepciones.RolNoVisibleException;
+import edu.fiuba.algo3.modelo.Roles.CartaRol;
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+public class Jugador {
+
+    private String nombre;
+    private boolean vivo;
+    private CartaRol carta;
+    private boolean protegido;
+    private List<Jugador> companeros;
+
+    public Jugador(String nombre)
+    {
+        this.nombre = nombre;
+        this.vivo = true;
+        this.protegido = false;
+        this.companeros = new ArrayList<>();
+    }
+
+    public String getNombre(){
+        return nombre;
+    }
+
+    public boolean esMismoNombre(String nombre){
+        return Objects.equals(this.nombre, nombre);
+    }
+
+    public void proteger()
+    {
+        this.protegido = true;
+    }
+
+    public void desproteger(){
+        this.protegido=false;
+    }
+
+    public void eliminar()
+    {
+        if (!this.protegido){
+            this.vivo = false;
+        }
+    }
+
+    public AccionNocturna usarHabilidad(Jugador objetivo) {
+        if (this.carta == null)
+            throw new JugadorSinCartaException();
+        if (!this.estaVivo())
+            throw new ObjetivoInvalidoException();
+        return this.carta.generarAccionNocturna(this, objetivo);
+    }
+
+    public boolean esMafia() {
+        if (this.carta == null)
+            throw new JugadorSinCartaException();
+        return this.carta.esMafia();
+    }
+
+    public void registrarCompaneros(List<Jugador> companeros)
+    {
+        this.companeros = companeros;
+    }
+
+    public List<String> obtenerCompaneros(){
+        List<String> listaCompaneros = new ArrayList<>();
+        for(Jugador companero : companeros){
+            listaCompaneros.add(companero.getNombre());
+        }
+        return listaCompaneros;
+    }
+
+    public boolean conoceA(Jugador otroJugador)
+    {
+        return this.companeros.contains(otroJugador);
+    }
+
+    public void asignarCarta(CartaRol carta) { this.carta = carta; }
+
+    public CartaRol obtenerCarta() {
+        if (this.carta == null)
+            throw new JugadorSinCartaException();
+        return this.carta;
+    }
+
+    public String verRol() {
+        if (this.carta == null)
+            throw new JugadorSinCartaException();
+        return this.carta.getRol();
+    }
+
+    public CartaRol verCartaDe(Jugador otroJugador)
+    {
+        if (!otroJugador.estaVivo()) {
+            return otroJugador.obtenerCarta();
+        }
+        throw new RolNoVisibleException();
+    }
+
+    public boolean estaVivo() { return vivo; }
+
+    public boolean estaProtegido() { return protegido; }
+
+    public List<String> obtenerObjetivosValidos(List<Jugador> jugadores) {
+        List<String> objetivosValidos = new ArrayList<>();
+        for (Jugador posibleObjetivo : jugadores) {
+            if (this.obtenerCarta().esObjetivoValido(this, posibleObjetivo)) {
+                objetivosValidos.add(posibleObjetivo.getNombre());
+            }
+        }
+        return objetivosValidos;
+    }
+}

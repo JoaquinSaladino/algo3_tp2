@@ -1,0 +1,21 @@
+@startuml
+class RegistroPartida {
+    - turnos: List<RegistroTurno>
+    + agregarTurno(turno: RegistroTurno)
+    + generarResumen(): ResumenFinal
+}
+
+class RegistroTurno {
+    - accionesNocturnas: List<AccionNocturna>
+    - nominaciones: Map<Jugador, Jugador>
+    - votos: Map<Jugador, Jugador>
+    - eliminadoDiurno: Jugador
+    - eliminadoNocturno: Jugador
+    + agregarAccionNocturna(accion: AccionNocturna)
+    + agregarNominacion(nominador: Jugador, nominado: Jugador)
+    + agregarVoto(votante: Jugador, nominado: Jugador)
+    + setEliminadoDiurno(jugador: Jugador)
+    + setEliminadoNocturno(jugador: Jugador)
+}
+RegistroPartida o-- RegistroTurno
+@enduml
